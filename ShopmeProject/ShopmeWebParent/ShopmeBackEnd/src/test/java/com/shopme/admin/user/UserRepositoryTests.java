@@ -38,7 +38,7 @@ public class UserRepositoryTests {
 	}
 
 	@Test
-	public void testCreateEditorAndAssistantUser() {
+	public void testCreateEditorAndSalespersonUser() {
 		Role roleSalesperson = entityManager.find(Role.class, 2);
 		Role roleAssistant = entityManager.find(Role.class, 5);
 
