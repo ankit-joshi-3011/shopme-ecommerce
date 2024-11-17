@@ -54,10 +54,25 @@ public class UserService {
 		user.setPassword(encodedPassword);
 	}
 
-	public boolean isEmailUnique(String email) {
+	public boolean isEmailUnique(Integer id, String email) {
 		User user = userRepository.getUserByEmail(email);
+		
+		if (user == null)
+			return true;
+		
+		boolean isCreatingNew = (id == null);
+		
+		if (isCreatingNew) {
+			if (user != null) {
+				return false;
+			}
+		} else {
+			if (user.getId() != id) {
+				return false;
+			}
+		}
 
-		return user == null;
+		return true;
 	}
 
 	public User get(Integer id) throws UserNotFoundException {
