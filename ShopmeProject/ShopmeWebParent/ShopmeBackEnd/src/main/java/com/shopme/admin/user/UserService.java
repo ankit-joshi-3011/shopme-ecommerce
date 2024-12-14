@@ -7,11 +7,13 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
@@ -104,5 +106,9 @@ public class UserService {
 		}
 
 		userRepository.deleteById(id);
+	}
+
+	public void updateUserEnabledStatus(Integer id, boolean enabled) {
+		userRepository.updateEnabledStatus(id, enabled);
 	}
 }
