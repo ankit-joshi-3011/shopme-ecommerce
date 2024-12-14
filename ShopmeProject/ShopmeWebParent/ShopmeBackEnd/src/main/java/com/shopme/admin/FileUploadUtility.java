@@ -15,7 +15,7 @@ public class FileUploadUtility {
 		Path uploadPath = Paths.get(uploadDirectory);
 
 		if (!Files.exists(uploadPath)) {
-			Files.createDirectory(uploadPath);
+			Files.createDirectories(uploadPath);
 		}
 
 		try (InputStream inputStream = multipartFile.getInputStream()) {
