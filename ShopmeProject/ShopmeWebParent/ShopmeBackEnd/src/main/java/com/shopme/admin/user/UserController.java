@@ -69,7 +69,7 @@ public class UserController {
 	}
 
 	@GetMapping("/users/delete/{id}")
-	public String deleteUser(@PathVariable Integer id, RedirectAttributes attributes, Model model) {
+	public String deleteUser(@PathVariable Integer id, RedirectAttributes attributes) {
 		try {
 			service.delete(id);
 			attributes.addFlashAttribute("message", "The user ID " + id + " has been deleted successfully");
