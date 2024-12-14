@@ -162,6 +162,10 @@
 			$("#buttonCancel").on("click", function () {
 				window.location = "[[@{/users}]]";
 			});
+
+			$("#fileImage").change(function () {
+				showImageThumbnail(this);
+			});
 		});
 
 		function checkEmailUnique(form) {
@@ -190,6 +194,16 @@
 			$("#modalTitle").text(title);
 			$("#modalBody").text(message);
 			$("#modalDialog").modal();
+		}
+
+		function showImageThumbnail(fileInput) {
+			var file = fileInput.files[0];
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("#thumbnail").attr("src", e.target.result);
+			}
+
+			reader.readAsDataURL(file);
 		}
 	</script>
 </body>
