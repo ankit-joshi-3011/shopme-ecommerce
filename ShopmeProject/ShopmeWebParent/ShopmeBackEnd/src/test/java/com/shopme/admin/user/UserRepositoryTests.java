@@ -69,18 +69,26 @@ public class UserRepositoryTests {
 		userAnkitJ.setEnabled(true);
 		repository.save(userAnkitJ);
 	}
-	
+
 	@Test
 	public void testDeleteUserById() {
 		Integer userId = 2;
 		repository.deleteById(userId);
 	}
-	
+
 	@Test
 	public void testGetUserByEmail() {
 		String email = "ankit.joshi3011@gmail.com";
 		User user = repository.getUserByEmail(email);
-		
+
 		assertThat(user).isNotNull();
+	}
+
+	@Test
+	public void testCountById() {
+		Integer id = 5;
+		Long countById = repository.countById(id);
+
+		assertThat(countById).isNotNull().isGreaterThan(0);
 	}
 }
