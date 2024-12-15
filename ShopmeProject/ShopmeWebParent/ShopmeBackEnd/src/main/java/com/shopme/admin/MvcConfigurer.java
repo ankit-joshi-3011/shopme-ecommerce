@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class MvcConfigurer implements WebMvcConfigurer {
-
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		String userPhotosDirectoryName = "user-photos";
@@ -18,5 +17,4 @@ public class MvcConfigurer implements WebMvcConfigurer {
 		registry.addResourceHandler("/" + userPhotosDirectoryName + "/**")
 				.addResourceLocations("file:/" + userPhotosPath + "/");
 	}
-
 }
