@@ -31,6 +31,8 @@ public class UserController {
 
 	@GetMapping("/users/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, Model model) {
+		model.addAttribute("pageNumber", pageNumber);
+
 		Page<User> page = service.listByPage(pageNumber);
 		List<User> pageUsers = page.getContent();
 		model.addAttribute("listUsers", pageUsers);
@@ -46,6 +48,8 @@ public class UserController {
 			endCount = page.getTotalElements();
 		}
 		model.addAttribute("endCount", endCount);
+
+		model.addAttribute("totalPages", page.getTotalPages());
 
 		return "users";
 	}
