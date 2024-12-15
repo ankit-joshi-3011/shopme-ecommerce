@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -26,14 +27,15 @@ public class UserController {
 
 	@GetMapping("/users")
 	public String listAll(Model model) {
-		return listByPage(1, model);
+		return listByPage(1, model, "firstName", "asc");
 	}
 
 	@GetMapping("/users/page/{pageNumber}")
-	public String listByPage(@PathVariable int pageNumber, Model model) {
+	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
+			@Param("sortDir") String sortDir) {
 		model.addAttribute("pageNumber", pageNumber);
 
-		Page<User> page = service.listByPage(pageNumber);
+		Page<User> page = service.listByPage(pageNumber, sortField, sortDir);
 		List<User> pageUsers = page.getContent();
 		model.addAttribute("listUsers", pageUsers);
 
