@@ -34,6 +34,8 @@ public class UserController {
 	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
 			@Param("sortDir") String sortDir) {
 		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
 
 		Page<User> page = service.listByPage(pageNumber, sortField, sortDir);
 		List<User> pageUsers = page.getContent();
