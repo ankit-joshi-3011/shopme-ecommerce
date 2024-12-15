@@ -31,7 +31,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 
 	public List<User> listAll() {
-		Iterable<User> users = userRepository.findAll();
+		Iterable<User> users = userRepository.findAll(Sort.by("firstName").ascending());
 		List<User> returnedUsers = new ArrayList<>();
 
 		for (User user : users) {
