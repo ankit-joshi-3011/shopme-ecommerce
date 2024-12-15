@@ -35,6 +35,18 @@ public class UserController {
 		List<User> pageUsers = page.getContent();
 		model.addAttribute("listUsers", pageUsers);
 
+		model.addAttribute("totalItems", page.getTotalElements());
+
+		long startCount = (pageNumber - 1) * UserService.USERS_PER_PAGE + 1;
+		model.addAttribute("startCount", startCount);
+
+		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
+
+		if (endCount > page.getTotalElements()) {
+			endCount = page.getTotalElements();
+		}
+		model.addAttribute("endCount", endCount);
+
 		return "users";
 	}
 
