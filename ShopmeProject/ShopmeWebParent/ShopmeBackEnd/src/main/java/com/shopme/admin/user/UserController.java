@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -25,8 +26,14 @@ public class UserController {
 
 	@GetMapping("/users")
 	public String listAll(Model model) {
-		List<User> listUsers = service.listAll();
-		model.addAttribute("listUsers", listUsers);
+		return listByPage(1, model);
+	}
+
+	@GetMapping("/users/page/{pageNumber}")
+	public String listByPage(@PathVariable int pageNumber, Model model) {
+		Page<User> page = service.listByPage(pageNumber);
+		List<User> pageUsers = page.getContent();
+		model.addAttribute("listUsers", pageUsers);
 
 		return "users";
 	}
