@@ -121,6 +121,28 @@
 		<div class="text-center m-1" th:unless="${totalItems > 0}">
 			<span>No users found</span>
 		</div>
+		<div>
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li th:class="${pageNumber > 1 ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{/users/page/1}">First</a>
+					</li>
+					<li th:class="${pageNumber > 1 ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/users/page/' + ${pageNumber - 1}}">Previous</a>
+					</li>
+					<li th:class="${pageNumber != i ? 'page-item' : 'page-item active'}"
+						th:each="i : ${#numbers.sequence(1, totalPages)}">
+						<a class="page-link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
+					</li>
+					<li th:class="${pageNumber < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/users/page/' + ${pageNumber + 1}}">Next</a>
+					</li>
+					<li th:class="${pageNumber < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 
 		<div class="modal fade text-center" id="confirmModalDialog">
 			<div class="modal-dialog">
