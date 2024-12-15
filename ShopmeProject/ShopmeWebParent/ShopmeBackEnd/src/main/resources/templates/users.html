@@ -138,25 +138,20 @@
 			<nav>
 				<ul class="pagination justify-content-center">
 					<li th:class="${pageNumber > 1 ? 'page-item' : 'page-item disabled'}">
-						<a class="page-link"
-							th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>
+						<a th:replace="fragments :: page_link(1, 'First')" />
 					</li>
 					<li th:class="${pageNumber > 1 ? 'page-item' : 'page-item disabled'}">
-						<a class="page-link"
-							th:href="@{'/users/page/' + ${pageNumber - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
+						<a th:replace="fragments :: page_link(${pageNumber - 1}, 'Previous')" />
 					</li>
 					<li th:class="${pageNumber != i ? 'page-item' : 'page-item active'}"
 						th:each="i : ${#numbers.sequence(1, totalPages)}">
-						<a class="page-link"
-							th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
+						<a th:replace="fragments :: page_link(${i}, ${i})" />
 					</li>
 					<li th:class="${pageNumber < totalPages ? 'page-item' : 'page-item disabled'}">
-						<a class="page-link"
-							th:href="@{'/users/page/' + ${pageNumber + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
+						<a th:replace="fragments :: page_link(${pageNumber + 1}, 'Next')" />
 					</li>
 					<li th:class="${pageNumber < totalPages ? 'page-item' : 'page-item disabled'}">
-						<a class="page-link"
-							th:href="@{'/users/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>
+						<a th:replace="fragments :: page_link(${totalPages}, 'Last')" />
 					</li>
 				</ul>
 			</nav>
