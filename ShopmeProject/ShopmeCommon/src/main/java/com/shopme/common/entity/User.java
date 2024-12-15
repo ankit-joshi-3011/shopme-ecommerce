@@ -1,5 +1,6 @@
 package com.shopme.common.entity;
 
+import java.beans.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -134,5 +135,14 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", roles=" + roles + "]";
+	}
+
+	@Transient
+	public String getPhotosImagePath() {
+		if (id == null || photos == null) {
+			return "/images/MissingAvatar.png";
+		}
+
+		return "/user-photos/" + id + "/" + photos;
 	}
 }
