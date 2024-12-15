@@ -36,6 +36,9 @@ public class UserController {
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
+		
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		model.addAttribute("reverseSortDir", reverseSortDir);
 
 		Page<User> page = service.listByPage(pageNumber, sortField, sortDir);
 		List<User> pageUsers = page.getContent();
