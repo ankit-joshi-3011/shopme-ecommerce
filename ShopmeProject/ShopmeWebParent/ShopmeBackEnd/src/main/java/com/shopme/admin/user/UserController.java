@@ -27,22 +27,23 @@ public class UserController {
 
 	@GetMapping("/users")
 	public String listAll(Model model) {
-		return listByPage(1, model, "firstName", "asc");
+		return listByPage(1, model, "firstName", "asc", null);
 	}
 
 	@GetMapping("/users/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
-			@Param("sortDir") String sortDir) {
+			@Param("sortDir") String sortDir, @Param("keyword") String keyword) {
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
-		
+
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 		model.addAttribute("reverseSortDir", reverseSortDir);
 
-		Page<User> page = service.listByPage(pageNumber, sortField, sortDir);
+		Page<User> page = service.listByPage(pageNumber, sortField, sortDir, keyword);
 		List<User> pageUsers = page.getContent();
 		model.addAttribute("listUsers", pageUsers);
+		model.addAttribute("keyword", keyword);
 
 		model.addAttribute("totalItems", page.getTotalElements());
 
