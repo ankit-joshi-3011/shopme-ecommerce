@@ -119,6 +119,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
 			model.addAttribute("listRoles", listRoles);
+
 			return "user_form";
 		} catch (UserNotFoundException ex) {
 			attributes.addFlashAttribute("message", ex.getMessage());
@@ -143,6 +144,7 @@ public class UserController {
 			RedirectAttributes attributes) {
 		service.updateUserEnabledStatus(id, status);
 		attributes.addFlashAttribute("message", "The user ID " + id + " has been " + (status ? "enabled" : "disabled"));
+
 		return "redirect:/users";
 	}
 
