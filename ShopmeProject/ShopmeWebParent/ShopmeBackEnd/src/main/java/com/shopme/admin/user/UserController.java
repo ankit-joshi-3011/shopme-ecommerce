@@ -65,11 +65,12 @@ public class UserController {
 	public String newUser(Model model) {
 		User user = new User();
 		user.setEnabled(true);
-		model.addAttribute("user", user);
-		model.addAttribute("pageTitle", "Create New User");
 
 		List<Role> listRoles = service.listRoles();
+
+		model.addAttribute("user", user);
 		model.addAttribute("listRoles", listRoles);
+		model.addAttribute("pageTitle", "Create New User");
 
 		return "user_form";
 	}
