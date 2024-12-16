@@ -11,7 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 	@Bean
 	SecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
+				.anyRequest().authenticated())
+				.formLogin(form -> form.loginPage("/login").usernameParameter("email").permitAll());
 
 		return http.build();
 	}
