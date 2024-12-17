@@ -22,6 +22,10 @@
 
 	<a th:fragment="page_link(pageNum, label)" class="page-link"
 		th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+
+	<div th:fragment="footer" class="text-center m-3">
+		<p>Shopme Control Panel - Copyright &copy; Shopme</p>
+	</div>
 </body>
 
 </html>
