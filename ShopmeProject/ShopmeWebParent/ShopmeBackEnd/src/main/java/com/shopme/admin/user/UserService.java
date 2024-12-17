@@ -87,6 +87,24 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	public User updateLoggedInUserAccount(User loggedInUser) {
+		User user = userRepository.findById(loggedInUser.getId()).get();
+
+		user.setFirstName(loggedInUser.getFirstName());
+		user.setLastName(loggedInUser.getLastName());
+
+		if (!loggedInUser.getPassword().isEmpty()) {
+			user.setPassword(loggedInUser.getPassword());
+			encodePassword(user);
+		}
+
+		if (loggedInUser.getPhotos() != null) {
+			user.setPhotos(loggedInUser.getPhotos());
+		}
+
+		return userRepository.save(user);
+	}
+
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
