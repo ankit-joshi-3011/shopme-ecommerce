@@ -31,7 +31,8 @@ public class WebSecurityConfig {
 
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
 				.anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").usernameParameter("email").permitAll());
+				.formLogin(form -> form.loginPage("/login").usernameParameter("email").permitAll())
+				.logout(logout -> logout.permitAll());
 
 		return http.build();
 	}
