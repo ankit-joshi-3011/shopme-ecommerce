@@ -30,7 +30,7 @@ public class WebSecurityConfig {
 		http.authenticationProvider(getAuthenticationProvider());
 
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
-				.anyRequest().authenticated())
+				.requestMatchers("/users/**").hasAuthority("Admin").anyRequest().authenticated())
 				.formLogin(form -> form.loginPage("/login").usernameParameter("email").permitAll())
 				.logout(logout -> logout.permitAll()).rememberMe(remember -> remember
 						.key("AbcDefgHijKlmnOpqrs_1234567890").tokenValiditySeconds(7 * 24 * 60 * 60));
