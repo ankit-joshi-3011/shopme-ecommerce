@@ -63,7 +63,7 @@ public class UserController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("listUsers", pageUsers);
 
-		return "users";
+		return "users/users";
 	}
 
 	@GetMapping("/users/new")
@@ -77,7 +77,7 @@ public class UserController {
 		model.addAttribute("listRoles", listRoles);
 		model.addAttribute("pageTitle", "Create New User");
 
-		return "user_form";
+		return "users/user_form";
 	}
 
 	// On the controller request mapping method, we can specify RedirectAttributes
@@ -125,7 +125,7 @@ public class UserController {
 			model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
 			model.addAttribute("listRoles", listRoles);
 
-			return "user_form";
+			return "users/user_form";
 		} catch (UserNotFoundException ex) {
 			attributes.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/users";
