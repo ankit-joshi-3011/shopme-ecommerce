@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.user.UserService;
+import com.shopme.admin.user.exception.PageOutOfBoundsException;
 import com.shopme.admin.user.exception.UserNotFoundException;
 import com.shopme.admin.user.export.UserCsvExporter;
 import com.shopme.admin.user.export.UserExcelExporter;
@@ -40,9 +41,19 @@ public class UserController {
 	@GetMapping("/users/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
 			@Param("sortDir") String sortDir, @Param("keyword") String keyword) {
-		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		if (pageNumber < 0) {
+			throw new PageOutOfBoundsException();
+		}
 
 		Page<User> page = service.listByPage(pageNumber, sortField, sortDir, keyword);
+		int totalPages = page.getTotalPages();
+
+		if (pageNumber > totalPages) {
+			throw new PageOutOfBoundsException();
+		}
+
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
 		List<User> pageUsers = page.getContent();
 
 		long startCount = (pageNumber - 1) * UserService.USERS_PER_PAGE + 1;
@@ -60,7 +71,7 @@ public class UserController {
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listUsers", pageUsers);
 
 		return "users/users";
