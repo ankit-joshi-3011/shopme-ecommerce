@@ -49,7 +49,7 @@
 					<li class="nav-item">
 						<a class="nav-link" th:href="@{/menus}">Menus</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item" sec:authorize="hasAuthority('Admin')">
 						<a class="nav-link" th:href="@{/settings}">Settings</a>
 					</li>
 					<li>
