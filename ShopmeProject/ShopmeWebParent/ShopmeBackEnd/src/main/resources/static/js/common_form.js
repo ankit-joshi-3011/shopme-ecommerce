@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#buttonCancel").on("click", function() {
-		window.location = userModuleUrl;
+		window.location = moduleUrl;
 	});
 
 	$("#fileImage").change(function() {
