@@ -7,9 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtility {
+//	private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtility.class);
+
 	public static void saveFile(String uploadDirectory, String fileName, MultipartFile multipartFile)
 			throws IOException {
 		Path uploadPath = Paths.get(uploadDirectory);
@@ -35,12 +39,14 @@ public class FileUploadUtility {
 					try {
 						Files.delete(file);
 					} catch (IOException e) {
+//						LOGGER.error("Error in deleting file: " + file);
 						System.err.println("Error in deleting file: " + file);
 						e.printStackTrace();
 					}
 				}
 			});
 		} catch (IOException e) {
+//			LOGGER.error("Error in listing directory: " + directory);
 			System.err.println("Error in listing directory: " + directory);
 			e.printStackTrace();
 		}
