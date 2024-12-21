@@ -95,7 +95,7 @@ public class CategoryRepositoryTests {
 
 	@Test
 	public void testListRootCategories() {
-		List<Category> rootCategories = repository.listRootCategories();
+		List<Category> rootCategories = repository.findRootCategories();
 		rootCategories.forEach(category -> System.out.println(category.getName()));
 	}
 }
