@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "categories")
@@ -124,5 +125,10 @@ public class Category {
 
 	public void setChildren(Set<Category> children) {
 		this.children = children;
+	}
+
+	@Transient
+	public String getImagePath() {
+		return "/category-images/" + id + "/" + image;
 	}
 }
