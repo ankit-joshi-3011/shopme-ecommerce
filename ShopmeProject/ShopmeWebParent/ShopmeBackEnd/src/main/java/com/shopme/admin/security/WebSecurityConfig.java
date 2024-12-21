@@ -29,11 +29,20 @@ public class WebSecurityConfig {
 	SecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
 		http.authenticationProvider(getAuthenticationProvider());
 
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
-				.requestMatchers("/users/**").hasAuthority("Admin").anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").usernameParameter("email").permitAll())
-				.logout(logout -> logout.permitAll()).rememberMe(remember -> remember
-						.key("AbcDefgHijKlmnOpqrs_1234567890").tokenValiditySeconds(7 * 24 * 60 * 60));
+		http.authorizeHttpRequests(auth -> auth
+			.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
+			.requestMatchers("/users/**").hasAuthority("Admin")
+			.requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
+			.anyRequest().authenticated())
+			.formLogin(form -> form
+				.loginPage("/login")
+				.usernameParameter("email")
+				.permitAll())
+			.logout(logout -> logout
+				.permitAll())
+			.rememberMe(remember -> remember
+				.key("AbcDefgHijKlmnOpqrs_1234567890")
+				.tokenValiditySeconds(7 * 24 * 60 * 60));
 
 		return http.build();
 	}
