@@ -27,7 +27,10 @@ public class CategoryController {
 		Category category = new Category();
 		category.setEnabled(true);
 
+		List<Category> listCategories = service.listCategoriesInForm();
+
 		model.addAttribute("category", category);
+		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("pageTitle", "Create New Category");
 		return "categories/category_form";
 	}
