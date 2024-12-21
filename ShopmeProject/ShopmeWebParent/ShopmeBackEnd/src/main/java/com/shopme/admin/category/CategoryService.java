@@ -33,14 +33,14 @@ public class CategoryService {
 			if (category.getParent() == null) {
 				returnedCategories.add(category);
 
-				listSubCategories(category, 2, returnedCategories);
+				listSubCategoriesInForm(category, 2, returnedCategories);
 			}
 		}
 
 		return returnedCategories;
 	}
 
-	private void listSubCategories(Category parent, int numberOfHyphens, List<Category> returnedCategories) {
+	private void listSubCategoriesInForm(Category parent, int numberOfHyphens, List<Category> returnedCategories) {
 		StringBuilder hyphens = new StringBuilder();
 
 		for (int i = 0; i < numberOfHyphens; i++) {
@@ -54,7 +54,7 @@ public class CategoryService {
 			returnedCategories.add(subCategory);
 
 			if (!subCategory.getChildren().isEmpty()) {
-				listSubCategories(subCategory, numberOfHyphens + 2, returnedCategories);
+				listSubCategoriesInForm(subCategory, numberOfHyphens + 2, returnedCategories);
 			}
 		}
 	}
