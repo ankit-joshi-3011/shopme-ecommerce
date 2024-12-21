@@ -33,7 +33,7 @@ public class CategoryRepositoryTests {
 		Category desktops = new Category("Desktops", "Desktops", "default.png", computers);
 		Category laptops = new Category("Laptops", "Laptops", "default.png", computers);
 		Category computerComponents = new Category("Computer Components", "Computer Components", "default.png",
-				computers);
+			computers);
 
 		Category electronics = new Category(2);
 		Category cameras = new Category("Cameras", "Cameras", "default.png", electronics);
@@ -91,5 +91,11 @@ public class CategoryRepositoryTests {
 				printSubCategories(category, 2);
 			}
 		}
+	}
+
+	@Test
+	public void testListRootCategories() {
+		List<Category> rootCategories = repository.listRootCategories();
+		rootCategories.forEach(category -> System.out.println(category.getName()));
 	}
 }
