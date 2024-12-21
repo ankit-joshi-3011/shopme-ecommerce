@@ -14,27 +14,14 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	public List<Category> listAll() {
-		Iterable<Category> categories = categoryRepository.findAll();
-		List<Category> returnedCategories = new ArrayList<>();
-
-		for (Category category : categories) {
-			returnedCategories.add(category);
-		}
-
-		return returnedCategories;
-	}
-
 	public List<Category> listCategoriesInForm() {
-		Iterable<Category> categories = categoryRepository.findAll();
+		List<Category> categories = categoryRepository.findRootCategories();
 		List<Category> returnedCategories = new ArrayList<>();
 
 		for (Category category : categories) {
-			if (category.getParent() == null) {
-				returnedCategories.add(category);
+			returnedCategories.add(Category.createCopy(category));
 
-				listSubCategoriesInForm(category, 2, returnedCategories);
-			}
+			listSubCategoriesInForm(category, 2, returnedCategories);
 		}
 
 		return returnedCategories;
@@ -51,7 +38,7 @@ public class CategoryService {
 
 		for (Category subCategory : children) {
 			subCategory.setName(hyphens.toString() + subCategory.getName());
-			returnedCategories.add(subCategory);
+			returnedCategories.add(Category.createCopy(subCategory));
 
 			if (!subCategory.getChildren().isEmpty()) {
 				listSubCategoriesInForm(subCategory, numberOfHyphens + 2, returnedCategories);
