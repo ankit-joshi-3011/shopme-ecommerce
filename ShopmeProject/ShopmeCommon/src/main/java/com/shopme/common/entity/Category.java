@@ -38,6 +38,20 @@ public class Category {
 	@OneToMany(mappedBy = "parent")
 	private Set<Category> children = new HashSet<>();
 
+	public static Category createCopy(Category category) {
+		Category categoryCopy = new Category();
+
+		categoryCopy.setId(category.getId());
+		categoryCopy.setName(category.getName());
+		categoryCopy.setAlias(category.getAlias());
+		categoryCopy.setImage(category.getImage());
+		categoryCopy.setEnabled(category.isEnabled());
+		categoryCopy.setParent(category.getParent());
+		categoryCopy.setChildren(category.getChildren());
+
+		return categoryCopy;
+	}
+
 	public Category() {
 	}
 
