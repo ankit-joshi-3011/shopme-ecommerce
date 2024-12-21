@@ -21,4 +21,14 @@ public class CategoryController {
 
 		return "categories/categories";
 	}
+
+	@GetMapping("/categories/new")
+	public String newCategory(Model model) {
+		Category category = new Category();
+		category.setEnabled(true);
+
+		model.addAttribute("category", category);
+		model.addAttribute("pageTitle", "Create New Category");
+		return "categories/category_form";
+	}
 }
