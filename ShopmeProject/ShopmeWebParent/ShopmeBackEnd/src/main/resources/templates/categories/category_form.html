@@ -50,7 +50,7 @@
 							required />
 						<div class="mt-2">
 							<img id="thumbnail" class="img-fluid" alt="Image Preview"
-								th:src="@{/images/MissingImage.png}" />
+								th:src="@{${category.imagePath}}" />
 						</div>
 					</div>
 				</div>
@@ -69,35 +69,10 @@
 			</div>
 		</form>
 
-		<div class="modal fade text-center" id="modalDialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="modalTitle">Warning</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-
-					<div class="modal-body">
-						<span id="modalBody"></span>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div th:replace="fragments :: footer" />
 	</div>
 	<script type="text/javascript">
 		moduleUrl = "[[@{/categories}]]"
-
-		function showModalDialog(title, message) {
-			$("#modalTitle").text(title);
-			$("#modalBody").text(message);
-			$("#modalDialog").modal();
-		}
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 </body>
