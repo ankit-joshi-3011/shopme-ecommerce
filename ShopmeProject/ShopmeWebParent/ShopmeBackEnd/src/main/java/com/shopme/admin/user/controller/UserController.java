@@ -40,7 +40,7 @@ public class UserController {
 
 	@GetMapping("/users/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
-			@Param("sortDir") String sortDir, @Param("keyword") String keyword) {
+		@Param("sortDir") String sortDir, @Param("keyword") String keyword) {
 		if (pageNumber < 0) {
 			throw new PageOutOfBoundsException();
 		}
@@ -97,7 +97,7 @@ public class UserController {
 	// where it redirects to.
 	@PostMapping("/users/save")
 	public String saveUser(User user, RedirectAttributes attributes, @RequestParam("image") MultipartFile multipartFile)
-			throws IOException {
+		throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			user.setPhotos(fileName);
@@ -157,7 +157,7 @@ public class UserController {
 
 	@GetMapping("/users/{id}/enabled/{status}")
 	public String updateUserEnabledStatus(@PathVariable Integer id, @PathVariable boolean status,
-			RedirectAttributes attributes) {
+		RedirectAttributes attributes) {
 		service.updateUserEnabledStatus(id, status);
 		attributes.addFlashAttribute("message", "The user ID " + id + " has been " + (status ? "enabled" : "disabled"));
 
