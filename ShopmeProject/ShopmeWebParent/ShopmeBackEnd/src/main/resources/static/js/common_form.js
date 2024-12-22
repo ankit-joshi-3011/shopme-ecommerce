@@ -25,3 +25,17 @@ function showImageThumbnail(fileInput) {
 
 	reader.readAsDataURL(file);
 }
+
+function showModalDialog(title, message) {
+	$("#modalTitle").text(title);
+	$("#modalBody").text(message);
+	$("#modalDialog").modal();
+}
+
+function showErrorModalDialog(message) {
+	showModalDialog("Error", message);
+}
+
+function showWarningModalDialog(message) {
+	showModalDialog("Warning", message);
+}
