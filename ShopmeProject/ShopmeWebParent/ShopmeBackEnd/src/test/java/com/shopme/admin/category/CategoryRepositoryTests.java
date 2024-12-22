@@ -1,5 +1,7 @@
 package com.shopme.admin.category;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.Set;
 
@@ -97,5 +99,14 @@ public class CategoryRepositoryTests {
 	public void testListRootCategories() {
 		List<Category> rootCategories = repository.findRootCategories();
 		rootCategories.forEach(category -> System.out.println(category.getName()));
+	}
+
+	@Test
+	public void testFindByName() {
+		String name = "Computers";
+		Category category = repository.findByName(name);
+
+		assertThat(category).isNotNull();
+		assertThat(category.getName()).isEqualTo(name);
 	}
 }
