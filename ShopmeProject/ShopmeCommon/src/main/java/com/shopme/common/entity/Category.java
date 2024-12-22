@@ -129,6 +129,10 @@ public class Category {
 
 	@Transient
 	public String getImagePath() {
+		if (id == null || image == null) {
+			return "/images/MissingImage.png";
+		}
+
 		return "/category-images/" + id + "/" + image;
 	}
 }
