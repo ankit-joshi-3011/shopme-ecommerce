@@ -47,15 +47,19 @@ public class CategoryController {
 
 	@PostMapping("/categories/save")
 	public String saveCategory(Category category, RedirectAttributes attributes, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		category.setImage(fileName);
+		if (!multipartFile.isEmpty()) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			category.setImage(fileName);
 
-		Category savedCategory = service.save(category);
+			Category savedCategory = service.save(category);
 
-		String uploadDirectory = "../category-images/" + savedCategory.getId();
+			String uploadDirectory = "../category-images/" + savedCategory.getId();
 
-		FileUploadUtility.cleanDirectory(uploadDirectory);
-		FileUploadUtility.saveFile(uploadDirectory, fileName, multipartFile);
+			FileUploadUtility.cleanDirectory(uploadDirectory);
+			FileUploadUtility.saveFile(uploadDirectory, fileName, multipartFile);
+		} else {
+			service.save(category);
+		}
 
 		attributes.addFlashAttribute("message", "The category has been saved successfully.");
 

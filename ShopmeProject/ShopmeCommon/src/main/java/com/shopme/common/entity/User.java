@@ -135,13 +135,13 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", roles=" + roles + "]";
+			+ ", roles=" + roles + "]";
 	}
 
 	@Transient
 	public String getPhotosImagePath() {
 		if (id == null || photos == null) {
-			return "/images/MissingAvatar.png";
+			return null;
 		}
 
 		return "/user-photos/" + id + "/" + photos;
