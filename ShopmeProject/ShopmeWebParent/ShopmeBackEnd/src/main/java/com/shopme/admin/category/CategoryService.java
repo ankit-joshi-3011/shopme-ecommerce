@@ -39,8 +39,9 @@ public class CategoryService {
 		Set<Category> children = parent.getChildren();
 
 		for (Category subCategory : children) {
-			subCategory.setName(hyphens.toString() + subCategory.getName());
-			returnedCategories.add(Category.createCopy(subCategory));
+			Category copyOfSubCategory = Category.createCopy(subCategory);
+			copyOfSubCategory.setName(hyphens.toString() + subCategory.getName());
+			returnedCategories.add(copyOfSubCategory);
 
 			if (!subCategory.getChildren().isEmpty()) {
 				listSubCategoriesInForm(subCategory, numberOfHyphens + 2, returnedCategories);
