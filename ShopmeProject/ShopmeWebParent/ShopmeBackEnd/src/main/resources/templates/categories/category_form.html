@@ -69,6 +69,8 @@
 			</div>
 		</form>
 
+		<div th:replace="modal_fragments :: modal_dialog" />
+
 		<div th:replace="fragments :: footer" />
 	</div>
 	<script type="text/javascript">
@@ -88,14 +90,14 @@
 				if (response == "OK") {
 					form.submit();
 				} else if (response == "DuplicateName") {
-					showModalDialog("Warning", "There is another category having the name " + categoryName);
+					showWarningModalDialog("There is another category having the name " + categoryName);
 				} else if (response == "DuplicateAlias") {
-					showModalDialog("Warning", "There is another category having the alias " + categoryAlias);
+					showWarningModalDialog("There is another category having the alias " + categoryAlias);
 				} else {
-					showModalDialog("Error", "Unknown response from server");
+					showErrorModalDialog("Unknown response from server");
 				}
 			}).fail(function () {
-				showModalDialog("Error", "Could not connect to the server");
+				showErrorModalDialog("Could not connect to the server");
 			});
 
 			return false;
