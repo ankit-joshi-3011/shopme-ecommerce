@@ -11,7 +11,7 @@
 		</div>
 
 		<form th:action="@{/categories/save}" method="post" style="max-width: 500px; margin: 0 auto"
-			enctype="multipart/form-data" th:object="${category}">
+			enctype="multipart/form-data" th:object="${category}" onsubmit="return checkUnique(this)">
 			<input type="hidden" th:field="*{id}" />
 			<div class="border border-secondary rounded p-3">
 				<div class="form-group row">
@@ -73,6 +73,33 @@
 	</div>
 	<script type="text/javascript">
 		moduleUrl = "[[@{/categories}]]"
+
+		function checkUnique(form) {
+			categoryId = $("#id").val();
+			categoryName = $("#name").val();
+			categoryAlias = $("#alias").val();
+			csrfValue = $("input[name='_csrf']").val();
+
+			url = "[[@{/categories/check_unique}]]";
+
+			params = {id: categoryId, name: categoryName, alias: categoryAlias, _csrf: csrfValue};
+
+			$.post(url, params, function (response) {
+				if (response == "OK") {
+					form.submit();
+				} else if (response == "DuplicateName") {
+					showModalDialog("Warning", "There is another category having the name " + categoryName);
+				} else if (response == "DuplicateAlias") {
+					showModalDialog("Warning", "There is another category having the alias " + categoryAlias);
+				} else {
+					showModalDialog("Error", "Unknown response from server");
+				}
+			}).fail(function () {
+				showModalDialog("Error", "Could not connect to the server");
+			});
+
+			return false;
+		}
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 </body>
