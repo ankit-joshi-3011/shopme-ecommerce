@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -25,8 +26,8 @@ public class CategoryController {
 	private CategoryService service;
 
 	@GetMapping("/categories")
-	public String listAll(Model model) {
-		List<Category> listCategories = service.listCategoriesInForm();
+	public String listAll(@Param("sortDir") String sortDir, Model model) {
+		List<Category> listCategories = service.listCategoriesInForm(sortDir);
 		model.addAttribute("listCategories", listCategories);
 
 		return "categories/categories";

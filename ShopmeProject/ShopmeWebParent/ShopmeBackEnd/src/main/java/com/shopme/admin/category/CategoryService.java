@@ -19,26 +19,33 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 
 	public List<Category> listCategoriesInForm() {
-		List<Category> categories = categoryRepository.findRootCategories(Sort.by("name").ascending());
+		return listCategoriesInForm("asc");
+	}
+
+	public List<Category> listCategoriesInForm(String sortDir) {
+		Sort sort = Sort.by("name");
+		boolean ascendingOrDescending = sortDir == null || sortDir.isEmpty() || !sortDir.equals("desc");
+
+		List<Category> categories = categoryRepository.findRootCategories(ascendingOrDescending ? sort.ascending() : sort.descending());
 		List<Category> returnedCategories = new ArrayList<>();
 
 		for (Category category : categories) {
 			returnedCategories.add(Category.createCopy(category));
 
-			listSubCategoriesInForm(category, 2, returnedCategories);
+			listSubCategoriesInForm(category, 2, returnedCategories, ascendingOrDescending);
 		}
 
 		return returnedCategories;
 	}
 
-	private void listSubCategoriesInForm(Category parent, int numberOfHyphens, List<Category> returnedCategories) {
+	private void listSubCategoriesInForm(Category parent, int numberOfHyphens, List<Category> returnedCategories, boolean ascendingOrDescending) {
 		StringBuilder hyphens = new StringBuilder();
 
 		for (int i = 0; i < numberOfHyphens; i++) {
 			hyphens.append("-");
 		}
 
-		Set<Category> sortedChildren = new TreeSet<>((a, b) -> a.getName().compareTo(b.getName()));
+		Set<Category> sortedChildren = new TreeSet<>((a, b) -> a.getName().compareTo(b.getName()) * (ascendingOrDescending ? 1 : -1));
 		sortedChildren.addAll(parent.getChildren());
 
 		for (Category subCategory : sortedChildren) {
@@ -47,7 +54,7 @@ public class CategoryService {
 			returnedCategories.add(copyOfSubCategory);
 
 			if (!subCategory.getChildren().isEmpty()) {
-				listSubCategoriesInForm(subCategory, numberOfHyphens + 2, returnedCategories);
+				listSubCategoriesInForm(subCategory, numberOfHyphens + 2, returnedCategories, ascendingOrDescending);
 			}
 		}
 	}
