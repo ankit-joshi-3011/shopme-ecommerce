@@ -24,7 +24,7 @@ public class CategoryService {
 
 	public List<Category> listCategoriesInForm(String sortDir) {
 		Sort sort = Sort.by("name");
-		boolean ascendingOrDescending = sortDir == null || sortDir.isEmpty() || !sortDir.equals("desc");
+		boolean ascendingOrDescending = !sortDir.equals("desc");
 
 		List<Category> categories = categoryRepository.findRootCategories(ascendingOrDescending ? sort.ascending() : sort.descending());
 		List<Category> returnedCategories = new ArrayList<>();

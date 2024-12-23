@@ -38,7 +38,8 @@
 						<th>ID</th>
 						<th>Category Image</th>
 						<th>
-							<a class="text-white" th:href="@{'/categories?sortDir=asc'}">Category Name</a>
+							<a class="text-white" th:href="@{'/categories?sortDir=' + ${reverseSortDir}}">Category
+								Name</a>
 						</th>
 						<th>Alias</th>
 						<th>Enabled</th>
