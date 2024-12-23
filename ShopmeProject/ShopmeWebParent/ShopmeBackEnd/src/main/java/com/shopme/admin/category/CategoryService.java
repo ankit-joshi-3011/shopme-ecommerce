@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.category.exception.CategoryNotFoundException;
@@ -17,7 +18,7 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 
 	public List<Category> listCategoriesInForm() {
-		List<Category> categories = categoryRepository.findRootCategories();
+		List<Category> categories = categoryRepository.findRootCategories(Sort.by("name").ascending());
 		List<Category> returnedCategories = new ArrayList<>();
 
 		for (Category category : categories) {
