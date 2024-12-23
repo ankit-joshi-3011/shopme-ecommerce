@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -37,9 +38,10 @@ public class CategoryService {
 			hyphens.append("-");
 		}
 
-		Set<Category> children = parent.getChildren();
+		Set<Category> sortedChildren = new TreeSet<>((a, b) -> a.getName().compareTo(b.getName()));
+		sortedChildren.addAll(parent.getChildren());
 
-		for (Category subCategory : children) {
+		for (Category subCategory : sortedChildren) {
 			Category copyOfSubCategory = Category.createCopy(subCategory);
 			copyOfSubCategory.setName(hyphens.toString() + subCategory.getName());
 			returnedCategories.add(copyOfSubCategory);
