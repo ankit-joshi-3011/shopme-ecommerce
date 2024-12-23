@@ -35,15 +35,13 @@
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-						<th class="hideable-column">
-							<th th:replace="fragments :: column_link('id', 'ID', 'tag')" />
-						</th>
+						<th>ID</th>
 						<th>Category Image</th>
-						<th th:replace="fragments :: column_link('name', 'Category Name', 'none')" />
-						<th class="hideable-column">
-							<th th:replace="fragments :: column_link('alias', 'Alias', 'tag')" />
+						<th>
+							<a class="text-white" th:href="@{'/categories?sortDir=asc'}">Category Name</a>
 						</th>
-						<th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')" />
+						<th>Alias</th>
+						<th>Enabled</th>
 						<th></th>
 					</tr>
 				</thead>
