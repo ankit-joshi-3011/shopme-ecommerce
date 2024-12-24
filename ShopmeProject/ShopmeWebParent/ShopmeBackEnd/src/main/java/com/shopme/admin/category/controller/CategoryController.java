@@ -102,6 +102,10 @@ public class CategoryController {
 	public String deleteCategory(@PathVariable Integer id, RedirectAttributes attributes) {
 		try {
 			service.delete(id);
+
+			String categoryImageDirectory = "../category-images" + id;
+			FileUploadUtility.removeDirectory(categoryImageDirectory);
+
 			attributes.addFlashAttribute("message", "The category ID " + id + " has been deleted successfully");
 		} catch (CategoryNotFoundException ex) {
 			attributes.addFlashAttribute("message", ex.getMessage());
