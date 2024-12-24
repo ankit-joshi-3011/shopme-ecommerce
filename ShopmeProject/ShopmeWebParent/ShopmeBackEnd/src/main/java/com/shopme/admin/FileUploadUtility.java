@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadUtility {
 //	private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtility.class);
 
-	public static void saveFile(String uploadDirectory, String fileName, MultipartFile multipartFile)
-			throws IOException {
+	public static void saveFile(String uploadDirectory, String fileName, MultipartFile multipartFile) throws IOException {
 		Path uploadPath = Paths.get(uploadDirectory);
 
 		if (!Files.exists(uploadPath)) {
@@ -48,6 +47,17 @@ public class FileUploadUtility {
 		} catch (IOException e) {
 //			LOGGER.error("Error in listing directory: " + directory);
 			System.err.println("Error in listing directory: " + directory);
+			e.printStackTrace();
+		}
+	}
+
+	public static void removeDirectory(String directory) {
+		cleanDirectory(directory);
+
+		try {
+			Files.delete(Paths.get(directory));
+		} catch (IOException e) {
+			System.err.println("Error in deleting directory: " + directory);
 			e.printStackTrace();
 		}
 	}
