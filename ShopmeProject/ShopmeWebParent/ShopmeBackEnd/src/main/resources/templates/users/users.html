@@ -76,7 +76,7 @@
 								title="Edit this user"></a>
 							&nbsp;
 							<a class="fas fa-trash fa-2x icon-dark link-delete"
-								th:href="@{'/users/delete/' + ${user.id}}" th:userId="${user.id}"
+								th:href="@{'/users/delete/' + ${user.id}}" th:entityId="${user.id}"
 								title="Delete this user"></a>
 						</td>
 					</tr>
@@ -103,7 +103,7 @@
 							title="Edit this user"></a>
 						&nbsp;
 						<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/users/delete/' + ${user.id}}"
-							th:userId="${user.id}" title="Delete this user"></a>
+							title="Delete this user" th:entityId="${user.id}"></a>
 					</div>
 				</div>
 				<div>&nbsp;</div>
@@ -146,12 +146,7 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$(".link-delete").on("click", function (e) {
-				e.preventDefault();
-				link = $(this);
-				userId = link.attr("userId");
-				$("#yesButton").attr("href", link.attr("href"));
-				$("#confirmText").text("Are you sure you want to delete this user with ID " + userId + "?");
-				$("#confirmModalDialog").modal();
+				showDeleteConfirmationModalDialog(e, $(this), 'user');
 			});
 		});
 

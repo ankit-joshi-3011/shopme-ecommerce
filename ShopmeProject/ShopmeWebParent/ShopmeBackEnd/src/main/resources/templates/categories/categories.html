@@ -70,7 +70,7 @@
 							<th:block th:if="${category.hasChildren == false}">
 								<a class="fas fa-trash fa-2x icon-dark link-delete"
 									th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this category"
-									th:categoryId="${category.id}"></a>
+									th:entityId="${category.id}"></a>
 							</th:block>
 						</td>
 					</tr>
@@ -85,12 +85,7 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$(".link-delete").on("click", function (e) {
-				e.preventDefault();
-				link = $(this);
-				categoryId = link.attr("categoryId");
-				$("#yesButton").attr("href", link.attr("href"));
-				$("#confirmText").text("Are you sure you want to delete this category with ID " + categoryId + "?");
-				$("#confirmModalDialog").modal();
+				showDeleteConfirmationModalDialog(e, $(this), 'category');
 			});
 		});
 

@@ -17,3 +17,10 @@ function addAnimationToDropDownMenu() {
 		}
 	);
 }
+
+function showDeleteConfirmationModalDialog(e, link, entity) {
+	e.preventDefault();
+	$("#yesButton").attr("href", link.attr("href"));
+	$("#confirmText").text("Are you sure you want to delete this " + entity + " with ID " + link.attr("entityId") + "?");
+	$("#confirmModalDialog").modal();
+}
