@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import com.shopme.admin.category.exception.CategoryNotFoundException;
 import com.shopme.common.entity.Category;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -86,5 +89,9 @@ public class CategoryService {
 		}
 
 		return "OK";
+	}
+
+	public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
+		categoryRepository.updateEnabledStatus(id, enabled);
 	}
 }
