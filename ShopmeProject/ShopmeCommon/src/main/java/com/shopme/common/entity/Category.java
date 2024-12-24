@@ -135,4 +135,9 @@ public class Category {
 
 		return "/category-images/" + id + "/" + image;
 	}
+
+	@Transient
+	public boolean hasChildren() {
+		return !this.children.isEmpty();
+	}
 }
