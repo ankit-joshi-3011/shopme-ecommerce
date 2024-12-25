@@ -19,8 +19,10 @@ import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.category.CategoryPageInformation;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.category.exception.CategoryNotFoundException;
+import com.shopme.admin.category.export.CategoryCsvExporter;
 import com.shopme.admin.user.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Category;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class CategoryController {
@@ -143,5 +145,14 @@ public class CategoryController {
 		}
 
 		return "redirect:/categories";
+	}
+
+	@GetMapping("/categories/export/csv")
+	public void exportToCsv(HttpServletResponse response) throws IOException {
+		List<Category> listCategory = service.listCategoriesInForm();
+
+		CategoryCsvExporter exporter = new CategoryCsvExporter();
+
+		exporter.export(listCategory, response);
 	}
 }
