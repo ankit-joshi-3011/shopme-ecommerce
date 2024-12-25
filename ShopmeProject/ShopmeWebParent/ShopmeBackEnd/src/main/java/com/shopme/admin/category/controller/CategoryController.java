@@ -34,7 +34,7 @@ public class CategoryController {
 
 	@GetMapping("/categories/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, @Param("sortDir") String sortDir, @Param("keyword") String keyword, Model model) {
-		if (pageNumber < 0) {
+		if (pageNumber <= 0) {
 			throw new PageOutOfBoundsException();
 		}
 

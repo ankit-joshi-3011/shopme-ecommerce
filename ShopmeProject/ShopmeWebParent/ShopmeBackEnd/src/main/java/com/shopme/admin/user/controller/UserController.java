@@ -41,7 +41,7 @@ public class UserController {
 	@GetMapping("/users/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
 		@Param("sortDir") String sortDir, @Param("keyword") String keyword) {
-		if (pageNumber < 0) {
+		if (pageNumber <= 0) {
 			throw new PageOutOfBoundsException();
 		}
 
