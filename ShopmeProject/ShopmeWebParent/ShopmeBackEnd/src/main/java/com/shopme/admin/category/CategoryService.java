@@ -21,7 +21,7 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class CategoryService {
-	private static final int ROOT_CATEGORIES_PER_PAGE = 4;
+	public static final int ROOT_CATEGORIES_PER_PAGE = 4;
 
 	@Autowired
 	private CategoryRepository categoryRepository;

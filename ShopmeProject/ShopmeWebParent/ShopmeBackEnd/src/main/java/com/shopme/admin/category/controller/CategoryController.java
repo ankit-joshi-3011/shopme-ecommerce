@@ -19,6 +19,7 @@ import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.category.CategoryPageInformation;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.category.exception.CategoryNotFoundException;
+import com.shopme.admin.user.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Category;
 
 @Controller
@@ -33,6 +34,10 @@ public class CategoryController {
 
 	@GetMapping("/categories/page/{pageNumber}")
 	public String listByPage(@PathVariable int pageNumber, @Param("sortDir") String sortDir, Model model) {
+		if (pageNumber < 0) {
+			throw new PageOutOfBoundsException();
+		}
+
 		if (sortDir == null || sortDir.isEmpty()) {
 			sortDir = "asc";
 		}
@@ -40,10 +45,26 @@ public class CategoryController {
 		CategoryPageInformation categoryPageInformation = new CategoryPageInformation();
 		List<Category> listCategories = service.listCategoriesInForm(categoryPageInformation, pageNumber, sortDir);
 
+		if (pageNumber > categoryPageInformation.getTotalPages()) {
+			throw new PageOutOfBoundsException();
+		}
+
+		long startCount = (pageNumber - 1) * CategoryService.ROOT_CATEGORIES_PER_PAGE + 1;
+		long endCount = startCount + CategoryService.ROOT_CATEGORIES_PER_PAGE - 1;
+
+		if (endCount > categoryPageInformation.getTotalElements()) {
+			endCount = categoryPageInformation.getTotalElements();
+		}
+
+		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
 		model.addAttribute("totalPages", categoryPageInformation.getTotalPages());
-		model.addAttribute("totalElements", categoryPageInformation.getTotalElements());
+		model.addAttribute("totalItems", categoryPageInformation.getTotalElements());
+		model.addAttribute("sortField", "name");
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
 
 		return "categories/categories";
 	}
