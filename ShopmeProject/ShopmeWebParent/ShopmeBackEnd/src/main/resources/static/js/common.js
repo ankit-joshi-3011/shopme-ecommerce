@@ -24,3 +24,7 @@ function showDeleteConfirmationModalDialog(e, link, entity) {
 	$("#confirmText").text("Are you sure you want to delete this " + entity + " with ID " + link.attr("entityId") + "?");
 	$("#confirmModalDialog").modal();
 }
+
+function clearFilter(moduleUrl) {
+	window.location = moduleUrl
+}

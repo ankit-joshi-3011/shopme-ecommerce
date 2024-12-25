@@ -70,7 +70,7 @@
 				<i class="fas fa-search"></i>
 			</button>
 			&nbsp;&nbsp;
-			<button type="button" class="btn btn-secondary" onClick="clearFilter()">
+			<button type="button" class="btn btn-secondary" th:attr="onclick=|clearFilter('@{${moduleUrl}}')|">
 				<i class="fas fa-eraser"></i>
 			</button>
 		</form>
