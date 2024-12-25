@@ -66,7 +66,13 @@
 			</table>
 		</div>
 
-		<div th:replace="fragments :: pagination('/categories', 'top-level categories')" />
+		<div th:if="${keyword != null}" class="text-center">
+			<span>Search results do not show categories in hierarchical form</span>
+			<div th:replace="fragments :: pagination('/categories', 'categories')" />
+		</div>
+		<div th:if="${keyword == null}">
+			<div th:replace="fragments :: pagination('/categories', 'top-level categories')" />
+		</div>
 
 		<div th:replace="modal_fragments :: deleteModalDialog" />
 
