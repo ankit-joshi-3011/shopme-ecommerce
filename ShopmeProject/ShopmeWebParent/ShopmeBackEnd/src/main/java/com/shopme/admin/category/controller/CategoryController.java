@@ -29,11 +29,11 @@ public class CategoryController {
 
 	@GetMapping("/categories")
 	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
-		return listByPage(1, sortDir, model);
+		return listByPage(1, sortDir, null, model);
 	}
 
 	@GetMapping("/categories/page/{pageNumber}")
-	public String listByPage(@PathVariable int pageNumber, @Param("sortDir") String sortDir, Model model) {
+	public String listByPage(@PathVariable int pageNumber, @Param("sortDir") String sortDir, @Param("keyword") String keyword, Model model) {
 		if (pageNumber < 0) {
 			throw new PageOutOfBoundsException();
 		}
@@ -43,7 +43,7 @@ public class CategoryController {
 		}
 
 		CategoryPageInformation categoryPageInformation = new CategoryPageInformation();
-		List<Category> listCategories = service.listCategoriesInForm(categoryPageInformation, pageNumber, sortDir);
+		List<Category> listCategories = service.listCategoriesInForm(categoryPageInformation, pageNumber, sortDir, keyword);
 
 		if (pageNumber > categoryPageInformation.getTotalPages()) {
 			throw new PageOutOfBoundsException();
@@ -65,6 +65,7 @@ public class CategoryController {
 		model.addAttribute("sortField", "name");
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
+		model.addAttribute("keyword", keyword);
 
 		return "categories/categories";
 	}

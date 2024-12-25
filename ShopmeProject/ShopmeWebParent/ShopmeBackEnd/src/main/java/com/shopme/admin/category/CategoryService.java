@@ -27,20 +27,27 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 
 	public List<Category> listCategoriesInForm() {
-		return listCategoriesInForm(new CategoryPageInformation(), 1, "asc");
+		return listCategoriesInForm("asc");
 	}
 
 	public List<Category> listCategoriesInForm(String sortDir) {
-		return listCategoriesInForm(new CategoryPageInformation(), 1, sortDir);
+		return listCategoriesInForm(new CategoryPageInformation(), 1, sortDir, null);
 	}
 
-	public List<Category> listCategoriesInForm(CategoryPageInformation categoryPageInformation, int pageNumber, String sortDir) {
+	public List<Category> listCategoriesInForm(CategoryPageInformation categoryPageInformation, int pageNumber, String sortDir, String keyword) {
 		Sort sort = Sort.by("name");
 		boolean ascendingOrDescending = !sortDir.equals("desc");
 
 		Pageable pageable = PageRequest.of(pageNumber - 1, ROOT_CATEGORIES_PER_PAGE, (ascendingOrDescending ? sort.ascending() : sort.descending()));
 
-		Page<Category> categories = categoryRepository.findRootCategories(pageable);
+		Page<Category> categories;
+
+		if (keyword != null && !keyword.isEmpty()) {
+			categories = categoryRepository.search(keyword, pageable);
+		} else {
+			categories = categoryRepository.findRootCategories(pageable);
+		}
+
 		categoryPageInformation.setTotalElements(categories.getTotalElements());
 		categoryPageInformation.setTotalPages(categories.getTotalPages());
 
@@ -49,7 +56,9 @@ public class CategoryService {
 		for (Category category : categories.getContent()) {
 			returnedCategories.add(Category.createCopy(category));
 
-			listSubCategoriesInForm(category, 2, returnedCategories, ascendingOrDescending);
+			if (keyword == null || keyword.isEmpty()) {
+				listSubCategoriesInForm(category, 2, returnedCategories, ascendingOrDescending);
+			}
 		}
 
 		return returnedCategories;
