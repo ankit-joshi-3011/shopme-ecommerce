@@ -2,6 +2,8 @@ package com.shopme.admin.category;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +25,7 @@ public interface CategoryRepository extends CrudRepository<Category, Integer>, P
 	public void updateEnabledStatus(Integer id, boolean enabledOrDisabled);
 
 	public Long countById(Integer id);
+
+	@Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
+	public Page<Category> findRootCategories(Pageable pageable);
 }

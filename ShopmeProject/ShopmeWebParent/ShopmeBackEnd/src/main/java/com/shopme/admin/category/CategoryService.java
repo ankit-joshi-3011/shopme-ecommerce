@@ -7,6 +7,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +21,32 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class CategoryService {
+	private static final int ROOT_CATEGORIES_PER_PAGE = 4;
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
 	public List<Category> listCategoriesInForm() {
-		return listCategoriesInForm("asc");
+		return listCategoriesInForm(new CategoryPageInformation(), 1, "asc");
 	}
 
 	public List<Category> listCategoriesInForm(String sortDir) {
+		return listCategoriesInForm(new CategoryPageInformation(), 1, sortDir);
+	}
+
+	public List<Category> listCategoriesInForm(CategoryPageInformation categoryPageInformation, int pageNumber, String sortDir) {
 		Sort sort = Sort.by("name");
 		boolean ascendingOrDescending = !sortDir.equals("desc");
 
-		List<Category> categories = categoryRepository.findRootCategories(ascendingOrDescending ? sort.ascending() : sort.descending());
+		Pageable pageable = PageRequest.of(pageNumber - 1, ROOT_CATEGORIES_PER_PAGE, (ascendingOrDescending ? sort.ascending() : sort.descending()));
+
+		Page<Category> categories = categoryRepository.findRootCategories(pageable);
+		categoryPageInformation.setTotalElements(categories.getTotalElements());
+		categoryPageInformation.setTotalPages(categories.getTotalPages());
+
 		List<Category> returnedCategories = new ArrayList<>();
 
-		for (Category category : categories) {
+		for (Category category : categories.getContent()) {
 			returnedCategories.add(Category.createCopy(category));
 
 			listSubCategoriesInForm(category, 2, returnedCategories, ascendingOrDescending);

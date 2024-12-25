@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtility;
+import com.shopme.admin.category.CategoryPageInformation;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.category.exception.CategoryNotFoundException;
 import com.shopme.common.entity.Category;
@@ -26,15 +27,23 @@ public class CategoryController {
 	private CategoryService service;
 
 	@GetMapping("/categories")
-	public String listAll(@Param("sortDir") String sortDir, Model model) {
+	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
+		return listByPage(1, sortDir, model);
+	}
+
+	@GetMapping("/categories/page/{pageNumber}")
+	public String listByPage(@PathVariable int pageNumber, @Param("sortDir") String sortDir, Model model) {
 		if (sortDir == null || sortDir.isEmpty()) {
 			sortDir = "asc";
 		}
 
-		List<Category> listCategories = service.listCategoriesInForm(sortDir);
+		CategoryPageInformation categoryPageInformation = new CategoryPageInformation();
+		List<Category> listCategories = service.listCategoriesInForm(categoryPageInformation, pageNumber, sortDir);
 
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
+		model.addAttribute("totalPages", categoryPageInformation.getTotalPages());
+		model.addAttribute("totalElements", categoryPageInformation.getTotalElements());
 
 		return "categories/categories";
 	}
