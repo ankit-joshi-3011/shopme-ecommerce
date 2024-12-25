@@ -6,7 +6,7 @@ import java.util.Date;
 import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class AbstractExporter {
-	public void setResponseHeader(HttpServletResponse response, String filePrefix, String contentType, String extension) {
+	protected void setResponseHeader(HttpServletResponse response, String filePrefix, String contentType, String extension) {
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		String timestamp = dateFormatter.format(new Date());
 		String fileName = filePrefix + "_" + timestamp + extension;
