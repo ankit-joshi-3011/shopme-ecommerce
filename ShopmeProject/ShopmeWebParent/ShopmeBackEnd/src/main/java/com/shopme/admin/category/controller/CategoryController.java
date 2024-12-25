@@ -43,7 +43,7 @@ public class CategoryController {
 		}
 
 		CategoryPageInformation categoryPageInformation = new CategoryPageInformation();
-		List<Category> listCategories = service.listCategoriesInForm(categoryPageInformation, pageNumber, sortDir, keyword);
+		List<Category> listCategories = service.listCategoriesOnPage(categoryPageInformation, pageNumber, sortDir, keyword);
 
 		if (pageNumber > categoryPageInformation.getTotalPages()) {
 			throw new PageOutOfBoundsException();

@@ -27,14 +27,22 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 
 	public List<Category> listCategoriesInForm() {
-		return listCategoriesInForm("asc");
+		Sort sort = Sort.by("name");
+
+		List<Category> categories = categoryRepository.findRootCategories(sort.ascending());
+
+		List<Category> returnedCategories = new ArrayList<>();
+
+		for (Category category : categories) {
+			returnedCategories.add(Category.createCopy(category));
+
+			listSubCategoriesInFormAndOnPage(category, 2, returnedCategories, true);
+		}
+
+		return returnedCategories;
 	}
 
-	public List<Category> listCategoriesInForm(String sortDir) {
-		return listCategoriesInForm(new CategoryPageInformation(), 1, sortDir, null);
-	}
-
-	public List<Category> listCategoriesInForm(CategoryPageInformation categoryPageInformation, int pageNumber, String sortDir, String keyword) {
+	public List<Category> listCategoriesOnPage(CategoryPageInformation categoryPageInformation, int pageNumber, String sortDir, String keyword) {
 		Sort sort = Sort.by("name");
 		boolean ascendingOrDescending = !sortDir.equals("desc");
 
@@ -57,14 +65,14 @@ public class CategoryService {
 			returnedCategories.add(Category.createCopy(category));
 
 			if (keyword == null || keyword.isEmpty()) {
-				listSubCategoriesInForm(category, 2, returnedCategories, ascendingOrDescending);
+				listSubCategoriesInFormAndOnPage(category, 2, returnedCategories, ascendingOrDescending);
 			}
 		}
 
 		return returnedCategories;
 	}
 
-	private void listSubCategoriesInForm(Category parent, int numberOfHyphens, List<Category> returnedCategories, boolean ascendingOrDescending) {
+	private void listSubCategoriesInFormAndOnPage(Category parent, int numberOfHyphens, List<Category> returnedCategories, boolean ascendingOrDescending) {
 		StringBuilder hyphens = new StringBuilder();
 
 		for (int i = 0; i < numberOfHyphens; i++) {
@@ -80,7 +88,7 @@ public class CategoryService {
 			returnedCategories.add(copyOfSubCategory);
 
 			if (!subCategory.getChildren().isEmpty()) {
-				listSubCategoriesInForm(subCategory, numberOfHyphens + 2, returnedCategories, ascendingOrDescending);
+				listSubCategoriesInFormAndOnPage(subCategory, numberOfHyphens + 2, returnedCategories, ascendingOrDescending);
 			}
 		}
 	}
