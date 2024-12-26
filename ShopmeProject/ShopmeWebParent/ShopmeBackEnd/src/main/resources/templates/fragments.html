@@ -75,6 +75,28 @@
 			</button>
 		</form>
 	</div>
+
+	<span th:fragment="category_name_fragment">[[${category.name}]]</span>
+
+	<img th:fragment="category_image_fragment" th:src="@{${category.imagePath}}" style="width: 100px"
+		class="img-fluid" />
+
+	<th:block th:fragment="category_enabled_fragment">
+		<a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+			th:href="@{'/categories/' + ${category.id} + '/enabled/false'}" title="Disable this category"></a>
+		<a th:if="${category.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
+			th:href="@{'/categories/' + ${category.id} + '/enabled/true'}" title="Enable this category"></a>
+	</th:block>
+
+	<th:block th:fragment="category_edit_delete_fragment">
+		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}"
+			title="Edit this category"></a>
+		&nbsp;
+		<th:block th:if="${category.hasChildren == false}">
+			<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/categories/delete/' + ${category.id}}"
+				title="Delete this category" th:entityId="${category.id}"></a>
+		</th:block>
+	</th:block>
 </body>
 
 </html>

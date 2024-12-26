@@ -39,27 +39,15 @@
 					<tr th:each="category : ${listCategories}">
 						<td>[[${category.id}]]</td>
 						<td>
-							<img th:src="@{${category.imagePath}}" style="width: 100px" class="img-fluid" />
+							<img th:replace="fragments :: category_image_fragment" />
 						</td>
-						<td>[[${category.name}]]</td>
+						<td><span th:replace="fragments :: category_name_fragment"></td>
 						<td class="hideable-column">[[${category.alias}]]</td>
 						<td>
-							<a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-								th:href="@{'/categories/' + ${category.id} + '/enabled/false'}"
-								title="Disable this category"></a>
-							<a th:if="${category.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
-								th:href="@{'/categories/' + ${category.id} + '/enabled/true'}"
-								title="Enable this category"></a>
+							<div th:replace="fragments :: category_enabled_fragment" />
 						</td>
 						<td>
-							<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}"
-								title="Edit this category"></a>
-							&nbsp;
-							<th:block th:if="${category.hasChildren == false}">
-								<a class="fas fa-trash fa-2x icon-dark link-delete"
-									th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this category"
-									th:entityId="${category.id}"></a>
-							</th:block>
+							<div th:replace="fragments :: category_edit_delete_fragment" />
 						</td>
 					</tr>
 				</tbody>
@@ -69,26 +57,14 @@
 		<div class="less-details">
 			<div th:each="category : ${listCategories}" class="row m-1">
 				<div class="col-4">
-					<img th:src="@{${category.imagePath}}" style="width: 100px" class="img-fluid" />
+					<img th:replace="fragments :: category_image_fragment" />
 				</div>
 				<div class="col-8">
-					<div>[[${category.name}]]</div>
+					<div th:replace="fragments :: category_name_fragment"></div>
 					<div class="mt-2">
-						<a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-							th:href="@{'/categories/' + ${category.id} + '/enabled/false'}"
-							title="Disable this category"></a>
-						<a th:if="${category.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
-							th:href="@{'/categories/' + ${category.id} + '/enabled/true'}"
-							title="Enable this category"></a>
+						<div th:replace="fragments :: category_enabled_fragment" />
 						&nbsp;
-						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}"
-							title="Edit this category"></a>
-						&nbsp;
-						<th:block th:if="${category.hasChildren == false}">
-							<a class="fas fa-trash fa-2x icon-dark link-delete"
-								th:href="@{'/categories/delete/' + ${category.id}}" title="Delete this category"
-								th:entityId="${category.id}"></a>
-						</th:block>
+						<div th:replace="fragments :: category_edit_delete_fragment" />
 					</div>
 				</div>
 			</div>
