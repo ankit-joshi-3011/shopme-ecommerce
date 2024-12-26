@@ -110,6 +110,9 @@
 	<div th:fragment="message_fragment" th:if="${message != null}" class="alert alert-success text-center">
 		[[${message}]]
 	</div>
+
+	<a th:fragment="csv_fragment(moduleUrl)" th:href="@{${moduleUrl} + '/export/csv'}"
+		class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
 </body>
 
 </html>
