@@ -49,7 +49,8 @@
 						<td>[[${user.lastName}]]</td>
 						<td><span th:replace="fragments :: user_roles_fragment" /></td>
 						<td>
-							<div th:replace="fragments :: user_enabled_fragment" />
+							<div
+								th:replace="fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})" />
 						</td>
 						<td>
 							<div th:replace="fragments :: user_edit_delete_fragment" />
@@ -68,7 +69,8 @@
 					<div>[[${user.fullName}]]</div>
 					<div th:replace="fragments :: user_roles_fragment" />
 					<div class="mt-2">
-						<div th:replace="fragments :: user_enabled_fragment" />
+						<div
+							th:replace="fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})" />
 						&nbsp;
 						<div th:replace="fragments :: user_edit_delete_fragment" />
 					</div>

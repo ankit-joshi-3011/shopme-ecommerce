@@ -39,7 +39,8 @@
 						<td><span th:replace="fragments :: category_name_fragment"></td>
 						<td class="hideable-column">[[${category.alias}]]</td>
 						<td>
-							<div th:replace="fragments :: category_enabled_fragment" />
+							<div
+								th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />
 						</td>
 						<td>
 							<div th:replace="fragments :: category_edit_delete_fragment" />
@@ -57,7 +58,8 @@
 				<div class="col-8">
 					<div th:replace="fragments :: category_name_fragment"></div>
 					<div class="mt-2">
-						<div th:replace="fragments :: category_enabled_fragment" />
+						<div
+							th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />
 						&nbsp;
 						<div th:replace="fragments :: category_edit_delete_fragment" />
 					</div>
