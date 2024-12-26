@@ -42,27 +42,17 @@
 					<tr th:each="user : ${listUsers}">
 						<td class="hideable-column">[[${user.id}]]</td>
 						<td>
-							<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
-							<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
-								style="width: 100px" />
+							<th:block th:replace="fragments :: user_image_fragment" />
 						</td>
 						<td class="hideable-column">[[${user.email}]]</td>
 						<td>[[${user.firstName}]]</td>
 						<td>[[${user.lastName}]]</td>
-						<td>[[${user.roles}]]</td>
+						<td><span th:replace="fragments :: user_roles_fragment" /></td>
 						<td>
-							<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-								th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Disable this user"></a>
-							<a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
-								th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Enable this user"></a>
+							<div th:replace="fragments :: user_enabled_fragment" />
 						</td>
 						<td>
-							<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
-								title="Edit this user"></a>
-							&nbsp;
-							<a class="fas fa-trash fa-2x icon-dark link-delete"
-								th:href="@{'/users/delete/' + ${user.id}}" th:entityId="${user.id}"
-								title="Delete this user"></a>
+							<div th:replace="fragments :: user_edit_delete_fragment" />
 						</td>
 					</tr>
 				</tbody>
@@ -72,23 +62,15 @@
 		<div class="less-details">
 			<div th:each="user : ${listUsers}" class="row m-1">
 				<div class="col-4">
-					<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
-					<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px" />
+					<th:block th:replace="fragments :: user_image_fragment" />
 				</div>
 				<div class="col-8">
 					<div>[[${user.fullName}]]</div>
-					<div>[[${user.roles}]]</div>
+					<div th:replace="fragments :: user_roles_fragment" />
 					<div class="mt-2">
-						<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-							th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Disable this user"></a>
-						<a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
-							th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Enable this user"></a>
+						<div th:replace="fragments :: user_enabled_fragment" />
 						&nbsp;
-						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
-							title="Edit this user"></a>
-						&nbsp;
-						<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/users/delete/' + ${user.id}}"
-							title="Delete this user" th:entityId="${user.id}"></a>
+						<div th:replace="fragments :: user_edit_delete_fragment" />
 					</div>
 				</div>
 				<div>&nbsp;</div>
