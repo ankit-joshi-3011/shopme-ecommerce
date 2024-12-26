@@ -100,8 +100,8 @@
 			th:title="'Edit this ' + ${entityName}"></a>
 	</th:block>
 
-	<th:block th:fragment="delete_fragment(entityUrl, entityId, entityName, condition)">
-		<th:block th:if="${condition}">
+	<th:block th:fragment="delete_fragment(entityUrl, entityId, entityName, visibleCondition)">
+		<th:block th:if="${visibleCondition}">
 			<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{${entityUrl} + '/delete/' + ${entityId}}"
 				th:title="'Delete this ' + ${entityName}" th:entityId="${entityId}"></a>
 		</th:block>
