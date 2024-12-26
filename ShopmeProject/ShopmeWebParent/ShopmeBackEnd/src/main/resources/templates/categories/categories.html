@@ -24,12 +24,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Category Image</th>
-						<th>
-							<a class="text-white"
-								th:href="@{'/categories/page/' + ${pageNumber} + '?sortField=' + ${sortField} + '&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Category
-								Name</a>
-							<span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-						</th>
+						<th th:replace="fragments :: column_link('/categories', 'name', 'Category Name', 'none')" />
 						<th class="hideable-column">Alias</th>
 						<th>Enabled</th>
 						<th></th>
