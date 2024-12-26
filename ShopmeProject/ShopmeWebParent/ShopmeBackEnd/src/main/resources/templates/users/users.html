@@ -14,9 +14,9 @@
 			<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark"></a>
 		</div>
 
-		<div th:replace="fragments :: message_fragment" />
-
 		<div th:replace="fragments :: search_form('/users')" />
+
+		<div th:replace="fragments :: message_fragment" />
 
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
