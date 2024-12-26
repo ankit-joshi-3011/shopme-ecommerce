@@ -53,7 +53,9 @@
 								th:replace="fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})" />
 						</td>
 						<td>
-							<div th:replace="fragments :: user_edit_delete_fragment" />
+							<div th:replace="fragments :: edit_fragment('/users', ${user.id}, 'user')" />
+							&nbsp;
+							<div th:replace="fragments :: delete_fragment('/users', ${user.id}, 'user', true)" />
 						</td>
 					</tr>
 				</tbody>
@@ -72,7 +74,9 @@
 						<div
 							th:replace="fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})" />
 						&nbsp;
-						<div th:replace="fragments :: user_edit_delete_fragment" />
+						<div th:replace="fragments :: edit_fragment('/users', ${user.id}, 'user')" />
+						&nbsp;
+						<div th:replace="fragments :: delete_fragment('/users', ${user.id}, 'user', true)" />
 					</div>
 				</div>
 				<div>&nbsp;</div>

@@ -43,7 +43,10 @@
 								th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />
 						</td>
 						<td>
-							<div th:replace="fragments :: category_edit_delete_fragment" />
+							<div th:replace="fragments :: edit_fragment('/categories', ${category.id}, 'category')" />
+							&nbsp;
+							<div
+								th:replace="fragments :: delete_fragment('/categories', ${category.id}, 'category', ${category.hasChildren == false})" />
 						</td>
 					</tr>
 				</tbody>
@@ -61,7 +64,10 @@
 						<div
 							th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />
 						&nbsp;
-						<div th:replace="fragments :: category_edit_delete_fragment" />
+						<div th:replace="fragments :: edit_fragment('/categories', ${category.id}, 'category')" />
+						&nbsp;
+						<div
+							th:replace="fragments :: delete_fragment('/categories', ${category.id}, 'category', ${category.hasChildren == false})" />
 					</div>
 				</div>
 			</div>

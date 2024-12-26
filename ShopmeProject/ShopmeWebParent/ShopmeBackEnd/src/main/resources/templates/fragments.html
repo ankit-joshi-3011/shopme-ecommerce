@@ -83,13 +83,6 @@
 
 	<span th:fragment="user_roles_fragment">[[${user.roles}]]</span>
 
-	<th:block th:fragment="user_edit_delete_fragment">
-		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user"></a>
-		&nbsp;
-		<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/users/delete/' + ${user.id}}"
-			th:entityId="${user.id}" title="Delete this user"></a>
-	</th:block>
-
 	<span th:fragment="category_name_fragment">[[${category.name}]]</span>
 
 	<img th:fragment="category_image_fragment" th:src="@{${category.imagePath}}" style="width: 100px"
@@ -102,13 +95,15 @@
 			th:href="@{${entityUrl} + '/enabled/true'}" th:title="'Enable this ' + ${entityName}"></a>
 	</th:block>
 
-	<th:block th:fragment="category_edit_delete_fragment">
-		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}"
-			title="Edit this category"></a>
-		&nbsp;
-		<th:block th:if="${category.hasChildren == false}">
-			<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{'/categories/delete/' + ${category.id}}"
-				title="Delete this category" th:entityId="${category.id}"></a>
+	<th:block th:fragment="edit_fragment(entityUrl, entityId, entityName)">
+		<a class="fas fa-edit fa-2x icon-green" th:href="@{${entityUrl} + '/edit/' + ${entityId}}"
+			th:title="'Edit this ' + ${entityName}"></a>
+	</th:block>
+
+	<th:block th:fragment="delete_fragment(entityUrl, entityId, entityName, condition)">
+		<th:block th:if="${condition}">
+			<a class="fas fa-trash fa-2x icon-dark link-delete" th:href="@{${entityUrl} + '/delete/' + ${entityId}}"
+				th:title="'Delete this ' + ${entityName}" th:entityId="${entityId}"></a>
 		</th:block>
 	</th:block>
 </body>
