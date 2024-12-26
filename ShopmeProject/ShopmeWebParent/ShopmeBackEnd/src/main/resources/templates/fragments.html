@@ -106,6 +106,10 @@
 				th:title="'Delete this ' + ${entityName}" th:entityId="${entityId}"></a>
 		</th:block>
 	</th:block>
+
+	<div th:fragment="message_fragment" th:if="${message != null}" class="alert alert-success text-center">
+		[[${message}]]
+	</div>
 </body>
 
 </html>

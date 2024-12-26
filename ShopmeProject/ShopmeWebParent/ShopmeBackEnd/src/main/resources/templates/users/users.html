@@ -14,9 +14,7 @@
 			<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark"></a>
 		</div>
 
-		<div th:if="${message != null}" class="alert alert-success text-center">
-			[[${message}]]
-		</div>
+		<div th:replace="fragments :: message_fragment" />
 
 		<div th:replace="fragments :: search_form('/users')" />
 
