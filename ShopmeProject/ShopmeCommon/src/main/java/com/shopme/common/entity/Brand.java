@@ -33,10 +33,9 @@ public class Brand {
 	public Brand() {
 	}
 
-	public Brand(String name, String logo, Set<Category> categories) {
+	public Brand(String name, String logo) {
 		this.name = name;
 		this.logo = logo;
-		this.categories = categories;
 	}
 
 	public Integer getId() {
