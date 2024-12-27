@@ -48,4 +48,11 @@ public class BrandRepositoryTests {
 
 		repository.saveAll(List.of(acer, apple, samsung));
 	}
+
+	@Test
+	public void testListAllBrands() {
+		Iterable<Brand> brands = repository.findAll();
+
+		brands.forEach(brand -> System.out.println(brand));
+	}
 }
