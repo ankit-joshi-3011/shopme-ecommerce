@@ -69,4 +69,9 @@ public class Brand {
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
+
+	@Override
+	public String toString() {
+		return "Brand [id=" + id + ", name=" + name + ", logo=" + logo + ", categories=" + categories + "]";
+	}
 }
