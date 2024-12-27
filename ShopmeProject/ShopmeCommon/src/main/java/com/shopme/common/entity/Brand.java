@@ -30,6 +30,15 @@ public class Brand {
 	@JoinTable(name = "brands_categories", joinColumns = @JoinColumn(name = "brand_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
+	public Brand() {
+	}
+
+	public Brand(String name, String logo, Set<Category> categories) {
+		this.name = name;
+		this.logo = logo;
+		this.categories = categories;
+	}
+
 	public Integer getId() {
 		return id;
 	}
