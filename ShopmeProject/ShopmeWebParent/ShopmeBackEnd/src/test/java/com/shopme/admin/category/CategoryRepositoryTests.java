@@ -19,8 +19,12 @@ import com.shopme.common.entity.Category;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class CategoryRepositoryTests {
-	@Autowired
 	private CategoryRepository repository;
+
+	@Autowired
+	public CategoryRepositoryTests(CategoryRepository repository) {
+		this.repository = repository;
+	}
 
 	@Test
 	public void testCreateRootCategory() {
