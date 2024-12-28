@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Categories - Shopme Admin')" />
+<head th:replace="~{fragments :: page_head('Categories - Shopme Admin')}" />
 
 <body>
 	<div class="container-fluid">
-		<div th:replace="navigation :: menu" />
+		<div th:replace="~{navigation :: menu}" />
 		<div>
 			<h1>Manage Categories</h1>
-			<a th:replace="fragments :: create_new_item('/categories')" />
-			<a th:replace="fragments :: csv_fragment('/categories')" />
+			<a th:replace="~{fragments :: create_new_item('/categories')}" />
+			<a th:replace="~{fragments :: csv_fragment('/categories')}" />
 		</div>
 
-		<div th:replace="fragments :: search_form('/categories')" />
+		<div th:replace="~{fragments :: search_form('/categories')}" />
 
-		<div th:replace="fragments :: message_fragment" />
+		<div th:replace="~{fragments :: message_fragment}" />
 
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -22,7 +22,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Category Image</th>
-						<th th:replace="fragments :: column_link('/categories', 'name', 'Category Name', 'none')" />
+						<th th:replace="~{fragments :: column_link('/categories', 'name', 'Category Name', 'none')}" />
 						<th class="hideable-column">Alias</th>
 						<th>Enabled</th>
 						<th></th>
@@ -32,19 +32,20 @@
 					<tr th:each="category : ${listCategories}">
 						<td>[[${category.id}]]</td>
 						<td>
-							<img th:replace="fragments :: image_fragment(${category.imagePath})" />
+							<img th:replace="~{fragments :: image_fragment(${category.imagePath})}" />
 						</td>
-						<td><span th:replace="fragments :: name_fragment(${category.name})"></td>
+						<td><span th:replace="~{fragments :: name_fragment(${category.name})}"></td>
 						<td class="hideable-column">[[${category.alias}]]</td>
 						<td>
 							<div
-								th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />
+								th:replace="~{fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})}" />
 						</td>
 						<td>
-							<div th:replace="fragments :: edit_fragment('/categories', ${category.id}, 'category')" />
+							<div
+								th:replace="~{fragments :: edit_fragment('/categories', ${category.id}, 'category')}" />
 							&nbsp;
 							<div
-								th:replace="fragments :: delete_fragment('/categories', ${category.id}, 'category', ${category.hasChildren == false})" />
+								th:replace="~{fragments :: delete_fragment('/categories', ${category.id}, 'category', ${category.hasChildren == false})}" />
 						</td>
 					</tr>
 				</tbody>
@@ -54,18 +55,18 @@
 		<div class="less-details">
 			<div th:each="category : ${listCategories}" class="row m-1">
 				<div class="col-4">
-					<img th:replace="fragments :: image_fragment(${category.imagePath})" />
+					<img th:replace="~{fragments :: image_fragment(${category.imagePath})}" />
 				</div>
 				<div class="col-8">
-					<div th:replace="fragments :: name_fragment(${category.name})"></div>
+					<div th:replace="~{fragments :: name_fragment(${category.name})}"></div>
 					<div class="mt-2">
 						<div
-							th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />
+							th:replace="~{fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})}" />
 						&nbsp;
-						<div th:replace="fragments :: edit_fragment('/categories', ${category.id}, 'category')" />
+						<div th:replace="~{fragments :: edit_fragment('/categories', ${category.id}, 'category')}" />
 						&nbsp;
 						<div
-							th:replace="fragments :: delete_fragment('/categories', ${category.id}, 'category', ${category.hasChildren == false})" />
+							th:replace="~{fragments :: delete_fragment('/categories', ${category.id}, 'category', ${category.hasChildren == false})}" />
 					</div>
 				</div>
 			</div>
@@ -73,15 +74,15 @@
 
 		<div th:if="${keyword != null}" class="text-center">
 			<span>Search results do not show categories in hierarchical form</span>
-			<div th:replace="fragments :: pagination('/categories', 'categories')" />
+			<div th:replace="~{fragments :: pagination('/categories', 'categories')}" />
 		</div>
 		<div th:if="${keyword == null}">
-			<div th:replace="fragments :: pagination('/categories', 'top-level categories')" />
+			<div th:replace="~{fragments :: pagination('/categories', 'top-level categories')}" />
 		</div>
 
-		<div th:replace="modal_fragments :: deleteModalDialog" />
+		<div th:replace="~{modal_fragments :: deleteModalDialog}" />
 
-		<div th:replace="fragments :: footer" />
+		<div th:replace="~{fragments :: footer}" />
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function () {
