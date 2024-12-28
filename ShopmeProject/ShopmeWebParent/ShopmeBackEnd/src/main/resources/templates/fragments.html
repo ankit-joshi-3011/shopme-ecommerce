@@ -39,20 +39,20 @@
 			<nav>
 				<ul class="pagination justify-content-center flex-wrap">
 					<li th:class="${pageNumber > 1 ? 'page-item' : 'page-item disabled'}">
-						<a th:replace="fragments :: page_link(${moduleUrl}, 1, 'First')" />
+						<a th:replace="~{fragments :: page_link(${moduleUrl}, 1, 'First')}" />
 					</li>
 					<li th:class="${pageNumber > 1 ? 'page-item' : 'page-item disabled'}">
-						<a th:replace="fragments :: page_link(${moduleUrl}, ${pageNumber - 1}, 'Previous')" />
+						<a th:replace="~{fragments :: page_link(${moduleUrl}, ${pageNumber - 1}, 'Previous')}" />
 					</li>
 					<li th:class="${pageNumber != i ? 'page-item' : 'page-item active'}"
 						th:each="i : ${#numbers.sequence(1, totalPages)}">
-						<a th:replace="fragments :: page_link(${moduleUrl}, ${i}, ${i})" />
+						<a th:replace="~{fragments :: page_link(${moduleUrl}, ${i}, ${i})}" />
 					</li>
 					<li th:class="${pageNumber < totalPages ? 'page-item' : 'page-item disabled'}">
-						<a th:replace="fragments :: page_link(${moduleUrl}, ${pageNumber + 1}, 'Next')" />
+						<a th:replace="~{fragments :: page_link(${moduleUrl}, ${pageNumber + 1}, 'Next')}" />
 					</li>
 					<li th:class="${pageNumber < totalPages ? 'page-item' : 'page-item disabled'}">
-						<a th:replace="fragments :: page_link(${moduleUrl}, ${totalPages}, 'Last')" />
+						<a th:replace="~{fragments :: page_link(${moduleUrl}, ${totalPages}, 'Last')}" />
 					</li>
 				</ul>
 			</nav>

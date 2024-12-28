@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Users - Shopme Admin')" />
+<head th:replace="~{fragments :: page_head('Users - Shopme Admin')}" />
 
 <body>
 	<div class="container-fluid">
-		<div th:replace="navigation :: menu" />
+		<div th:replace="~{navigation :: menu}" />
 		<div>
 			<h1>Manage Users</h1>
 			<a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-dark mr-2"></a>
-			<a th:replace="fragments :: csv_fragment('/users')" />
+			<a th:replace="~{fragments :: csv_fragment('/users')}" />
 			<a th:href="@{/users/export/excel}" class="fas fa-file-excel fa-2x icon-dark mr-2"></a>
 			<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark"></a>
 		</div>
 
-		<div th:replace="fragments :: search_form('/users')" />
+		<div th:replace="~{fragments :: search_form('/users')}" />
 
-		<div th:replace="fragments :: message_fragment" />
+		<div th:replace="~{fragments :: message_fragment}" />
 
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
 						<th class="hideable-column">
-							<th th:replace="fragments :: column_link('/users', 'id', 'User ID', 'tag')" />
+							<th th:replace="~{fragments :: column_link('/users', 'id', 'User ID', 'tag')}" />
 						</th>
 						<th>Photo</th>
 						<th class="hideable-column">
-							<th th:replace="fragments :: column_link('/users', 'email', 'E-mail', 'tag')" />
+							<th th:replace="~{fragments :: column_link('/users', 'email', 'E-mail', 'tag')}" />
 						</th>
-						<th th:replace="fragments :: column_link('/users', 'firstName', 'First Name', 'none')" />
-						<th th:replace="fragments :: column_link('/users', 'lastName', 'Last Name', 'none')" />
+						<th th:replace="~{fragments :: column_link('/users', 'firstName', 'First Name', 'none')}" />
+						<th th:replace="~{fragments :: column_link('/users', 'lastName', 'Last Name', 'none')}" />
 						<th>Roles</th>
-						<th th:replace="fragments :: column_link('/users', 'enabled', 'Enabled', 'none')" />
+						<th th:replace="~{fragments :: column_link('/users', 'enabled', 'Enabled', 'none')}" />
 						<th></th>
 					</tr>
 				</thead>
@@ -40,20 +40,20 @@
 					<tr th:each="user : ${listUsers}">
 						<td class="hideable-column">[[${user.id}]]</td>
 						<td>
-							<th:block th:replace="fragments :: user_image_fragment" />
+							<th:block th:replace="~{fragments :: user_image_fragment}" />
 						</td>
 						<td class="hideable-column">[[${user.email}]]</td>
 						<td>[[${user.firstName}]]</td>
 						<td>[[${user.lastName}]]</td>
-						<td><span th:replace="fragments :: user_roles_fragment" /></td>
+						<td><span th:replace="~{fragments :: user_roles_fragment}" /></td>
 						<td>
 							<div
-								th:replace="fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})" />
+								th:replace="~{fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})}" />
 						</td>
 						<td>
-							<div th:replace="fragments :: edit_fragment('/users', ${user.id}, 'user')" />
+							<div th:replace="~{fragments :: edit_fragment('/users', ${user.id}, 'user')}" />
 							&nbsp;
-							<div th:replace="fragments :: delete_fragment('/users', ${user.id}, 'user', true)" />
+							<div th:replace="~{fragments :: delete_fragment('/users', ${user.id}, 'user', true)}" />
 						</td>
 					</tr>
 				</tbody>
@@ -63,29 +63,29 @@
 		<div class="less-details">
 			<div th:each="user : ${listUsers}" class="row m-1">
 				<div class="col-4">
-					<th:block th:replace="fragments :: user_image_fragment" />
+					<th:block th:replace="~{fragments :: user_image_fragment}" />
 				</div>
 				<div class="col-8">
 					<div>[[${user.fullName}]]</div>
-					<div th:replace="fragments :: user_roles_fragment" />
+					<div th:replace="~{fragments :: user_roles_fragment}" />
 					<div class="mt-2">
 						<div
-							th:replace="fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})" />
+							th:replace="~{fragments :: enabled_fragment(${user.enabled}, 'user', '/users/' + ${user.id})}" />
 						&nbsp;
-						<div th:replace="fragments :: edit_fragment('/users', ${user.id}, 'user')" />
+						<div th:replace="~{fragments :: edit_fragment('/users', ${user.id}, 'user')}" />
 						&nbsp;
-						<div th:replace="fragments :: delete_fragment('/users', ${user.id}, 'user', true)" />
+						<div th:replace="~{fragments :: delete_fragment('/users', ${user.id}, 'user', true)}" />
 					</div>
 				</div>
 				<div>&nbsp;</div>
 			</div>
 		</div>
 
-		<div th:replace="fragments :: pagination('/users', 'users')" />
+		<div th:replace="~{fragments :: pagination('/users', 'users')}" />
 
-		<div th:replace="modal_fragments :: deleteModalDialog" />
+		<div th:replace="~{modal_fragments :: deleteModalDialog}" />
 
-		<div th:replace="fragments :: footer" />
+		<div th:replace="~{fragments :: footer}" />
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function () {
