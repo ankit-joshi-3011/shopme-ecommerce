@@ -8,7 +8,7 @@
 		<div th:replace="navigation :: menu" />
 		<div>
 			<h1>Manage Categories</h1>
-			<a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+			<a th:replace="fragments :: create_new_item('/categories')" />
 			<a th:replace="fragments :: csv_fragment('/categories')" />
 		</div>
 

@@ -113,6 +113,9 @@
 
 	<a th:fragment="csv_fragment(moduleUrl)" th:href="@{${moduleUrl} + '/export/csv'}"
 		class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+
+	<a th:fragment="create_new_item(moduleUrl)" th:href="@{${moduleUrl} + '/new'}"
+		class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
 </body>
 
 </html>
