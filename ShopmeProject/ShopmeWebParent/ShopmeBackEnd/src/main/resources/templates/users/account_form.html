@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Your Account Details')" />
+<head th:replace="~{fragments :: page_head('Your Account Details')}" />
 
 <body>
 	<div class="container-fluid">
-		<div th:replace="navigation :: menu" />
+		<div th:replace="~{navigation :: menu}" />
 
 		<form th:action="@{/account/update}" method="post" style="max-width: 700px; margin: 0 auto"
 			enctype="multipart/form-data" th:object="${user}">
@@ -83,7 +83,7 @@
 			</div>
 		</form>
 
-		<div th:replace="fragments :: footer" />
+		<div th:replace="~{fragments :: footer}" />
 	</div>
 	<script type="text/javascript">
 		moduleUrl = "[[@{/}]]"
