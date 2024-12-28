@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Brands - Shopme Admin')" />
+<head th:replace="~{fragments :: page_head('Brands - Shopme Admin')}" />
 
 <body>
 	<div class="container-fluid">
-		<div th:replace="navigation :: menu" />
+		<div th:replace="~{navigation :: menu}" />
 		<div>
 			<h1>Manage Brands</h1>
-			<a th:replace="fragments :: create_new_item('/brands')" />
-			<a th:replace="fragments :: csv_fragment('/brands')" />
+			<a th:replace="~{fragments :: create_new_item('/brands')}" />
+			<a th:replace="~{fragments :: csv_fragment('/brands')}" />
 		</div>
 
-		<div th:replace="fragments :: search_form('/brands')" />
+		<div th:replace="~{fragments :: search_form('/brands')}" />
 
-		<div th:replace="fragments :: message_fragment" />
+		<div th:replace="~{fragments :: message_fragment}" />
 
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -22,7 +22,7 @@
 					<tr>
 						<th>Brand ID</th>
 						<th>Logo</th>
-						<th th:replace="fragments :: column_link('/brands', 'name', 'Brand Name', 'none')" />
+						<th th:replace="~{fragments :: column_link('/brands', 'name', 'Brand Name', 'none')}" />
 						<th class="hideable-column">Categories</th>
 						<th></th>
 					</tr>
@@ -31,18 +31,18 @@
 					<tr th:each="brand : ${listBrands}">
 						<td>[[${brand.id}]]</td>
 						<td>
-							<img th:replace="fragments :: image_fragment(${brand.logoImagePath})" />
+							<img th:replace="~{fragments :: image_fragment(${brand.logoImagePath})}" />
 						</td>
-						<td><span th:replace="fragments :: name_fragment(${brand.name})"></td>
+						<td><span th:replace="~{fragments :: name_fragment(${brand.name})}"></td>
 						<td class="hideable-column">
 							<th:block th:each="category : ${brand.categories}">
 								<span class="badge badge-secondary" th:text="${category.name}" />
 							</th:block>
 						</td>
 						<td>
-							<div th:replace="fragments :: edit_fragment('/brands', ${brand.id}, 'brand')" />
+							<div th:replace="~{fragments :: edit_fragment('/brands', ${brand.id}, 'brand')}" />
 							&nbsp;
-							<div th:replace="fragments :: delete_fragment('/brands', ${brand.id}, 'brand', true)" />
+							<div th:replace="~{fragments :: delete_fragment('/brands', ${brand.id}, 'brand', true)}" />
 						</td>
 					</tr>
 				</tbody>
@@ -52,26 +52,26 @@
 		<div class="less-details">
 			<div th:each="brand : ${listBrands}" class="row m-1">
 				<div class="col-4">
-					<img th:replace="fragments :: image_fragment(${brand.logoImagePath})" />
+					<img th:replace="~{fragments :: image_fragment(${brand.logoImagePath})}" />
 				</div>
 				<div class="col-8">
-					<div th:replace="fragments :: name_fragment(${brand.name})"></div>
+					<div th:replace="~{fragments :: name_fragment(${brand.name})}"></div>
 					<div class="mt-2">
-						<div th:replace="fragments :: edit_fragment('/brands', ${brand.id}, 'brand')" />
+						<div th:replace="~{fragments :: edit_fragment('/brands', ${brand.id}, 'brand')}" />
 						&nbsp;
-						<div th:replace="fragments :: delete_fragment('/brands', ${brand.id}, 'brand', true)" />
+						<div th:replace="~{fragments :: delete_fragment('/brands', ${brand.id}, 'brand', true)}" />
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="text-center">
-			<div th:replace="fragments :: pagination('/brands', 'brands')" />
+			<div th:replace="~{fragments :: pagination('/brands', 'brands')}" />
 		</div>
 
-		<div th:replace="modal_fragments :: deleteModalDialog" />
+		<div th:replace="~{modal_fragments :: deleteModalDialog}" />
 
-		<div th:replace="fragments :: footer" />
+		<div th:replace="~{fragments :: footer}" />
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function () {
