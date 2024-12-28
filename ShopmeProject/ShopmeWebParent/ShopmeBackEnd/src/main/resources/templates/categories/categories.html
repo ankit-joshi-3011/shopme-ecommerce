@@ -32,7 +32,7 @@
 					<tr th:each="category : ${listCategories}">
 						<td>[[${category.id}]]</td>
 						<td>
-							<img th:replace="fragments :: category_image_fragment" />
+							<img th:replace="fragments :: image_fragment(${category.imagePath})" />
 						</td>
 						<td><span th:replace="fragments :: category_name_fragment"></td>
 						<td class="hideable-column">[[${category.alias}]]</td>
@@ -54,7 +54,7 @@
 		<div class="less-details">
 			<div th:each="category : ${listCategories}" class="row m-1">
 				<div class="col-4">
-					<img th:replace="fragments :: category_image_fragment" />
+					<img th:replace="fragments :: image_fragment(${category.imagePath})" />
 				</div>
 				<div class="col-8">
 					<div th:replace="fragments :: category_name_fragment"></div>

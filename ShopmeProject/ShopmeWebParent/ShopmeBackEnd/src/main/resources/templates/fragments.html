@@ -85,8 +85,7 @@
 
 	<span th:fragment="category_name_fragment">[[${category.name}]]</span>
 
-	<img th:fragment="category_image_fragment" th:src="@{${category.imagePath}}" style="width: 100px"
-		class="img-fluid" />
+	<img th:fragment="image_fragment(imagePath)" th:src="@{${imagePath}}" style="width: 100px" class="img-fluid" />
 
 	<th:block th:fragment="enabled_fragment(enabled, entityName, entityUrl)">
 		<a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green"
