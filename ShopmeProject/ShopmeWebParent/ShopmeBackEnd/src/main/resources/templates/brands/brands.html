@@ -34,7 +34,11 @@
 							<img th:replace="fragments :: image_fragment(${brand.logoImagePath})" />
 						</td>
 						<td><span th:replace="fragments :: name_fragment(${brand.name})"></td>
-						<td class="hideable-column">[[${brand.categories}]]</td>
+						<td class="hideable-column">
+							<th:block th:each="category : ${brand.categories}">
+								<span class="badge badge-secondary" th:text="${category.name}" />
+							</th:block>
+						</td>
 						<td>
 							<div th:replace="fragments :: edit_fragment('/brands', ${brand.id}, 'brand')" />
 							&nbsp;
