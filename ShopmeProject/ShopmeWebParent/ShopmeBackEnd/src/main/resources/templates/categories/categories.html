@@ -34,7 +34,7 @@
 						<td>
 							<img th:replace="fragments :: image_fragment(${category.imagePath})" />
 						</td>
-						<td><span th:replace="fragments :: category_name_fragment"></td>
+						<td><span th:replace="fragments :: name_fragment(${category.name})"></td>
 						<td class="hideable-column">[[${category.alias}]]</td>
 						<td>
 							<div
@@ -57,7 +57,7 @@
 					<img th:replace="fragments :: image_fragment(${category.imagePath})" />
 				</div>
 				<div class="col-8">
-					<div th:replace="fragments :: category_name_fragment"></div>
+					<div th:replace="fragments :: name_fragment(${category.name})"></div>
 					<div class="mt-2">
 						<div
 							th:replace="fragments :: enabled_fragment(${category.enabled}, 'category', '/categories/' + ${category.id})" />

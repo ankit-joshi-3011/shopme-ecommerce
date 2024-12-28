@@ -83,7 +83,7 @@
 
 	<span th:fragment="user_roles_fragment">[[${user.roles}]]</span>
 
-	<span th:fragment="category_name_fragment">[[${category.name}]]</span>
+	<span th:fragment="name_fragment(name)">[[${name}]]</span>
 
 	<img th:fragment="image_fragment(imagePath)" th:src="@{${imagePath}}" style="width: 100px" class="img-fluid" />
 
