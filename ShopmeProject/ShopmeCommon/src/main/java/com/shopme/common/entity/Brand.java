@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "brands")
@@ -73,5 +74,14 @@ public class Brand {
 	@Override
 	public String toString() {
 		return "Brand [id=" + id + ", name=" + name + ", logo=" + logo + ", categories=" + categories + "]";
+	}
+
+	@Transient
+	public String getLogoImagePath() {
+		if (id == null || logo == null) {
+			return "/images/MissingImage.png";
+		}
+
+		return "/brand-images/" + id + "/" + logo;
 	}
 }
