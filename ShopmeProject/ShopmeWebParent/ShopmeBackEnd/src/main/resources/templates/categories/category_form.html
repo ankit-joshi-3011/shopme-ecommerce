@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head(${pageTitle})" />
+<head th:replace="~{fragments :: page_head(${pageTitle})}" />
 
 <body>
 	<div class="container-fluid">
-		<div th:replace="navigation :: menu" />
+		<div th:replace="~{navigation :: menu}" />
 		<div>
 			<h1>Manage Categories | [[${pageTitle}]]</h1>
 		</div>
@@ -69,9 +69,9 @@
 			</div>
 		</form>
 
-		<div th:replace="modal_fragments :: modal_dialog" />
+		<div th:replace="~{modal_fragments :: modal_dialog}" />
 
-		<div th:replace="fragments :: footer" />
+		<div th:replace="~{fragments :: footer}" />
 	</div>
 	<script type="text/javascript">
 		moduleUrl = "[[@{/categories}]]"
