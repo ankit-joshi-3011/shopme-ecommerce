@@ -24,4 +24,16 @@ public class BrandService {
 
 		return returnedBrands;
 	}
+
+	public String checkUnique(Integer id, String name) {
+		boolean isCreatingNewBrand = (id == null || id == 0);
+
+		Brand brandByName = brandRepository.findByName(name);
+
+		if (brandByName != null && (isCreatingNewBrand || brandByName.getId() != id)) {
+			return "DuplicateName";
+		}
+
+		return "OK";
+	}
 }
