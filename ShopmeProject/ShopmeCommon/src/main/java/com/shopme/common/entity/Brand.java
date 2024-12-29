@@ -82,6 +82,6 @@ public class Brand {
 			return "/images/MissingImage.png";
 		}
 
-		return "/brand-images/" + id + "/" + logo;
+		return "/brand-logo-images/" + id + "/" + logo;
 	}
 }
