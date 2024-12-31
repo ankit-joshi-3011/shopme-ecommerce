@@ -11,28 +11,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfigurer implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		String userPhotosDirectoryName = "user-photos";
+		String[] directoryNames = new String[] { "user-photos", "category-images", "brand-logo-images" };
+		boolean[] parentDirectoryOrCurrentDirectory = new boolean[] { false, true, true };
 
-		Path userPhotosDirectory = Paths.get(userPhotosDirectoryName);
-		String userPhotosPath = userPhotosDirectory.toFile().getAbsolutePath();
+		for (int i = 0; i < directoryNames.length; i++) {
+			Path directoryPath = Paths.get((parentDirectoryOrCurrentDirectory[i] ? "../" : "") + directoryNames[i]);
 
-		registry.addResourceHandler("/" + userPhotosDirectoryName + "/**")
-			.addResourceLocations("file:/" + userPhotosPath + "/");
+			String filePath = directoryPath.toFile().getAbsolutePath();
 
-		String categoryImagesDirectoryName = "category-images";
-
-		Path categoryImagesDirectory = Paths.get("../" + categoryImagesDirectoryName);
-		String categoryImagesPath = categoryImagesDirectory.toFile().getAbsolutePath();
-
-		registry.addResourceHandler("/" + categoryImagesDirectoryName + "/**")
-			.addResourceLocations("file:/" + categoryImagesPath + "/");
-
-		String brandImagesDirectoryName = "brand-logo-images";
-
-		Path brandImagesDirectory = Paths.get("../" + brandImagesDirectoryName);
-		String brandImagesPath = brandImagesDirectory.toFile().getAbsolutePath();
-
-		registry.addResourceHandler("/" + brandImagesDirectoryName + "/**")
-			.addResourceLocations("file:/" + brandImagesPath + "/");
+			registry.addResourceHandler("/" + directoryNames[i] + "/**")
+				.addResourceLocations("file:/" + filePath + "/");
+		}
 	}
 }
