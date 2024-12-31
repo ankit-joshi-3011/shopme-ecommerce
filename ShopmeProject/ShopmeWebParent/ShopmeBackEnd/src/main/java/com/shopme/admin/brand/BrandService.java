@@ -2,8 +2,11 @@ package com.shopme.admin.brand;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Service;
 
+import com.shopme.admin.brand.exception.BrandNotFoundException;
 import com.shopme.common.entity.Brand;
 
 @Service
@@ -39,5 +42,13 @@ public class BrandService {
 
 	public Brand save(Brand brand) {
 		return brandRepository.save(brand);
+	}
+
+	public Brand get(Integer id) throws BrandNotFoundException {
+		try {
+			return brandRepository.findById(id).get();
+		} catch (NoSuchElementException ex) {
+			throw new BrandNotFoundException("Could not find any brand with ID " + id);
+		}
 	}
 }
