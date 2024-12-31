@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.brand.BrandService;
+import com.shopme.admin.brand.exception.BrandNotFoundException;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
@@ -69,5 +71,22 @@ public class BrandController {
 		attributes.addFlashAttribute("message", "The brand has been saved successfully.");
 
 		return "redirect:/brands";
+	}
+
+	@GetMapping("/brands/edit/{id}")
+	public String editBrand(@PathVariable Integer id, RedirectAttributes attributes, Model model) {
+		try {
+			Brand brand = brandService.get(id);
+			List<Category> listCategories = categoryService.listCategoriesInForm();
+
+			model.addAttribute("brand", brand);
+			model.addAttribute("listCategories", listCategories);
+			model.addAttribute("pageTitle", "Edit Brand (ID: " + id + ")");
+
+			return "brands/brand_form";
+		} catch (BrandNotFoundException ex) {
+			attributes.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/brands";
+		}
 	}
 }
