@@ -79,7 +79,7 @@ public class Brand {
 	@Transient
 	public String getLogoImagePath() {
 		if (id == null || logo == null) {
-			return "/images/MissingImage.png";
+			return null;
 		}
 
 		return "/brand-logo-images/" + id + "/" + logo;
