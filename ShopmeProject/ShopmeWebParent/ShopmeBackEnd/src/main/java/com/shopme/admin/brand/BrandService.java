@@ -36,4 +36,8 @@ public class BrandService {
 
 		return "OK";
 	}
+
+	public Brand save(Brand brand) {
+		return brandRepository.save(brand);
+	}
 }
