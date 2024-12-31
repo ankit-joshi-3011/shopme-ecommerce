@@ -51,4 +51,14 @@ public class BrandService {
 			throw new BrandNotFoundException("Could not find any brand with ID " + id);
 		}
 	}
+
+	public void delete(Integer id) throws BrandNotFoundException {
+		Long countById = brandRepository.countById(id);
+
+		if (countById == null || countById == 0) {
+			throw new BrandNotFoundException("Could not find any brand with ID " + id);
+		}
+
+		brandRepository.deleteById(id);
+	}
 }
