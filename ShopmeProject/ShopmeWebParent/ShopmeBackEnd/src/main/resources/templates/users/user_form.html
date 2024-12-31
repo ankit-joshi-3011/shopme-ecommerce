@@ -72,7 +72,7 @@
 						<input type="hidden" th:field="*{photos}" />
 						<input type="file" id="fileImage" name="image" class="mb-2" accept="image/png, image/jpeg" />
 						<img id="thumbnail" class="img-fluid" alt="Photo Thumbnail"
-							th:src="@{${user.photosImagePath}}" />
+							th:src="@{${user.photosImagePath == null ? '/images/MissingImage.png' : user.photosImagePath}}" />
 					</div>
 				</div>
 
