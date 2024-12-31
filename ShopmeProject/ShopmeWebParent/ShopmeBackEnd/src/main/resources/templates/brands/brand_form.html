@@ -72,13 +72,16 @@
 			dropdownCategories = $("#categories");
 			chosenCategoriesDiv = $("#chosenCategories");
 
+			showChosenCategories();
+
 			dropdownCategories.change(function () {
-				chosenCategoriesDiv.empty();
 				showChosenCategories();
 			});
 		});
 
 		function showChosenCategories() {
+			chosenCategoriesDiv.empty();
+
 			dropdownCategories.children("option:selected").each(function () {
 				selectedCategory = $(this);
 				selectedCategoryId = selectedCategory.val();
