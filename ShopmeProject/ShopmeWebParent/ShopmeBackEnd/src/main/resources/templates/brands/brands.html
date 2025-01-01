@@ -20,21 +20,21 @@
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-						<th>Brand ID</th>
+						<th class="hideable-column">Brand ID</th>
 						<th>Logo</th>
 						<th th:replace="~{fragments :: column_link('/brands', 'name', 'Brand Name', 'none')}" />
-						<th class="hideable-column">Categories</th>
+						<th>Categories</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="brand : ${listBrands}">
-						<td>[[${brand.id}]]</td>
+						<td class="hideable-column">[[${brand.id}]]</td>
 						<td>
 							<img th:replace="~{fragments :: image_fragment(${brand.logoImagePath})}" />
 						</td>
 						<td><span th:replace="~{fragments :: name_fragment(${brand.name})}"></td>
-						<td class="hideable-column">
+						<td>
 							<th:block th:each="category : ${brand.categories}">
 								<span class="badge badge-secondary" th:text="${category.name}" />
 							</th:block>
