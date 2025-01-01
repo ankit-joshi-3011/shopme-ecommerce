@@ -18,10 +18,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.brand.BrandService;
 import com.shopme.admin.brand.exception.BrandNotFoundException;
+import com.shopme.admin.brand.export.BrandCsvExporter;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.user.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class BrandController {
@@ -144,5 +147,14 @@ public class BrandController {
 		}
 
 		return "redirect:/brands";
+	}
+
+	@GetMapping("/brands/export/csv")
+	public void exportToCsv(HttpServletResponse response) throws IOException {
+		List<Brand> listBrand = brandService.listAllBrands();
+
+		BrandCsvExporter exporter = new BrandCsvExporter();
+
+		exporter.export(listBrand, response);
 	}
 }
