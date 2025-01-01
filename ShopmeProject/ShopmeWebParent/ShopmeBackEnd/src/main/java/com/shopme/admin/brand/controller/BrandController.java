@@ -3,6 +3,8 @@ package com.shopme.admin.brand.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,7 @@ import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.brand.BrandService;
 import com.shopme.admin.brand.exception.BrandNotFoundException;
 import com.shopme.admin.category.CategoryService;
+import com.shopme.admin.user.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
 
@@ -31,10 +34,47 @@ public class BrandController {
 	}
 
 	@GetMapping("/brands")
-	public String listAllBrands(Model model) {
-		List<Brand> listBrands = brandService.listAllBrands();
+	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
+		return listByPage(1, sortDir, null, model);
+	}
 
+	@GetMapping("/brands/page/{pageNumber}")
+	public String listByPage(@PathVariable int pageNumber, @Param("sortDir") String sortDir, @Param("keyword") String keyword, Model model) {
+		if (pageNumber <= 0) {
+			throw new PageOutOfBoundsException();
+		}
+
+		if (sortDir == null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
+
+		Page<Brand> listBrands = brandService.listBrandsByPage(pageNumber, sortDir, keyword);
+
+		int totalPages = listBrands.getTotalPages();
+
+		if (pageNumber > totalPages) {
+			throw new PageOutOfBoundsException();
+		}
+
+		long startCount = (pageNumber - 1) * BrandService.BRANDS_PER_PAGE + 1;
+		long endCount = startCount + BrandService.BRANDS_PER_PAGE - 1;
+
+		long totalElements = listBrands.getTotalElements();
+
+		if (endCount > totalElements) {
+			endCount = totalElements;
+		}
+
+		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("listBrands", listBrands);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalItems", totalElements);
+		model.addAttribute("sortField", "name");
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("keyword", keyword);
 
 		return "brands/brands";
 	}
