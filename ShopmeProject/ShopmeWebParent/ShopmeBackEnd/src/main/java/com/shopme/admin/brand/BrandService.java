@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.brand.exception.BrandNotFoundException;
@@ -11,6 +15,8 @@ import com.shopme.common.entity.Brand;
 
 @Service
 public class BrandService {
+	public static final int BRANDS_PER_PAGE = 7;
+
 	private BrandRepository brandRepository;
 
 	public BrandService(BrandRepository brandRepository) {
@@ -60,5 +66,18 @@ public class BrandService {
 		}
 
 		brandRepository.deleteById(id);
+	}
+
+	public Page<Brand> listBrandsByPage(int pageNumber, String sortDir, String keyword) {
+		Sort sort = Sort.by("name");
+		boolean ascendingOrDescending = !sortDir.equals("desc");
+
+		Pageable pageable = PageRequest.of(pageNumber - 1, BRANDS_PER_PAGE, (ascendingOrDescending ? sort.ascending() : sort.descending()));
+
+		if (keyword != null && !keyword.isEmpty()) {
+			return brandRepository.findAll(keyword, pageable);
+		}
+
+		return brandRepository.findAll(pageable);
 	}
 }
