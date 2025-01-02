@@ -34,6 +34,10 @@ public class BrandService {
 		return returnedBrands;
 	}
 
+	public List<Brand> getBrandsWithIdAndNameInformation() {
+		return brandRepository.getBrandsWithIdAndNameInformation();
+	}
+
 	public String checkUnique(Integer id, String name) {
 		boolean isCreatingNewBrand = (id == null || id == 0);
 
