@@ -25,4 +25,9 @@ public class ProductController {
 
 		return "products/products";
 	}
+
+	@GetMapping("/products/new")
+	public String newProduct(Model model) {
+		return "products/product_form";
+	}
 }
