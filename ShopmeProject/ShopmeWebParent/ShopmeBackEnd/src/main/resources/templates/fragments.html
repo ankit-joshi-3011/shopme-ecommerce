@@ -120,6 +120,11 @@
 
 	<a th:fragment="create_new_item(moduleUrl)" th:href="@{${moduleUrl} + '/new'}"
 		class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+
+	<div th:fragment="save_and_cancel_buttons_fragment" class="text-center">
+		<input type="submit" value="Save" class="btn btn-primary m-3" />
+		<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel" />
+	</div>
 </body>
 
 </html>
