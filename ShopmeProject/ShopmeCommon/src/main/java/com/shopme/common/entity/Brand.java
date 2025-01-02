@@ -39,6 +39,11 @@ public class Brand {
 		this.logo = logo;
 	}
 
+	public Brand(Integer id, String name) {
+		this(name, null);
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
