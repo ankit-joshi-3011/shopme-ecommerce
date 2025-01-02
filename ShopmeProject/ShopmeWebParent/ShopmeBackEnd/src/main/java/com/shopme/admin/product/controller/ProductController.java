@@ -11,15 +11,15 @@ import com.shopme.common.entity.Product;
 
 @Controller
 public class ProductController {
-	private ProductService service;
+	private ProductService productService;
 
-	public ProductController(ProductService service) {
-		this.service = service;
+	public ProductController(ProductService productService) {
+		this.productService = productService;
 	}
 
 	@GetMapping("/products")
 	public String listAll(Model model) {
-		List<Product> listProducts = service.listAll();
+		List<Product> listProducts = productService.listAll();
 
 		model.addAttribute("listProducts", listProducts);
 
