@@ -53,6 +53,32 @@
 	</div>
 	<script type="text/javascript">
 		moduleUrl = "[[@{/products}]]";
+		brandModuleUrl = "[[@{/brands}]]"
+
+		$(document).ready(function () {
+			dropDownBrands = $("#brand");
+			dropDownCategories = $("#category");
+
+			getCategories();
+
+			dropDownBrands.change(function () {
+				getCategories();
+			});
+		});
+
+		function getCategories() {
+			dropDownCategories.empty();
+
+			brandId = dropDownBrands.val();
+
+			url = brandModuleUrl + "/" + brandId + "/categories";
+
+			$.get(url, function (responseJson) {
+				$.each(responseJson, function (index, category) {
+					$("<option>").val(category.id).text(category.name).appendTo(dropDownCategories);
+				});
+			});
+		}
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 </body>
