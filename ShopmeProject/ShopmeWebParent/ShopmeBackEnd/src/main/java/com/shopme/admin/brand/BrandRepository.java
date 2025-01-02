@@ -19,5 +19,5 @@ public interface BrandRepository extends PagingAndSortingRepository<Brand, Integ
 	public Page<Brand> findAll(String keyword, Pageable pageable);
 
 	@Query("SELECT NEW Brand(b.id, b.name) FROM Brand b ORDER BY b.name ASC")
-	public List<Brand> findAll();
+	public List<Brand> getBrandsWithIdAndNameInformation();
 }
