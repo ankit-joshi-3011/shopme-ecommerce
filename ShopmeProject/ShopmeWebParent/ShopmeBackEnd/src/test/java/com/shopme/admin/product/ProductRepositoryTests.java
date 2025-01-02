@@ -3,6 +3,7 @@ package com.shopme.admin.product;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,42 @@ public class ProductRepositoryTests {
 		Product savedProduct = repository.save(product);
 
 		assertThat(savedProduct.getId()).isGreaterThan(0);
+	}
+
+	@Test
+	public void testListAllProducts() {
+		Iterable<Product> allProducts = repository.findAll();
+
+		allProducts.forEach(product -> System.out.println(product));
+	}
+
+	@Test
+	public void testGetProduct() {
+		Product samsungGalaxy = repository.findById(1).get();
+
+		System.out.println(samsungGalaxy);
+	}
+
+	@Test
+	public void testUpdateProduct() {
+		Product samsungGalaxy = repository.findById(1).get();
+		samsungGalaxy.setEnabled(true);
+		samsungGalaxy.setInStock(true);
+		samsungGalaxy.setPrice(25000);
+
+		repository.save(samsungGalaxy);
+
+		Product updatedProduct = entityManager.find(Product.class, 1);
+
+		assertThat(updatedProduct.getPrice()).isEqualTo(25000);
+	}
+
+	@Test
+	public void testDeleteProduct() {
+		repository.deleteById(1);
+
+		Optional<Product> product = repository.findById(1);
+
+		assertThat(!product.isPresent());
 	}
 }
