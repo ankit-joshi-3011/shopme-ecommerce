@@ -20,7 +20,7 @@ import com.shopme.admin.category.CategoryPageInformation;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.category.exception.CategoryNotFoundException;
 import com.shopme.admin.category.export.CategoryCsvExporter;
-import com.shopme.admin.user.exception.PageOutOfBoundsException;
+import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Category;
 import jakarta.servlet.http.HttpServletResponse;
 

@@ -1,4 +1,4 @@
-package com.shopme.admin.user.exception;
+package com.shopme.admin.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
