@@ -207,4 +207,9 @@ public class Product {
 	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + "]";
+	}
 }
