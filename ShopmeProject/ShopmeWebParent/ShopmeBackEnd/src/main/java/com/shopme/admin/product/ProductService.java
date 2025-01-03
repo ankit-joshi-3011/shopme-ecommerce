@@ -1,6 +1,7 @@
 package com.shopme.admin.product;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -28,5 +29,24 @@ public class ProductService {
 		}
 
 		return returnedProducts;
+	}
+
+	public Product save(Product product) {
+		Date currentDate = new Date();
+
+		if (product.getId() == null) {
+			product.setCreatedTime(currentDate);
+		}
+
+		if (product.getAlias() == null || product.getAlias().isEmpty()) {
+			String defaultAlias = product.getName().replace(" ", "-");
+			product.setAlias(defaultAlias);
+		} else {
+			product.setAlias(product.getAlias().replace(" ", "-"));
+		}
+
+		product.setUpdatedTime(currentDate);
+
+		return productRepository.save(product);
 	}
 }
