@@ -34,7 +34,7 @@ function showExtraImageThumbnail(fileInput, index) {
 
 function addNextExtraImageSection(index) {
 	htmlExtraImageSection = `
-		<div class="col border m-3 p-2">
+		<div class="col border m-3 p-2" id="divExtraImageSection${index}">
 			<div id="extraImageHeader${index}">
 				<label>Extra Image #${index}:</label>
 			</div>
