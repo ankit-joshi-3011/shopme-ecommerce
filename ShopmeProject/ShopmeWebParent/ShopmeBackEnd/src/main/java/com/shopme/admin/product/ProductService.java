@@ -49,4 +49,21 @@ public class ProductService {
 
 		return productRepository.save(product);
 	}
+
+	public String checkUnique(Integer id, String name, String alias) {
+		boolean isCreatingNewProduct = (id == null || id == 0);
+
+		Product productByName = productRepository.findByName(name);
+		Product productByAlias = productRepository.findByAlias(alias);
+
+		if (productByName != null && (isCreatingNewProduct || productByName.getId() != id)) {
+			return "DuplicateName";
+		}
+
+		if (productByAlias != null && (isCreatingNewProduct || productByAlias.getId() != id)) {
+			return "DuplicateAlias";
+		}
+
+		return "OK";
+	}
 }
