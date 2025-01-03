@@ -65,6 +65,9 @@ public class Product {
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
 
+	@Column(name = "main_image", nullable = false)
+	private String mainImage;
+
 	public Integer getId() {
 		return id;
 	}
@@ -207,6 +210,14 @@ public class Product {
 
 	public void setBrand(Brand brand) {
 		this.brand = brand;
+	}
+
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
 	}
 
 	@Override
