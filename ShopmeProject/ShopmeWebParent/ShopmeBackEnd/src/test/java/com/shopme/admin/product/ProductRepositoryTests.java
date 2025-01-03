@@ -87,4 +87,22 @@ public class ProductRepositoryTests {
 
 		assertThat(!product.isPresent());
 	}
+
+	@Test
+	public void testFindByName() {
+		String name = "Acer Desktop";
+		Product product = repository.findByName(name);
+
+		assertThat(product).isNotNull();
+		assertThat(product.getName()).isEqualTo(name);
+	}
+
+	@Test
+	public void testFindByAlias() {
+		String alias = "Dell-Inspiron-7770";
+		Product product = repository.findByAlias(alias);
+
+		assertThat(product).isNotNull();
+		assertThat(product.getAlias()).isEqualTo(alias);
+	}
 }
