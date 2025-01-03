@@ -109,6 +109,12 @@ public class ProductController {
 		try {
 			productService.delete(id);
 
+			String productExtraImagesDirectory = "../product-images/" + id + "/extras";
+			FileUploadUtility.removeDirectory(productExtraImagesDirectory);
+
+			String productImagesDirectory = "../product-images/" + id;
+			FileUploadUtility.removeDirectory(productImagesDirectory);
+
 			attributes.addFlashAttribute("message", "The product ID " + id + " has been deleted successfully");
 		} catch (ProductNotFoundException ex) {
 			attributes.addFlashAttribute("message", ex.getMessage());
