@@ -1,6 +1,7 @@
 package com.shopme.admin.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -55,19 +56,39 @@ public class ProductController {
 	}
 
 	@PostMapping("/products/save")
-	public String saveProduct(Product product, RedirectAttributes attributes, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
-		if (!multipartFile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			product.setMainImage(fileName);
+	public String saveProduct(Product product, RedirectAttributes attributes, @RequestParam("fileImage") MultipartFile mainImageMultipartFile, @RequestParam("extraImage") MultipartFile[] extraImageMultipartFiles) throws IOException {
+		String mainImageFileName = null;
 
-			Product savedProduct = productService.save(product);
+		if (!mainImageMultipartFile.isEmpty()) {
+			mainImageFileName = StringUtils.cleanPath(mainImageMultipartFile.getOriginalFilename());
+			product.setMainImage(mainImageFileName);
+		}
 
-			String uploadDirectory = "../product-images/" + savedProduct.getId();
+		List<String> validExtraImageFileNames = new ArrayList<>();
+		List<MultipartFile> validExtraImageMultipartFiles = new ArrayList<>();
 
+		for (MultipartFile extraImageMultipartFile : extraImageMultipartFiles) {
+			if (!extraImageMultipartFile.isEmpty()) {
+				String extraImageFileName = StringUtils.cleanPath(extraImageMultipartFile.getOriginalFilename());
+				validExtraImageFileNames.add(extraImageFileName);
+				validExtraImageMultipartFiles.add(extraImageMultipartFile);
+				product.addImage(extraImageFileName);
+			}
+		}
+
+		Product savedProduct = productService.save(product);
+
+		String uploadDirectory = "../product-images/" + savedProduct.getId();
+
+		if (mainImageFileName != null) {
 			FileUploadUtility.cleanDirectory(uploadDirectory);
-			FileUploadUtility.saveFile(uploadDirectory, fileName, multipartFile);
-		} else {
-			productService.save(product);
+			FileUploadUtility.saveFile(uploadDirectory, mainImageFileName, mainImageMultipartFile);
+		}
+
+		uploadDirectory = "../product-images/" + savedProduct.getId() + "/extras";
+
+		for (int i = 0; i < validExtraImageFileNames.size(); i++) {
+			FileUploadUtility.saveFile(uploadDirectory, validExtraImageFileNames.get(i), validExtraImageMultipartFiles.get(i));
 		}
 
 		attributes.addFlashAttribute("message", "The product has been saved successfully.");
