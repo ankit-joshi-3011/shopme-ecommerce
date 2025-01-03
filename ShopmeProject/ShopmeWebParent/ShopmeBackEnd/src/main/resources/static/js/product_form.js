@@ -33,9 +33,9 @@ function showExtraImageThumbnail(fileInput, index) {
 }
 
 function addNextExtraImageSection(index) {
-	html = `
+	htmlExtraImageSection = `
 		<div class="col border m-3 p-2">
-			<div>
+			<div id="extraImageHeader${index}">
 				<label>Extra Image #${index}:</label>
 			</div>
 			<div class="m-2">
@@ -48,7 +48,7 @@ function addNextExtraImageSection(index) {
 		</div>
 	`;
 
-	$("#divProductImages").append(html);
+	$("#divProductImages").append(htmlExtraImageSection);
 }
 
 function getCategories() {
