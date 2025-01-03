@@ -49,12 +49,17 @@ function addNextExtraImageSection(index) {
 	`;
 
 	htmlLinkRemove = `
-		<a class="btn fas fa-times-circle fa-2x icon-dark float-right" title="Remove this image"></a>
+		<a class="btn fas fa-times-circle fa-2x icon-dark float-right" title="Remove this image"
+			href="javascript:removeExtraImage(${index - 1})"></a>
 	`;
 
 	$("#divProductImages").append(htmlExtraImageSection);
 
 	$("#extraImageHeader" + (index - 1)).append(htmlLinkRemove);
+}
+
+function removeExtraImage(index) {
+	$("#divExtraImageSection" + index).remove();
 }
 
 function getCategories() {
