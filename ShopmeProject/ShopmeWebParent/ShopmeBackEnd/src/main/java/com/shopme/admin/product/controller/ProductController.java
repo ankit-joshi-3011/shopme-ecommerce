@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.brand.BrandService;
 import com.shopme.admin.product.ProductService;
+import com.shopme.admin.product.exception.ProductNotFoundException;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Product;
 
@@ -61,6 +62,19 @@ public class ProductController {
 	public String updateProductEnabledStatus(@PathVariable Integer id, @PathVariable boolean status, RedirectAttributes attributes) {
 		productService.updateProductEnabledStatus(id, status);
 		attributes.addFlashAttribute("message", "The product ID " + id + " has been " + (status ? "enabled" : "disabled"));
+
+		return "redirect:/products";
+	}
+
+	@GetMapping("/products/delete/{id}")
+	public String deleteProduct(@PathVariable Integer id, RedirectAttributes attributes) {
+		try {
+			productService.delete(id);
+
+			attributes.addFlashAttribute("message", "The product ID " + id + " has been deleted successfully");
+		} catch (ProductNotFoundException ex) {
+			attributes.addFlashAttribute("message", ex.getMessage());
+		}
 
 		return "redirect:/products";
 	}
