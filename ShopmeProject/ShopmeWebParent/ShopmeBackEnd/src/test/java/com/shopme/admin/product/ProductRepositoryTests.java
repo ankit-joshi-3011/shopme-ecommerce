@@ -38,6 +38,7 @@ public class ProductRepositoryTests {
 		Product product = new Product();
 		product.setName("Samsung Galaxy A31");
 		product.setAlias("Samsung Galaxy A31");
+		product.setMainImage("MissingImage.png");
 		product.setShortDescription("A budget smartphone from Samsung");
 		product.setFullDescription("A budget smartphone from Samsung with all the essential features");
 		product.setBrand(samsung);
@@ -104,5 +105,19 @@ public class ProductRepositoryTests {
 
 		assertThat(product).isNotNull();
 		assertThat(product.getAlias()).isEqualTo(alias);
+	}
+
+	@Test
+	public void testSaveProductWithImages() {
+		Integer productId = 2;
+		Product product = repository.findById(productId).get();
+
+		product.addImage("extra-image-1.png");
+		product.addImage("extra-image-2.png");
+		product.addImage("extra-image-3.png");
+
+		Product savedProduct = repository.save(product);
+
+		assertThat(savedProduct.getImages().size()).isEqualTo(3);
 	}
 }
