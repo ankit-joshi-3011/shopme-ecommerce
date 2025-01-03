@@ -250,6 +250,10 @@ public class Product {
 
 	@Transient
 	public String getMainImagePath() {
+		if (id == null || mainImage == null) {
+			return "/images/MissingImage.png";
+		}
+
 		return "/product-images/" + id + "/" + mainImage;
 	}
 }
