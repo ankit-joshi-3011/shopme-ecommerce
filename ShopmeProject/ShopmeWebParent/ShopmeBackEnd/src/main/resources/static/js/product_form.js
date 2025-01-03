@@ -48,7 +48,13 @@ function addNextExtraImageSection(index) {
 		</div>
 	`;
 
+	htmlLinkRemove = `
+		<a class="btn fas fa-times-circle fa-2x icon-dark float-right" title="Remove this image"></a>
+	`;
+
 	$("#divProductImages").append(htmlExtraImageSection);
+
+	$("#extraImageHeader" + (index - 1)).append(htmlLinkRemove);
 }
 
 function getCategories() {
