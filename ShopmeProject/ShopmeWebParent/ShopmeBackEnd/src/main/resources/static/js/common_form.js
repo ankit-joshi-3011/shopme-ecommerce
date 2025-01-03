@@ -4,13 +4,7 @@ $(document).ready(function() {
 	});
 
 	$("#fileImage").change(function() {
-		filesize = this.files[0].size;
-
-		if (filesize > (1 * 1024 * 1024)) {
-			this.setCustomValidity("You must choose an image less than 1MB");
-			this.reportValidity();
-		} else {
-			this.setCustomValidity("");
+		if (checkFileSize(this)) {
 			showImageThumbnail(this);
 		}
 	});
@@ -24,6 +18,19 @@ function showImageThumbnail(fileInput) {
 	}
 
 	reader.readAsDataURL(file);
+}
+
+function checkFileSize(fileInput) {
+	filesize = fileInput.files[0].size;
+
+	if (filesize > (1 * 1024 * 1024)) {
+		fileInput.setCustomValidity("You must choose an image less than 1MB");
+		fileInput.reportValidity();
+		return false;
+	} else {
+		fileInput.setCustomValidity("");
+		return true;
+	}
 }
 
 function showModalDialog(title, message) {
