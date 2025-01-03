@@ -1,3 +1,5 @@
+var extraImagesCount = 0;
+
 $(document).ready(function() {
 	dropDownBrands = $("#brand");
 	dropDownCategories = $("#category");
@@ -12,6 +14,8 @@ $(document).ready(function() {
 	$("#fullDescription").richText();
 
 	$("input[name='extraImage']").each(function(index) {
+		extraImagesCount++;
+
 		$(this).change(function() {
 			showExtraImageThumbnail(this, index + 1);
 		});
@@ -28,7 +32,10 @@ function showExtraImageThumbnail(fileInput, index) {
 
 		reader.readAsDataURL(file);
 
-		addNextExtraImageSection(index + 1);
+		if (index == extraImagesCount) {
+			addNextExtraImageSection(index + 1);
+			extraImagesCount++;
+		}
 	}
 }
 
