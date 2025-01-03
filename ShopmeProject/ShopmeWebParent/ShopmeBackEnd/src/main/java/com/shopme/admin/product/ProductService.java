@@ -71,4 +71,8 @@ public class ProductService {
 
 		return alias.replace(" ", "-");
 	}
+
+	public void updateProductEnabledStatus(Integer id, boolean enabled) {
+		productRepository.updateEnabledStatus(id, enabled);
+	}
 }
