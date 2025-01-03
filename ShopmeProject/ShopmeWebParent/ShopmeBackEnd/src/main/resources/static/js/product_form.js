@@ -10,7 +10,46 @@ $(document).ready(function() {
 
 	$("#shortDescription").richText();
 	$("#fullDescription").richText();
+
+	$("input[name='extraImage']").each(function(index) {
+		$(this).change(function() {
+			showExtraImageThumbnail(this, index + 1);
+		});
+	});
 });
+
+function showExtraImageThumbnail(fileInput, index) {
+	if (checkFileSize(fileInput)) {
+		var file = fileInput.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#extraThumbnail" + index).attr("src", e.target.result);
+		}
+
+		reader.readAsDataURL(file);
+
+		addNextExtraImageSection(index + 1);
+	}
+}
+
+function addNextExtraImageSection(index) {
+	html = `
+		<div class="col border m-3 p-2">
+			<div>
+				<label>Extra Image #${index}:</label>
+			</div>
+			<div class="m-2">
+				<img id="extraThumbnail${index}" alt="Extra Image #${index} Preview" class="img-fluid"
+					src="${missingImageSrc}">
+			</div>
+			<div>
+				<input type="file" name="extraImage" accept="image/png, image/jpeg" onchange="showExtraImageThumbnail(this, ${index})" />
+			</div>
+		</div>
+	`;
+
+	$("#divProductImages").append(html);
+}
 
 function getCategories() {
 	dropDownCategories.empty();
