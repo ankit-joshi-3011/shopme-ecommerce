@@ -38,12 +38,7 @@ public class ProductService {
 			product.setCreatedTime(currentDate);
 		}
 
-		if (product.getAlias() == null || product.getAlias().isEmpty()) {
-			String defaultAlias = product.getName().replace(" ", "-");
-			product.setAlias(defaultAlias);
-		} else {
-			product.setAlias(product.getAlias().replace(" ", "-"));
-		}
+		product.setAlias(transformAlias(product.getName(), product.getAlias()));
 
 		product.setUpdatedTime(currentDate);
 
@@ -52,6 +47,8 @@ public class ProductService {
 
 	public String checkUnique(Integer id, String name, String alias) {
 		boolean isCreatingNewProduct = (id == null || id == 0);
+
+		alias = transformAlias(name, alias);
 
 		Product productByName = productRepository.findByName(name);
 		Product productByAlias = productRepository.findByAlias(alias);
@@ -65,5 +62,13 @@ public class ProductService {
 		}
 
 		return "OK";
+	}
+
+	private String transformAlias(String name, String alias) {
+		if (alias == null || alias.isEmpty()) {
+			return name.replace(" ", "-");
+		}
+
+		return alias.replace(" ", "-");
 	}
 }
