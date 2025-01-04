@@ -77,7 +77,7 @@ function getCategories() {
 	url = brandModuleUrl + "/" + brandId + "/categories";
 
 	$.get(url, function(responseJson) {
-		$.each(responseJson, function(index, category) {
+		$.each(responseJson, function(_index, category) {
 			$("<option>").val(category.id).text(category.name).appendTo(dropDownCategories);
 		});
 	});
