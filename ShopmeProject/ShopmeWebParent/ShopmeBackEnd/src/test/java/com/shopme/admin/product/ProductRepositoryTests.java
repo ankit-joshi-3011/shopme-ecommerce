@@ -120,4 +120,18 @@ public class ProductRepositoryTests {
 
 		assertThat(savedProduct.getImages().size()).isEqualTo(3);
 	}
+
+	@Test
+	public void testSaveProductWithDetails() {
+		Integer productId = 6;
+		Product product = repository.findById(productId).get();
+
+		product.addDetail("Memory Size", "8 GB");
+		product.addDetail("CPU Manufacturer", "Snapdragon");
+		product.addDetail("CPU Speed", "1.2 GHz");
+
+		Product savedProduct = repository.save(product);
+
+		assertThat(savedProduct.getDetails().size()).isEqualTo(3);
+	}
 }
