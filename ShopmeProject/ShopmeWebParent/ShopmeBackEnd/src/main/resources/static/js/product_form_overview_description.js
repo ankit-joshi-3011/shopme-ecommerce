@@ -2,7 +2,7 @@ $(document).ready(function() {
 	dropDownBrands = $("#brand");
 	dropDownCategories = $("#category");
 
-	getCategories();
+	getCategoriesForNewForm();
 
 	dropDownBrands.change(function() {
 		getCategories();
@@ -24,6 +24,14 @@ function getCategories() {
 			$("<option>").val(category.id).text(category.name).appendTo(dropDownCategories);
 		});
 	});
+}
+
+function getCategoriesForNewForm() {
+	var categoryIdField = $("#categoryId");
+
+	if (!categoryIdField.length) {
+		getCategories();
+	}
 }
 
 function checkUnique(form) {
