@@ -257,8 +257,9 @@ public class Product {
 		this.details = details;
 	}
 
-	public void addDetail(String name, String value) {
+	public void addDetail(Integer id, String name, String value) {
 		ProductDetail productDetail = new ProductDetail();
+		productDetail.setId(id);
 		productDetail.setName(name);
 		productDetail.setValue(value);
 		productDetail.setProduct(this);

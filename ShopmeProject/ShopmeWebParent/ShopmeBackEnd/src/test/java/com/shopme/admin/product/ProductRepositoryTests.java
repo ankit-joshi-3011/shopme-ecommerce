@@ -126,9 +126,9 @@ public class ProductRepositoryTests {
 		Integer productId = 6;
 		Product product = repository.findById(productId).get();
 
-		product.addDetail("Memory Size", "8 GB");
-		product.addDetail("CPU Manufacturer", "Snapdragon");
-		product.addDetail("CPU Speed", "1.2 GHz");
+		product.addDetail(null, "Memory Size", "8 GB");
+		product.addDetail(null, "CPU Manufacturer", "Snapdragon");
+		product.addDetail(null, "CPU Speed", "1.2 GHz");
 
 		Product savedProduct = repository.save(product);
 
