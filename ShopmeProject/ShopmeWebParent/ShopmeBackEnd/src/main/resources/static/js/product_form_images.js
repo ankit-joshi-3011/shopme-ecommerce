@@ -8,6 +8,12 @@ $(document).ready(function() {
 			showExtraImageThumbnail(this, index + 1);
 		});
 	});
+
+	$("a[name='linkRemoveExtraImage']").each(function(index) {
+		$(this).click(function() {
+			removeExtraImage(index + 1);
+		});
+	});
 });
 
 function showExtraImageThumbnail(fileInput, index) {
