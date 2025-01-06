@@ -36,11 +36,11 @@
 					<div>
 						<input type="file" name="extraImage" accept="image/png, image/jpeg" />
 					</div>
+					<input type="hidden" name="imageIds" th:id="'imageId' + ${status.index + 1}"
+						th:value="${productExtraImage.id}" />
+					<input type="hidden" name="imageNames" th:id="'imageName' + ${status.index + 1}"
+						th:value="${productExtraImage.name}" />
 				</div>
-				<input type="hidden" name="imageIds" th:id="'imageId' + ${status.index + 1}"
-					th:value="${productExtraImage.id}" />
-				<input type="hidden" name="imageNames" th:id="'imageName' + ${status.index + 1}"
-					th:value="${productExtraImage.name}" />
 			</th:block>
 
 			<div class="col border m-3 p-2" th:id="'divExtraImageSection' + ${#lists.size(product.images) + 1}">
