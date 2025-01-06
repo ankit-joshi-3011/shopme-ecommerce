@@ -75,7 +75,7 @@ public class Product {
 	@Column(name = "main_image", nullable = false)
 	private String mainImage;
 
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ProductImage> images = new HashSet<>();
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
