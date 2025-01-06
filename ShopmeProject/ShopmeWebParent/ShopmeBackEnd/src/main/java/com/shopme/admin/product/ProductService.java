@@ -37,6 +37,8 @@ public class ProductService {
 
 		if (product.getId() == null) {
 			product.setCreatedTime(currentDate);
+		} else {
+			product.setCreatedTime(productRepository.getCreatedTime(product.getId()));
 		}
 
 		product.setAlias(transformAlias(product.getName(), product.getAlias()));
