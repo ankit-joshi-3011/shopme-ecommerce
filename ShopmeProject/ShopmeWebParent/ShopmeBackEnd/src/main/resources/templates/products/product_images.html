@@ -39,13 +39,13 @@
 				</div>
 			</th:block>
 
-			<div class="col border m-3 p-2" th:id="'divExtraImageSection' + ${numberOfExistingExtraImages + 1}">
-				<div th:id="'extraImageHeader' + ${numberOfExistingExtraImages + 1}">
-					<label>Extra Image #[[${numberOfExistingExtraImages + 1}]]:</label>
+			<div class="col border m-3 p-2" th:id="'divExtraImageSection' + ${#lists.size(product.images) + 1}">
+				<div th:id="'extraImageHeader' + ${#lists.size(product.images) + 1}">
+					<label>Extra Image #[[${#lists.size(product.images) + 1}]]:</label>
 				</div>
 				<div class="m-2">
-					<img th:id="'extraThumbnail' + ${numberOfExistingExtraImages + 1}"
-						th:alt="'Extra Image #' + ${numberOfExistingExtraImages + 1} + ' Preview'" class="img-fluid"
+					<img th:id="'extraThumbnail' + ${#lists.size(product.images) + 1}"
+						th:alt="'Extra Image #' + ${#lists.size(product.images) + 1} + ' Preview'" class="img-fluid"
 						th:src="@{/images/MissingImage.png}">
 				</div>
 				<div>

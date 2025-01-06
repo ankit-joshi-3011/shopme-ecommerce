@@ -19,7 +19,7 @@
 						th:value="${productDetail.value}" />
 				</div>
 			</th:block>
-			<div class="form-inline" th:id="'divDetailSection' + ${numberOfExistingProductDetails + 1}">
+			<div class="form-inline" th:id="'divDetailSection' + ${#lists.size(product.details) + 1}">
 				<label class="m-3">Name:</label>
 				<input type="text" class="form-control w-25" name="detailNames" maxlength="255" />
 
