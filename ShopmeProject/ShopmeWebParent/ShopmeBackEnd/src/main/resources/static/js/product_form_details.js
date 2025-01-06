@@ -1,3 +1,11 @@
+$(document).ready(function() {
+	$("a[name='linkRemoveProductDetail']").each(function(index) {
+		$(this).click(function() {
+			removeDetailSectionByIndex(index + 1);
+		});
+	});
+});
+
 function addNextDetailSection() {
 	var allDivDetailSections = $("[id^='divDetail']");
 	var divDetailsCount = allDivDetailSections.length;
@@ -28,4 +36,8 @@ function addNextDetailSection() {
 
 function removeDetailSection(id) {
 	$("#" + id).remove();
+}
+
+function removeDetailSectionByIndex(index) {
+	$("#divDetailSection" + index).remove();
 }

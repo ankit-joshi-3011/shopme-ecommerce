@@ -17,6 +17,8 @@
 					<label class="m-3">Value:</label>
 					<input type="text" class="form-control w-25" name="detailValues" maxlength="255"
 						th:value="${productDetail.value}" />
+					<a name="linkRemoveProductDetail" class="btn fas fa-times-circle fa-2x icon-dark"
+						title="Remove this detail"></a>
 				</div>
 			</th:block>
 			<div class="form-inline" th:id="'divDetailSection' + ${#lists.size(product.details) + 1}">
