@@ -3,6 +3,7 @@ package com.shopme.common.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -277,5 +278,17 @@ public class Product {
 		}
 
 		return "/product-images/" + id + "/" + mainImage;
+	}
+
+	public boolean containsExtraImageName(String extraImageFileName) {
+		Iterator<ProductImage> iterator = images.iterator();
+
+		while (iterator.hasNext()) {
+			if (iterator.next().getName().equals(extraImageFileName)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
