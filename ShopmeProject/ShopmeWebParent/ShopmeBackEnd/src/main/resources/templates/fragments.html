@@ -100,7 +100,8 @@
 	</th:block>
 
 	<th:block th:fragment="product_detail_fragment_text">
-		<a th:href="@{'/products/detail/' + ${product.id}}" title="View details of this product">[[${product.name}]]</a>
+		<a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}"
+			title="View details of this product">[[${product.name}]]</a>
 	</th:block>
 
 	<th:block th:fragment="edit_fragment(entityUrl, entityId, entityName)">
