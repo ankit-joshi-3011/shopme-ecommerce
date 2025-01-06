@@ -43,7 +43,7 @@
 								th:replace="~{fragments :: enabled_fragment(${product.enabled}, 'product', '/products/' + ${product.id})}" />
 						</td>
 						<td>
-							<div th:replace="~{fragments :: product_detail_fragment}" />
+							<div th:replace="~{fragments :: product_detail_fragment_icon}" />
 							&nbsp;
 							<div th:replace="~{fragments :: edit_fragment('/products', ${product.id}, 'product')}" />
 							&nbsp;
@@ -63,7 +63,7 @@
 				<div class="col-8">
 					<div th:replace="~{fragments :: name_fragment(${product.name})}"></div>
 					<div class="mt-2">
-						<div th:replace="~{fragments :: product_detail_fragment}" />
+						<div th:replace="~{fragments :: product_detail_fragment_icon}" />
 						&nbsp;
 						<div th:replace="~{fragments :: edit_fragment('/products', ${product.id}, 'product')}" />
 						&nbsp;
