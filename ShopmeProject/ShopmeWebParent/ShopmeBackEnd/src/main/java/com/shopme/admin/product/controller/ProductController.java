@@ -98,7 +98,10 @@ public class ProductController {
 				String extraImageFileName = StringUtils.cleanPath(extraImageMultipartFile.getOriginalFilename());
 				validNewExtraImageFileNames.add(extraImageFileName);
 				validNewExtraImageMultipartFiles.add(extraImageMultipartFile);
-				product.addImage(extraImageFileName);
+
+				if (!product.containsExtraImageName(extraImageFileName)) {
+					product.addImage(extraImageFileName);
+				}
 			}
 		}
 
