@@ -51,7 +51,8 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("listBrands", listBrands);
 		model.addAttribute("pageTitle", "Create New Product");
-		model.addAttribute("numberOfExistingExtraImages", product.getImages().size());
+		model.addAttribute("numberOfExistingExtraImages", 0);
+		model.addAttribute("numberOfExistingProductDetails", 0);
 
 		return "products/product_form";
 	}
@@ -145,6 +146,7 @@ public class ProductController {
 			model.addAttribute("listBrands", listBrands);
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
 			model.addAttribute("numberOfExistingExtraImages", product.getImages().size());
+			model.addAttribute("numberOfExistingProductDetails", product.getDetails().size());
 
 			return "products/product_form";
 		} catch (ProductNotFoundException ex) {
