@@ -1,5 +1,7 @@
 package com.shopme.common.entity;
 
+import java.beans.Transient;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,5 +47,10 @@ public class ProductImage {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	@Transient
+	public String getExtraImagePath() {
+		return "/product-images/" + product.getId() + "/extras/" + name;
 	}
 }
