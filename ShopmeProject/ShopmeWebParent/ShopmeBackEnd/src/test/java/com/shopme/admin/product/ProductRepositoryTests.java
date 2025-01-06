@@ -134,4 +134,14 @@ public class ProductRepositoryTests {
 
 		assertThat(savedProduct.getDetails().size()).isEqualTo(3);
 	}
+
+	@Test
+	public void testGetProductCreationDate() {
+		Integer productId = 13;
+		Date createdTime = repository.getCreatedTime(productId);
+
+		Product product = repository.findById(productId).get();
+
+		assertThat(createdTime).isEqualTo(product.getCreatedTime());
+	}
 }
