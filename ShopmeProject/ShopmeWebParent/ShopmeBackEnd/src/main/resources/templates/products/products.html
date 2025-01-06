@@ -35,7 +35,7 @@
 						<td>
 							<img th:replace="~{fragments :: image_fragment(${product.mainImagePath})}" />
 						</td>
-						<td><span th:replace="~{fragments :: name_fragment(${product.name})}"></td>
+						<td><a th:replace="~{fragments :: product_detail_fragment_text}"></td>
 						<td>[[${product.brand.name}]]</td>
 						<td>[[${product.category.name}]]</td>
 						<td>

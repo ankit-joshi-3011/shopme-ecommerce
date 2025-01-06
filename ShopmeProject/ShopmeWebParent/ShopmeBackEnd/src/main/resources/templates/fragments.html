@@ -99,6 +99,10 @@
 			title="View details of this product"></a>
 	</th:block>
 
+	<th:block th:fragment="product_detail_fragment_text">
+		<a th:href="@{'/products/detail/' + ${product.id}}" title="View details of this product">[[${product.name}]]</a>
+	</th:block>
+
 	<th:block th:fragment="edit_fragment(entityUrl, entityId, entityName)">
 		<a class="fas fa-edit fa-2x icon-green" th:href="@{${entityUrl} + '/edit/' + ${entityId}}"
 			th:title="'Edit this ' + ${entityName}"></a>
