@@ -143,6 +143,7 @@ public class ProductController {
 			model.addAttribute("product", product);
 			model.addAttribute("listBrands", listBrands);
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
+			model.addAttribute("numberOfExistingExtraImages", product.getImages().size());
 
 			return "products/product_form";
 		} catch (ProductNotFoundException ex) {
