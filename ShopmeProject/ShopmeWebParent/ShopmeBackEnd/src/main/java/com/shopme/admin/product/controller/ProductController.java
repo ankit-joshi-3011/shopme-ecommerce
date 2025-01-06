@@ -64,7 +64,8 @@ public class ProductController {
 		@RequestParam(required = false) String[] detailNames,
 		@RequestParam(required = false) String[] detailValues,
 		@RequestParam(required = false) String[] imageIds,
-		@RequestParam(required = false) String[] imageNames) throws IOException {
+		@RequestParam(required = false) String[] imageNames,
+		@RequestParam(required = false) String[] detailIds) throws IOException {
 		String mainImageFileName = null;
 
 		if (!mainImageMultipartFile.isEmpty()) {
@@ -105,10 +106,14 @@ public class ProductController {
 			}
 		}
 
-		if (detailNames != null && detailValues != null && detailNames.length > 0 && detailValues.length > 0) {
+		if (detailNames != null && detailValues != null && detailIds != null
+			&& detailNames.length > 0 && detailValues.length > 0 && detailIds.length > 0) {
 			for (int i = 0; i < detailNames.length; i++) {
-				if (detailNames[i] != null && detailValues[i] != null && !detailNames[i].isEmpty() && !detailValues[i].isEmpty()) {
-					product.addDetail(detailNames[i], detailValues[i]);
+				if (detailNames[i] != null && detailValues[i] != null && detailIds[i] != null
+					&& !detailNames[i].isEmpty() && !detailValues[i].isEmpty() && !detailIds[i].isEmpty()) {
+					int detailId = Integer.parseInt(detailIds[i]);
+
+					product.addDetail(detailId == 0 ? null : detailId, detailNames[i], detailValues[i]);
 				}
 			}
 		}
