@@ -128,6 +128,14 @@ public class ProductController {
 			FileUploadUtility.saveFile(uploadDirectory, validNewExtraImageFileNames.get(i), validNewExtraImageMultipartFiles.get(i));
 		}
 
+		Set<String> namesOfExtraImageFilesToKeep = new HashSet<>();
+
+		for (ProductImage productImage : product.getImages()) {
+			namesOfExtraImageFilesToKeep.add(productImage.getName());
+		}
+
+		FileUploadUtility.deleteUnneededFiles(uploadDirectory, namesOfExtraImageFilesToKeep);
+
 		attributes.addFlashAttribute("message", "The product has been saved successfully.");
 
 		return "redirect:/products";
