@@ -32,6 +32,9 @@ public class Category {
 
 	private boolean enabled;
 
+	@Column(name = "all_parent_ids", nullable = true)
+	private String allParentIds;
+
 	@ManyToOne
 	@JoinColumn(name = "parent_id")
 	private Category parent;
@@ -109,6 +112,14 @@ public class Category {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getAllParentIds() {
+		return allParentIds;
+	}
+
+	public void setAllParentIds(String allParentIds) {
+		this.allParentIds = allParentIds;
 	}
 
 	public Category getParent() {
