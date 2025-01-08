@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.brand.BrandService;
+import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.admin.product.ProductService;
 import com.shopme.admin.product.exception.ProductNotFoundException;
 import com.shopme.common.entity.Brand;
@@ -35,10 +38,51 @@ public class ProductController {
 	}
 
 	@GetMapping("/products")
-	public String listAll(Model model) {
-		List<Product> listProducts = productService.listAll();
+	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
+		return listByPage(1, "name", sortDir, null, model);
+	}
 
+	@GetMapping("/products/page/{pageNumber}")
+	public String listByPage(@PathVariable int pageNumber, @Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword, Model model) {
+		if (pageNumber <= 0) {
+			throw new PageOutOfBoundsException();
+		}
+
+		if (sortField == null || sortField.isEmpty()) {
+			sortField = "name";
+		}
+
+		if (sortDir == null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
+
+		Page<Product> listProducts = productService.listProductsByPage(pageNumber, sortField, sortDir, keyword);
+
+		int totalPages = listProducts.getTotalPages();
+
+		if (pageNumber > totalPages) {
+			throw new PageOutOfBoundsException();
+		}
+
+		long startCount = (pageNumber - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+		long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+
+		long totalElements = listProducts.getTotalElements();
+
+		if (endCount > totalElements) {
+			endCount = totalElements;
+		}
+
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
 		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("totalItems", totalElements);
+		model.addAttribute("keyword", keyword);
 
 		return "products/products";
 	}
