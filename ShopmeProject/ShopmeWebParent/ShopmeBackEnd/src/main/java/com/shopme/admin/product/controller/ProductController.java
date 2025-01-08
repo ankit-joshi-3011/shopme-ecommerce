@@ -20,10 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.brand.BrandService;
+import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.admin.product.ProductService;
 import com.shopme.admin.product.exception.ProductNotFoundException;
 import com.shopme.common.entity.Brand;
+import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 import com.shopme.common.entity.ProductImage;
 
@@ -31,10 +33,12 @@ import com.shopme.common.entity.ProductImage;
 public class ProductController {
 	private ProductService productService;
 	private BrandService brandService;
+	private CategoryService categoryService;
 
-	public ProductController(ProductService productService, BrandService brandService) {
+	public ProductController(ProductService productService, BrandService brandService, CategoryService categoryService) {
 		this.productService = productService;
 		this.brandService = brandService;
+		this.categoryService = categoryService;
 	}
 
 	@GetMapping("/products")
@@ -58,6 +62,8 @@ public class ProductController {
 
 		Page<Product> listProducts = productService.listProductsByPage(pageNumber, sortField, sortDir, keyword);
 
+		List<Category> listCategories = categoryService.listCategoriesInForm();
+
 		int totalPages = listProducts.getTotalPages();
 
 		if (pageNumber > totalPages) {
@@ -78,6 +84,7 @@ public class ProductController {
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
 		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
