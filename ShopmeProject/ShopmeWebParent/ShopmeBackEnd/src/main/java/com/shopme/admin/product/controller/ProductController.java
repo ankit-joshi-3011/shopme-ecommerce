@@ -43,11 +43,12 @@ public class ProductController {
 
 	@GetMapping("/products")
 	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
-		return listByPage(1, "name", sortDir, null, model);
+		return listByPage(1, "name", sortDir, null, 0, model);
 	}
 
 	@GetMapping("/products/page/{pageNumber}")
-	public String listByPage(@PathVariable int pageNumber, @Param("sortField") String sortField, @Param("sortDir") String sortDir, @Param("keyword") String keyword, Model model) {
+	public String listByPage(@PathVariable int pageNumber, @Param("sortField") String sortField, @Param("sortDir") String sortDir,
+		@Param("keyword") String keyword, @Param("categoryId") Integer categoryId, Model model) {
 		if (pageNumber <= 0) {
 			throw new PageOutOfBoundsException();
 		}
