@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.product.exception.ProductNotFoundException;
@@ -14,6 +18,8 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class ProductService {
+	public static final int PRODUCTS_PER_PAGE = 5;
+
 	private ProductRepository productRepository;
 
 	public ProductService(ProductRepository productRepository) {
@@ -91,5 +97,18 @@ public class ProductService {
 
 	public Product get(Integer id) throws ProductNotFoundException {
 		return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Could not find any product with ID " + id));
+	}
+
+	public Page<Product> listProductsByPage(int pageNumber, String sortField, String sortDir, String keyword) {
+		Sort sort = Sort.by(sortField);
+		boolean ascendingOrDescending = !sortDir.equals("desc");
+
+		Pageable pageable = PageRequest.of(pageNumber - 1, PRODUCTS_PER_PAGE, (ascendingOrDescending ? sort.ascending() : sort.descending()));
+
+		if (keyword != null && !keyword.isEmpty()) {
+			return productRepository.findAll(keyword, pageable);
+		}
+
+		return productRepository.findAll(pageable);
 	}
 }
