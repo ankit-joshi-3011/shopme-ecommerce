@@ -99,7 +99,7 @@ public class ProductService {
 		return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Could not find any product with ID " + id));
 	}
 
-	public Page<Product> listProductsByPage(int pageNumber, String sortField, String sortDir, String keyword) {
+	public Page<Product> listProductsByPage(int pageNumber, String sortField, String sortDir, String keyword, Integer categoryId) {
 		Sort sort = Sort.by(sortField);
 		boolean ascendingOrDescending = !sortDir.equals("desc");
 
@@ -107,6 +107,13 @@ public class ProductService {
 
 		if (keyword != null && !keyword.isEmpty()) {
 			return productRepository.findAll(keyword, pageable);
+		}
+
+		if (categoryId != null && categoryId > 0) {
+			StringBuilder categoryIdMatcherBuilder = new StringBuilder();
+			categoryIdMatcherBuilder.append("-").append(categoryId).append("-");
+
+			return productRepository.findAllInCategory(categoryId, categoryIdMatcherBuilder.toString(), pageable);
 		}
 
 		return productRepository.findAll(pageable);

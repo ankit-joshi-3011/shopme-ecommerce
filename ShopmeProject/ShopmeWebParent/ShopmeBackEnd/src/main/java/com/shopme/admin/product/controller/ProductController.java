@@ -61,7 +61,7 @@ public class ProductController {
 			sortDir = "asc";
 		}
 
-		Page<Product> listProducts = productService.listProductsByPage(pageNumber, sortField, sortDir, keyword);
+		Page<Product> listProducts = productService.listProductsByPage(pageNumber, sortField, sortDir, keyword, categoryId);
 
 		List<Category> listCategories = categoryService.listCategoriesInForm();
 
