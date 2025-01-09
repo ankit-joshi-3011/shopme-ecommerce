@@ -22,7 +22,7 @@
 	</th>
 
 	<a th:fragment="page_link(moduleUrl, pageNum, label)" class="page-link"
-		th:href="@{${moduleUrl} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+		th:href="@{${moduleUrl} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${selectedCategoryId != null ? '&categoryId=' + selectedCategoryId : ''} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
 	<div th:fragment="footer" class="text-center m-3">
 		<p>Shopme Control Panel - Copyright &copy; Shopme</p>
