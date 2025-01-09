@@ -92,6 +92,10 @@ public class ProductController {
 		model.addAttribute("totalItems", totalElements);
 		model.addAttribute("keyword", keyword);
 
+		if (categoryId != null) {
+			model.addAttribute("selectedCategoryId", categoryId);
+		}
+
 		return "products/products";
 	}
 
