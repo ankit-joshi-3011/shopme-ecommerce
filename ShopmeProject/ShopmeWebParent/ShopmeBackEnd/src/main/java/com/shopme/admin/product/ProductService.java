@@ -54,6 +54,20 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
+	public Product savePricingInformation(Product productInForm) throws ProductNotFoundException {
+		Product productInDatabase = get(productInForm.getId());
+
+		productInDatabase.setCost(productInForm.getCost());
+		productInDatabase.setPrice(productInForm.getPrice());
+		productInDatabase.setDiscountPercent(productInForm.getDiscountPercent());
+
+		Date currentDate = new Date();
+		productInDatabase.setCreatedTime(productRepository.getCreatedTime(productInForm.getId()));
+		productInDatabase.setUpdatedTime(currentDate);
+
+		return productRepository.save(productInDatabase);
+	}
+
 	public String checkUnique(Integer id, String name, String alias) {
 		boolean isCreatingNewProduct = (id == null || id == 0);
 
