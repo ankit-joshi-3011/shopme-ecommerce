@@ -54,7 +54,13 @@
 						</th:block>
 					</div>
 					<div class="tab-pane" id="images" role="tabpanel">
-						<div th:replace="~{products/product_images :: content}" />
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+							<div th:replace="~{products/product_images :: content}" />
+						</th:block>
+
+						<th:block sec:authorize="hasAuthority('Salesperson')">
+							<div th:replace="~{products/product_images_read_only :: content}"></div>
+						</th:block>
 					</div>
 					<div class="tab-pane p-3" id="details" role="tabpanel">
 						<div th:replace="~{products/product_details :: content}" />
