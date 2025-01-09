@@ -75,11 +75,16 @@
 						</td>
 						<td>
 							<div th:replace="~{fragments :: product_detail_fragment_icon}" />
-							&nbsp;
-							<div th:replace="~{fragments :: edit_fragment('/products', ${product.id}, 'product')}" />
-							&nbsp;
-							<div
-								th:replace="~{fragments :: delete_fragment('/products', ${product.id}, 'product', true)}" />
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+								&nbsp;
+								<div
+									th:replace="~{fragments :: edit_fragment('/products', ${product.id}, 'product')}" />
+							</th:block>
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+								&nbsp;
+								<div
+									th:replace="~{fragments :: delete_fragment('/products', ${product.id}, 'product', true)}" />
+							</th:block>
 						</td>
 					</tr>
 				</tbody>
