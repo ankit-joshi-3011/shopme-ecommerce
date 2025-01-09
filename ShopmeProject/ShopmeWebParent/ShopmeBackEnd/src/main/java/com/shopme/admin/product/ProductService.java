@@ -105,17 +105,22 @@ public class ProductService {
 
 		Pageable pageable = PageRequest.of(pageNumber - 1, PRODUCTS_PER_PAGE, (ascendingOrDescending ? sort.ascending() : sort.descending()));
 
-		if (keyword != null && !keyword.isEmpty()) {
-			return productRepository.findAll(keyword, pageable);
-		}
+		boolean isKeywordValid = keyword != null && !keyword.isEmpty();
+		boolean isCategoryIdValid = categoryId != null && categoryId > 0;
 
-		if (categoryId != null && categoryId > 0) {
+		if (isCategoryIdValid) {
 			StringBuilder categoryIdMatcherBuilder = new StringBuilder();
 			categoryIdMatcherBuilder.append("-").append(categoryId).append("-");
 
-			return productRepository.findAllInCategory(categoryId, categoryIdMatcherBuilder.toString(), pageable);
+			if (isKeywordValid) {
+				return productRepository.findAllInCategoryByKeyword(categoryId, categoryIdMatcherBuilder.toString(), keyword, pageable);
+			} else {
+				return productRepository.findAllInCategory(categoryId, categoryIdMatcherBuilder.toString(), pageable);
+			}
+		} else if (isKeywordValid) {
+			return productRepository.findAll(keyword, pageable);
+		} else {
+			return productRepository.findAll(pageable);
 		}
-
-		return productRepository.findAll(pageable);
 	}
 }
