@@ -15,7 +15,7 @@
 
 <body>
 	<th th:fragment="column_link(moduleUrl, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
-		<a th:href="@{${moduleUrl} + '/page/' + ${pageNumber} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}"
+		<a th:href="@{${moduleUrl} + '/page/' + ${pageNumber} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${selectedCategoryId != null ? '&categoryId=' + selectedCategoryId : ''} + ${keyword != null ? '&keyword=' + keyword : ''}}"
 			class="text-white">[[${columnLabel}]]</a>
 		<span th:if="${sortField == fieldName}"
 			th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
