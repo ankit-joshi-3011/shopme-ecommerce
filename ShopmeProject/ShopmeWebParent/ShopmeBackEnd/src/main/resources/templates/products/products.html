@@ -56,7 +56,9 @@
 						<th th:replace="~{fragments :: column_link('/products', 'brand.name', 'Brand', 'none')}" />
 						<th
 							th:replace="~{fragments :: column_link('/products', 'category.name', 'Category', 'none')}" />
-						<th>Enabled</th>
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+							<th>Enabled</th>
+						</th:block>
 						<th></th>
 					</tr>
 				</thead>
@@ -69,10 +71,12 @@
 						<td><a th:replace="~{fragments :: product_detail_fragment_text}"></td>
 						<td>[[${product.brand.name}]]</td>
 						<td>[[${product.category.name}]]</td>
-						<td>
-							<div
-								th:replace="~{fragments :: enabled_fragment(${product.enabled}, 'product', '/products/' + ${product.id})}" />
-						</td>
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+							<td>
+								<div
+									th:replace="~{fragments :: enabled_fragment(${product.enabled}, 'product', '/products/' + ${product.id})}" />
+							</td>
+						</th:block>
 						<td>
 							<div th:replace="~{fragments :: product_detail_fragment_icon}" />
 							<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
