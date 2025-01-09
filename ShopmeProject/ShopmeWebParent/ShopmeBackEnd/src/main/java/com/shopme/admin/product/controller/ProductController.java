@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -24,6 +25,7 @@ import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.admin.product.ProductService;
 import com.shopme.admin.product.exception.ProductNotFoundException;
+import com.shopme.admin.security.ShopmeUserDetails;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
@@ -115,87 +117,93 @@ public class ProductController {
 	}
 
 	@PostMapping("/products/save")
-	public String saveProduct(Product product, RedirectAttributes attributes, @RequestParam("fileImage") MultipartFile mainImageMultipartFile,
-		@RequestParam("extraImage") MultipartFile[] extraImageMultipartFiles,
+	public String saveProduct(Product product, RedirectAttributes attributes,
+		@RequestParam(value = "fileImage", required = false) MultipartFile mainImageMultipartFile,
+		@RequestParam(value = "extraImage", required = false) MultipartFile[] extraImageMultipartFiles,
 		@RequestParam(required = false) String[] detailNames,
 		@RequestParam(required = false) String[] detailValues,
 		@RequestParam(required = false) String[] imageIds,
 		@RequestParam(required = false) String[] imageNames,
-		@RequestParam(required = false) String[] detailIds) throws IOException {
-		String mainImageFileName = null;
+		@RequestParam(required = false) String[] detailIds,
+		@AuthenticationPrincipal ShopmeUserDetails loggedInUser) throws IOException, ProductNotFoundException {
+		if (loggedInUser.hasRole("Salesperson")) {
+			productService.savePricingInformation(product);
+		} else {
+			String mainImageFileName = null;
 
-		if (!mainImageMultipartFile.isEmpty()) {
-			mainImageFileName = StringUtils.cleanPath(mainImageMultipartFile.getOriginalFilename());
-			product.setMainImage(mainImageFileName);
-		}
-
-		if (imageIds != null && imageIds.length > 0 && imageNames != null && imageNames.length > 0) {
-			Set<ProductImage> images = new HashSet<>();
-
-			for (int i = 0; i < imageIds.length; i++) {
-				int id = Integer.parseInt(imageIds[i]);
-				String name = imageNames[i];
-
-				ProductImage image = new ProductImage();
-				image.setId(id);
-				image.setName(name);
-				image.setProduct(product);
-
-				images.add(image);
+			if (!mainImageMultipartFile.isEmpty()) {
+				mainImageFileName = StringUtils.cleanPath(mainImageMultipartFile.getOriginalFilename());
+				product.setMainImage(mainImageFileName);
 			}
 
-			product.setImages(images);
-		}
+			if (imageIds != null && imageIds.length > 0 && imageNames != null && imageNames.length > 0) {
+				Set<ProductImage> images = new HashSet<>();
 
-		List<String> validNewExtraImageFileNames = new ArrayList<>();
-		List<MultipartFile> validNewExtraImageMultipartFiles = new ArrayList<>();
+				for (int i = 0; i < imageIds.length; i++) {
+					int id = Integer.parseInt(imageIds[i]);
+					String name = imageNames[i];
 
-		for (MultipartFile extraImageMultipartFile : extraImageMultipartFiles) {
-			if (!extraImageMultipartFile.isEmpty()) {
-				String extraImageFileName = StringUtils.cleanPath(extraImageMultipartFile.getOriginalFilename());
-				validNewExtraImageFileNames.add(extraImageFileName);
-				validNewExtraImageMultipartFiles.add(extraImageMultipartFile);
+					ProductImage image = new ProductImage();
+					image.setId(id);
+					image.setName(name);
+					image.setProduct(product);
 
-				if (!product.containsExtraImageName(extraImageFileName)) {
-					product.addImage(extraImageFileName);
+					images.add(image);
+				}
+
+				product.setImages(images);
+			}
+
+			List<String> validNewExtraImageFileNames = new ArrayList<>();
+			List<MultipartFile> validNewExtraImageMultipartFiles = new ArrayList<>();
+
+			for (MultipartFile extraImageMultipartFile : extraImageMultipartFiles) {
+				if (!extraImageMultipartFile.isEmpty()) {
+					String extraImageFileName = StringUtils.cleanPath(extraImageMultipartFile.getOriginalFilename());
+					validNewExtraImageFileNames.add(extraImageFileName);
+					validNewExtraImageMultipartFiles.add(extraImageMultipartFile);
+
+					if (!product.containsExtraImageName(extraImageFileName)) {
+						product.addImage(extraImageFileName);
+					}
 				}
 			}
-		}
 
-		if (detailNames != null && detailValues != null && detailIds != null
-			&& detailNames.length > 0 && detailValues.length > 0 && detailIds.length > 0) {
-			for (int i = 0; i < detailNames.length; i++) {
-				if (detailNames[i] != null && detailValues[i] != null && detailIds[i] != null
-					&& !detailNames[i].isEmpty() && !detailValues[i].isEmpty() && !detailIds[i].isEmpty()) {
-					int detailId = Integer.parseInt(detailIds[i]);
+			if (detailNames != null && detailValues != null && detailIds != null
+				&& detailNames.length > 0 && detailValues.length > 0 && detailIds.length > 0) {
+				for (int i = 0; i < detailNames.length; i++) {
+					if (detailNames[i] != null && detailValues[i] != null && detailIds[i] != null
+						&& !detailNames[i].isEmpty() && !detailValues[i].isEmpty() && !detailIds[i].isEmpty()) {
+						int detailId = Integer.parseInt(detailIds[i]);
 
-					product.addDetail(detailId == 0 ? null : detailId, detailNames[i], detailValues[i]);
+						product.addDetail(detailId == 0 ? null : detailId, detailNames[i], detailValues[i]);
+					}
 				}
 			}
+
+			Product savedProduct = productService.save(product);
+
+			String uploadDirectory = "../product-images/" + savedProduct.getId();
+
+			if (mainImageFileName != null) {
+				FileUploadUtility.cleanDirectory(uploadDirectory);
+				FileUploadUtility.saveFile(uploadDirectory, mainImageFileName, mainImageMultipartFile);
+			}
+
+			uploadDirectory = "../product-images/" + savedProduct.getId() + "/extras";
+
+			for (int i = 0; i < validNewExtraImageFileNames.size(); i++) {
+				FileUploadUtility.saveFile(uploadDirectory, validNewExtraImageFileNames.get(i), validNewExtraImageMultipartFiles.get(i));
+			}
+
+			Set<String> namesOfExtraImageFilesToKeep = new HashSet<>();
+
+			for (ProductImage productImage : product.getImages()) {
+				namesOfExtraImageFilesToKeep.add(productImage.getName());
+			}
+
+			FileUploadUtility.deleteUnneededFiles(uploadDirectory, namesOfExtraImageFilesToKeep);
 		}
-
-		Product savedProduct = productService.save(product);
-
-		String uploadDirectory = "../product-images/" + savedProduct.getId();
-
-		if (mainImageFileName != null) {
-			FileUploadUtility.cleanDirectory(uploadDirectory);
-			FileUploadUtility.saveFile(uploadDirectory, mainImageFileName, mainImageMultipartFile);
-		}
-
-		uploadDirectory = "../product-images/" + savedProduct.getId() + "/extras";
-
-		for (int i = 0; i < validNewExtraImageFileNames.size(); i++) {
-			FileUploadUtility.saveFile(uploadDirectory, validNewExtraImageFileNames.get(i), validNewExtraImageMultipartFiles.get(i));
-		}
-
-		Set<String> namesOfExtraImageFilesToKeep = new HashSet<>();
-
-		for (ProductImage productImage : product.getImages()) {
-			namesOfExtraImageFilesToKeep.add(productImage.getName());
-		}
-
-		FileUploadUtility.deleteUnneededFiles(uploadDirectory, namesOfExtraImageFilesToKeep);
 
 		attributes.addFlashAttribute("message", "The product has been saved successfully.");
 
