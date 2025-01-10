@@ -25,11 +25,14 @@ import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.admin.product.ProductService;
 import com.shopme.admin.product.exception.ProductNotFoundException;
+import com.shopme.admin.product.export.ProductCsvExporter;
 import com.shopme.admin.security.ShopmeUserDetails;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 import com.shopme.common.entity.ProductImage;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class ProductController {
@@ -266,5 +269,14 @@ public class ProductController {
 			attributes.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/products";
 		}
+	}
+
+	@GetMapping("/products/export/csv")
+	public void exportToCsv(HttpServletResponse response) throws IOException {
+		List<Product> listProduct = productService.listAll();
+
+		ProductCsvExporter exporter = new ProductCsvExporter();
+
+		exporter.export(listProduct, response);
 	}
 }
