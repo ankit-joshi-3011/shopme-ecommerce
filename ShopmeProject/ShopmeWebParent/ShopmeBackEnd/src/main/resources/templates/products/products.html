@@ -105,7 +105,7 @@
 					<img th:replace="~{fragments :: image_fragment(${product.mainImagePath})}" />
 				</div>
 				<div class="col-8">
-					<div th:replace="~{fragments :: name_fragment(${product.name})}"></div>
+					<div><a th:replace="~{fragments :: product_detail_fragment_text}"></div>
 					<div class="mt-2">
 						<div th:replace="~{fragments :: product_detail_fragment_icon}" />
 						&nbsp;
