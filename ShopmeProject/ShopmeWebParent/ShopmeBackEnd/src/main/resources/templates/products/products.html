@@ -53,9 +53,13 @@
 						</th>
 						<th>Main Image</th>
 						<th th:replace="~{fragments :: column_link('/products', 'name', 'Product Name', 'none')}" />
-						<th th:replace="~{fragments :: column_link('/products', 'brand.name', 'Brand', 'none')}" />
-						<th
-							th:replace="~{fragments :: column_link('/products', 'category.name', 'Category', 'none')}" />
+						<th class="hideable-column">
+							<th th:replace="~{fragments :: column_link('/products', 'brand.name', 'Brand', 'tag')}" />
+						</th>
+						<th class="hideable-column">
+							<th
+								th:replace="~{fragments :: column_link('/products', 'category.name', 'Category', 'tag')}" />
+						</th>
 						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
 							<th>Enabled</th>
 						</th:block>
@@ -69,8 +73,8 @@
 							<img th:replace="~{fragments :: image_fragment(${product.mainImagePath})}" />
 						</td>
 						<td><a th:replace="~{fragments :: product_detail_fragment_text}"></td>
-						<td>[[${product.brand.name}]]</td>
-						<td>[[${product.category.name}]]</td>
+						<td class="hideable-column">[[${product.brand.name}]]</td>
+						<td class="hideable-column">[[${product.category.name}]]</td>
 						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
 							<td>
 								<div
