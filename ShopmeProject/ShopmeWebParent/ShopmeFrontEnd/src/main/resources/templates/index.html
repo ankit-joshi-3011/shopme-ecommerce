@@ -6,6 +6,20 @@
 <body>
 	<div class="container-fluid">
 		<div th:replace="~{navigation :: header_menu}" />
+
+		<div>
+			<h1>Shop by Categories</h1>
+		</div>
+
+		<div class="row">
+			<div class="col" th:each="category : ${listCategories}">
+				<div>
+					<img th:src="@{${category.imagePath}}" width="100px" />
+					<a th:href="@{${'/category/' + category.alias}}">[[${category.name}]]</a>
+				</div>
+			</div>
+		</div>
+
 		<div th:replace="~{navigation :: footer_menu}" />
 		<div th:replace="~{fragments :: footer}" />
 	</div>
