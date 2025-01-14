@@ -26,7 +26,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/category/{category_alias}")
-	public String viewCategory(@PathVariable("category_alias") String alias, Model model) {
+	public String viewCategoryByPage(@PathVariable("category_alias") String alias, Model model) {
 		int pageNumber = 1;
 
 		if (pageNumber <= 0) {
