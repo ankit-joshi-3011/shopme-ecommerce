@@ -35,4 +35,24 @@ public class CategoryService {
 	public Category getCategory(String alias) {
 		return repository.findByAliasEnabled(alias);
 	}
+
+	public List<Category> getParentsOfCategoryIncludingCategory(Category category) {
+		List<Category> listParentsIncludingCategory = new ArrayList<>();
+
+		listParentsIncludingCategory.add(category);
+
+		while (true) {
+			Category parent = category.getParent();
+
+			if (parent == null) {
+				break;
+			}
+
+			listParentsIncludingCategory.add(0, parent);
+
+			category = parent;
+		}
+
+		return listParentsIncludingCategory;
+	}
 }
