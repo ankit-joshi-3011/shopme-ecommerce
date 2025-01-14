@@ -1,4 +1,4 @@
-package com.shopme.site.product;
+package com.shopme.site.product.controller;
 
 import java.util.List;
 
