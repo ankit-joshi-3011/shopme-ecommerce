@@ -31,4 +31,8 @@ public class CategoryService {
 
 		return enabledCategoriesWithNoChildren;
 	}
+
+	public Category getCategory(String alias) {
+		return repository.findByAliasEnabled(alias);
+	}
 }
