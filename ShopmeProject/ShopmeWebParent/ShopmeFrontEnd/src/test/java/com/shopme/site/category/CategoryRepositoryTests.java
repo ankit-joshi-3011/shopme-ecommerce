@@ -1,5 +1,7 @@
 package com.shopme.site.category;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -29,5 +31,14 @@ public class CategoryRepositoryTests {
 		enabledCategories.forEach(category -> {
 			System.out.println(category.getName() + " (" + category.isEnabled() + ")");
 		});
+	}
+
+	@Test
+	public void testFindEnabledCategoryByAlias() {
+		String alias = "camera_bags_cases";
+
+		Category category = repository.findByAliasEnabled(alias);
+
+		assertThat(category).isNotNull();
 	}
 }
