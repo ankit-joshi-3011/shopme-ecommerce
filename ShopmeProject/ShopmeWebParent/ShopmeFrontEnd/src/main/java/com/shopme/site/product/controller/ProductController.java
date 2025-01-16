@@ -75,6 +75,7 @@ public class ProductController {
 
 		String keyword = null;
 
+		model.addAttribute("categoryAlias", alias);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
