@@ -30,7 +30,7 @@ public class ProductController {
 		return viewCategoryByPage(alias, 1, model);
 	}
 
-	@GetMapping("/category/{category_alias}/{pageNumber}")
+	@GetMapping("/category/{category_alias}/page/{pageNumber}")
 	public String viewCategoryByPage(@PathVariable("category_alias") String alias, @PathVariable int pageNumber, Model model) {
 		if (pageNumber <= 0) {
 			throw new PageOutOfBoundsException();
