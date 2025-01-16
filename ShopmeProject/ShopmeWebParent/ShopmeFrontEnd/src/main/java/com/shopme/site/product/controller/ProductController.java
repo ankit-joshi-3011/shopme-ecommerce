@@ -73,6 +73,8 @@ public class ProductController {
 			endCount = totalElements;
 		}
 
+		String keyword = null;
+
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
@@ -84,6 +86,7 @@ public class ProductController {
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
 		model.addAttribute("totalItems", totalElements);
+		model.addAttribute("keyword", keyword);
 
 		return "products_by_category";
 	}
