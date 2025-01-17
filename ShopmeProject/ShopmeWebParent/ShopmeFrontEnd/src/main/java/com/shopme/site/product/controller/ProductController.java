@@ -75,12 +75,11 @@ public class ProductController {
 
 		String keyword = null;
 
-		model.addAttribute("categoryAlias", alias);
+		model.addAttribute("category", category);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
-		model.addAttribute("pageTitle", category.getName());
 		model.addAttribute("listCategoryAndParents", parentsOfCategoryIncludingCategory);
 		model.addAttribute("productsByCategory", enabledProductsByCategory);
 		model.addAttribute("totalPages", totalPages);
