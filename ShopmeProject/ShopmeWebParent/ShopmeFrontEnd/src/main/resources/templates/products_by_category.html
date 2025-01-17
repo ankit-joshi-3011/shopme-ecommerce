@@ -27,6 +27,18 @@
 			</div>
 		</div>
 
+		<div class="row text-center">
+			<th:block th:each="child : ${category.children}">
+				<div class="col" th:if="${child.enabled == true}">
+					<a th:href="@{'/category/' + ${child.alias}}">
+						<img th:src="@{${child.imagePath}}" height="100px" />
+						<br />
+						<b>[[${child.name}]]</b>
+					</a>
+				</div>
+			</th:block>
+		</div>
+
 		<div class="row">
 			<th:block th:each="product : ${productsByCategory}">
 				<div class="col">
