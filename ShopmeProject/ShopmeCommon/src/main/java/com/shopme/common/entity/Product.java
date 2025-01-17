@@ -1,5 +1,6 @@
 package com.shopme.common.entity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -303,11 +304,14 @@ public class Product {
 	}
 
 	@Transient
-	public float getDiscountedPrice() {
+	public String getDiscountedPrice() {
+		DecimalFormat decimalFormat = new DecimalFormat("##.00");
+
 		if (discountPercent > 0) {
-			return price * ((100 - discountPercent) / 100);
+			float discountedPrice = price * ((100 - discountPercent) / 100);
+			return decimalFormat.format(discountedPrice);
 		}
 
-		return price;
+		return decimalFormat.format(price);
 	}
 }
