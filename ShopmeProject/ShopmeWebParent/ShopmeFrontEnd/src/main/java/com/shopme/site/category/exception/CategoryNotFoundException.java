@@ -1,4 +1,4 @@
-package com.shopme.site.product.exception;
+package com.shopme.site.category.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
