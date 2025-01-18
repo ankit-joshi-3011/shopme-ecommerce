@@ -11,4 +11,6 @@ import com.shopme.common.entity.Product;
 public interface ProductRepository extends CrudRepository<Product, Integer>, PagingAndSortingRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.enabled = true AND (p.category.id = ?1 OR p.category.allParentIds LIKE %?2%) ORDER BY p.name ASC")
 	public Page<Product> listEnabledByCategory(Integer categoryId, String categoryIdMatcher, Pageable pageable);
+
+	public Product findByAlias(String alias);
 }
