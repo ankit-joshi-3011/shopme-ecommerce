@@ -23,7 +23,6 @@ import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.brand.BrandService;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.admin.product.ProductService;
-import com.shopme.admin.product.exception.ProductNotFoundException;
 import com.shopme.admin.product.export.ProductCsvExporter;
 import com.shopme.admin.security.ShopmeUserDetails;
 import com.shopme.common.entity.Brand;
@@ -31,6 +30,7 @@ import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 import com.shopme.common.entity.ProductImage;
 import com.shopme.common.exception.PageOutOfBoundsException;
+import com.shopme.common.exception.ProductNotFoundException;
 
 import jakarta.servlet.http.HttpServletResponse;
 
