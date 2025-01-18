@@ -18,10 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.category.CategoryPageInformation;
 import com.shopme.admin.category.CategoryService;
-import com.shopme.admin.category.exception.CategoryNotFoundException;
 import com.shopme.admin.category.export.CategoryCsvExporter;
 import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Category;
+import com.shopme.common.exception.CategoryNotFoundException;
+
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
