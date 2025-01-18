@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 import com.shopme.common.exception.CategoryNotFoundException;
+import com.shopme.common.exception.PageOutOfBoundsException;
 import com.shopme.site.category.CategoryService;
-import com.shopme.site.exception.PageOutOfBoundsException;
 import com.shopme.site.product.ProductService;
 
 @Controller
