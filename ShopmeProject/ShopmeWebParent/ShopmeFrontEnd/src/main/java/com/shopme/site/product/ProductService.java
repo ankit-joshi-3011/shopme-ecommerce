@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Product;
+import com.shopme.site.product.exception.ProductNotFoundException;
 
 @Service
 public class ProductService {
@@ -23,5 +24,15 @@ public class ProductService {
 		Pageable pageable = PageRequest.of(pageNumber - 1, PRODUCTS_PER_PAGE);
 
 		return repository.listEnabledByCategory(categoryId, categoryIdMatcherBuilder.toString(), pageable);
+	}
+
+	public Product getProductByAlias(String alias) throws ProductNotFoundException {
+		Product product = repository.findByAlias(alias);
+
+		if (product == null) {
+			throw new ProductNotFoundException("Could not find any product with alias " + alias);
+		}
+
+		return product;
 	}
 }
