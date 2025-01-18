@@ -20,9 +20,9 @@ import com.shopme.admin.brand.BrandService;
 import com.shopme.admin.brand.exception.BrandNotFoundException;
 import com.shopme.admin.brand.export.BrandCsvExporter;
 import com.shopme.admin.category.CategoryService;
-import com.shopme.admin.exception.PageOutOfBoundsException;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Category;
+import com.shopme.common.exception.PageOutOfBoundsException;
 
 import jakarta.servlet.http.HttpServletResponse;
 
