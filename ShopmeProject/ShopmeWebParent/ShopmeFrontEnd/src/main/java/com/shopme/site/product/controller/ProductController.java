@@ -51,7 +51,7 @@ public class ProductController {
 		Category category = categoryService.getCategory(alias);
 
 		if (category == null) {
-			throw new CategoryNotFoundException();
+			throw new CategoryNotFoundException("Could not find category with alias " + alias);
 		}
 
 		List<Category> parentsOfCategoryIncludingCategory = categoryService.getParentsOfCategoryIncludingCategory(category);
