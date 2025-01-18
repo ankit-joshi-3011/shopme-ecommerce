@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Product;
-import com.shopme.site.product.exception.ProductNotFoundException;
+import com.shopme.common.exception.ProductNotFoundException;
 
 @Service
 public class ProductService {

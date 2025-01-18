@@ -1,4 +1,4 @@
-package com.shopme.site.product.exception;
+package com.shopme.common.exception;
 
 @SuppressWarnings("serial")
 public class ProductNotFoundException extends Exception {
