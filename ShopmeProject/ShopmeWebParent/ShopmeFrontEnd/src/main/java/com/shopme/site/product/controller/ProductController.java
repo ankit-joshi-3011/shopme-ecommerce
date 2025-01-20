@@ -83,6 +83,17 @@ public class ProductController {
 		model.addAttribute("totalItems", totalElements);
 		model.addAttribute("keyword", keyword);
 
-		return "products_by_category";
+		return "product/products_by_category";
+	}
+
+	@GetMapping("/product/{product_alias}")
+	public String viewProductDetails(@PathVariable("product_alias") String alias, Model model) {
+		Product product = productService.getProductByAlias(alias);
+		List<Category> parentsOfCategoryIncludingCategory = categoryService.getParentsOfCategoryIncludingCategory(product.getCategory());
+
+		model.addAttribute("product", product);
+		model.addAttribute("listCategoryAndParents", parentsOfCategoryIncludingCategory);
+
+		return "product/product_details";
 	}
 }
