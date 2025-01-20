@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Category;
+import com.shopme.common.exception.CategoryNotFoundException;
 
 @Service
 public class CategoryService {
@@ -33,7 +34,13 @@ public class CategoryService {
 	}
 
 	public Category getCategory(String alias) {
-		return repository.findByAliasEnabled(alias);
+		Category category = repository.findByAliasEnabled(alias);
+
+		if (category == null) {
+			throw new CategoryNotFoundException("Could not find category with alias " + alias);
+		}
+
+		return category;
 	}
 
 	public List<Category> getParentsOfCategoryIncludingCategory(Category category) {
