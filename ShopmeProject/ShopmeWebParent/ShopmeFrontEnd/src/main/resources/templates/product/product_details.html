@@ -19,6 +19,21 @@
 				<div>
 					<h2>[[${product.name}]]</h2>
 				</div>
+				<div>
+					<span>Brand: [[${product.brand.name}]]</span>
+				</div>
+				<div>
+					List Price:
+					<span th:if="${product.discountPercent == 0}">$[[${product.price}]]</span>
+					<del th:if="${product.discountPercent > 0}"><span>$[[${product.price}]]</span></del>
+				</div>
+				<div th:if="${product.discountPercent > 0}">
+					Discounted Price:
+					<span style="font-size: larger; color: darkgreen">$[[${product.discountedPrice}]]</span>
+					([[${product.discountPercent}]]% off)
+				</div>
+				<div>&nbsp;</div>
+				<div th:utext="${product.shortDescription}"></div>
 			</div>
 		</div>
 
