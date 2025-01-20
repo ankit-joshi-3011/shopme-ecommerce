@@ -15,6 +15,11 @@
 					<img th:src="@{${product.mainImagePath}}" class="img-fluid" />
 				</div>
 			</div>
+			<div class="col-sm">
+				<div>
+					<h2>[[${product.name}]]</h2>
+				</div>
+			</div>
 		</div>
 
 		<div th:replace="~{navigation :: footer_menu}" />
