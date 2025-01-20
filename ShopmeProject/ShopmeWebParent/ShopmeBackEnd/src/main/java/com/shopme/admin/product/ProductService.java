@@ -54,7 +54,7 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
-	public Product savePricingInformation(Product productInForm) throws ProductNotFoundException {
+	public Product savePricingInformation(Product productInForm) {
 		Product productInDatabase = get(productInForm.getId());
 
 		productInDatabase.setCost(productInForm.getCost());
@@ -99,7 +99,7 @@ public class ProductService {
 		productRepository.updateEnabledStatus(id, enabled);
 	}
 
-	public void delete(Integer id) throws ProductNotFoundException {
+	public void delete(Integer id) {
 		Long countById = productRepository.countById(id);
 
 		if (countById == null || countById == 0) {
@@ -109,7 +109,7 @@ public class ProductService {
 		productRepository.deleteById(id);
 	}
 
-	public Product get(Integer id) throws ProductNotFoundException {
+	public Product get(Integer id) {
 		return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Could not find any product with ID " + id));
 	}
 

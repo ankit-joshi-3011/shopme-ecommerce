@@ -26,7 +26,7 @@ public class ProductService {
 		return repository.listEnabledByCategory(categoryId, categoryIdMatcherBuilder.toString(), pageable);
 	}
 
-	public Product getProductByAlias(String alias) throws ProductNotFoundException {
+	public Product getProductByAlias(String alias) {
 		Product product = repository.findByAlias(alias);
 
 		if (product == null) {

@@ -128,7 +128,7 @@ public class ProductController {
 		@RequestParam(required = false) String[] imageIds,
 		@RequestParam(required = false) String[] imageNames,
 		@RequestParam(required = false) String[] detailIds,
-		@AuthenticationPrincipal ShopmeUserDetails loggedInUser) throws IOException, ProductNotFoundException {
+		@AuthenticationPrincipal ShopmeUserDetails loggedInUser) throws IOException {
 		if (loggedInUser.hasRole("Salesperson")) {
 			productService.savePricingInformation(product);
 		} else {

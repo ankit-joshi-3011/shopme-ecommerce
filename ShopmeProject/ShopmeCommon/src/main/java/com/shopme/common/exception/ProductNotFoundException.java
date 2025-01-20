@@ -1,7 +1,7 @@
 package com.shopme.common.exception;
 
 @SuppressWarnings("serial")
-public class ProductNotFoundException extends Exception {
+public class ProductNotFoundException extends RuntimeException {
 	public ProductNotFoundException(String message) {
 		super(message);
 	}
