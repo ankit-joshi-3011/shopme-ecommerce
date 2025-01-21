@@ -12,15 +12,15 @@
 		<div class="row">
 			<div class="col-sm">
 				<div>
-					<img th:src="@{${product.mainImagePath}}" class="img-fluid" />
+					<img id="enlarged-image" th:src="@{${product.mainImagePath}}" class="img-fluid" />
 				</div>
 				<div class="row justify-content-center">
 					<div class="m-2">
-						<img th:src="@{${product.mainImagePath}}" height="50" />
+						<img class="image-thumbnail" th:src="@{${product.mainImagePath}}" height="50" />
 					</div>
 					<th:block th:each="extraImage : ${product.images}">
 						<div class="m-2">
-							<img th:src="@{${extraImage.extraImagePath}}" height="50" />
+							<img class="image-thumbnail" th:src="@{${extraImage.extraImagePath}}" height="50" />
 						</div>
 					</th:block>
 				</div>
@@ -93,6 +93,17 @@
 		<div th:replace="~{navigation :: footer_menu}" />
 		<div th:replace="~{fragments :: footer}" />
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var enlargedImage = $("#enlarged-image");
+
+			$(".image-thumbnail").mouseover(function (e) {
+				var currentImageSource = $(this).attr("src");
+				enlargedImage.attr("src", currentImageSource);
+			});
+		});
+	</script>
 </body>
 
 </html>
