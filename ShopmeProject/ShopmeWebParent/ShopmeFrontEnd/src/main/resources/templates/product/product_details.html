@@ -90,6 +90,7 @@
 			</div>
 		</div>
 
+		<div th:replace="~{images_carousel :: content}" />
 		<div th:replace="~{navigation :: footer_menu}" />
 		<div th:replace="~{fragments :: footer}" />
 	</div>
@@ -101,6 +102,10 @@
 			$(".image-thumbnail").mouseover(function (e) {
 				var currentImageSource = $(this).attr("src");
 				enlargedImage.attr("src", currentImageSource);
+			});
+
+			enlargedImage.on("click", function (e) {
+				$("#carouselModal").modal("show");
 			});
 		});
 	</script>
