@@ -12,15 +12,16 @@
 		<div class="row">
 			<div class="col-sm">
 				<div>
-					<img id="enlarged-image" th:src="@{${product.mainImagePath}}" class="img-fluid" />
+					<img id="enlarged-image" th:src="@{${product.mainImagePath}}" class="img-fluid" index="0" />
 				</div>
 				<div class="row justify-content-center">
 					<div class="m-2 border border-secondary p-1">
-						<img class="image-thumbnail" th:src="@{${product.mainImagePath}}" height="50" />
+						<img class="image-thumbnail" th:src="@{${product.mainImagePath}}" height="50" index="0" />
 					</div>
-					<th:block th:each="extraImage : ${product.images}">
+					<th:block th:each="extraImage, status : ${product.images}">
 						<div class="m-2 border border-secondary p-1">
-							<img class="image-thumbnail" th:src="@{${extraImage.extraImagePath}}" height="50" />
+							<img class="image-thumbnail" th:src="@{${extraImage.extraImagePath}}" height="50"
+								th:index="${status.count}" />
 						</div>
 					</th:block>
 				</div>
@@ -101,11 +102,17 @@
 
 			$(".image-thumbnail").mouseover(function (e) {
 				var currentImageSource = $(this).attr("src");
+				var currentImageIndex = $(this).attr("index");
+
 				enlargedImage.attr("src", currentImageSource);
+				enlargedImage.attr("index", currentImageIndex);
 			});
 
 			enlargedImage.on("click", function (e) {
 				$("#carouselModal").modal("show");
+
+				var imageIndex = parseInt(enlargedImage.attr("index"));
+				$("#carouselControl").carousel(imageIndex);
 			});
 		});
 	</script>
