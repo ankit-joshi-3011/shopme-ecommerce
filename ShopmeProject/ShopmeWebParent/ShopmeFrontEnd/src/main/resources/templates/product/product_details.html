@@ -51,6 +51,18 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-12">
+				<div>
+					<hr />
+				</div>
+				<div>
+					<h3>Product Description:</h3>
+				</div>
+				<div th:utext="${product.fullDescription}"></div>
+			</div>
+		</div>
+
 		<div th:replace="~{navigation :: footer_menu}" />
 		<div th:replace="~{fragments :: footer}" />
 	</div>
