@@ -10,6 +10,12 @@
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content bg-dark">
 				<div id="carouselControl" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselControl" data-slide-to="0" class="active"></li>
+						<th:block th:each="extraImage, status : ${product.images}">
+							<li data-target="#carouselControl" th:data-slide-to="${status.count}"></li>
+						</th:block>
+					</ol>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<img th:src="@{${product.mainImagePath}}" class="img-fluid" />
