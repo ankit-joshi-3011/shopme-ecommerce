@@ -63,6 +63,23 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-12">
+				<div>
+					<hr />
+				</div>
+				<div>
+					<h3>Product Details:</h3>
+				</div>
+				<th:block th:each="detail : ${product.details}">
+					<div>
+						<b>[[${detail.name}]]</b>:
+						<span>[[${detail.value}]]</span>
+					</div>
+				</th:block>
+			</div>
+		</div>
+
 		<div th:replace="~{navigation :: footer_menu}" />
 		<div th:replace="~{fragments :: footer}" />
 	</div>
