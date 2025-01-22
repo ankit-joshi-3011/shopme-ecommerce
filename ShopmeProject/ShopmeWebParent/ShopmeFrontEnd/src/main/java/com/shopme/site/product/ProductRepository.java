@@ -13,4 +13,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer>, Pag
 	public Page<Product> listEnabledByCategory(Integer categoryId, String categoryIdMatcher, Pageable pageable);
 
 	public Product findByAlias(String alias);
+
+	@Query("SELECT p FROM Product p WHERE CONCAT(p.name, ' ', p.shortDescription, ' ', p.fullDescription) LIKE %?1%")
+	public Page<Product> search(String keyword, Pageable pageable);
 }
