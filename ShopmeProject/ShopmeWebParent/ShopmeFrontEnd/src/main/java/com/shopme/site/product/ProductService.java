@@ -35,4 +35,10 @@ public class ProductService {
 
 		return product;
 	}
+
+	public Page<Product> search(int pageNumber, String keyword) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, PRODUCTS_PER_PAGE);
+
+		return repository.search(keyword, pageable);
+	}
 }
