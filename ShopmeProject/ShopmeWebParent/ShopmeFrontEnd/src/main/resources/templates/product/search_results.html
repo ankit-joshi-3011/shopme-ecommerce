@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: page_head('Shopme - Search Results', 'none')}" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="~{navigation :: header_menu}" />
+
+		<div th:replace="~{navigation :: search_form}" />
+
+		<div>
+			<h2>Search Results for '[[${keyword}]]'</h2>
+		</div>
+
+		<div th:replace="~{navigation :: footer_menu}" />
+		<div th:replace="~{fragments :: footer}" />
+	</div>
+</body>
+
+</html>
