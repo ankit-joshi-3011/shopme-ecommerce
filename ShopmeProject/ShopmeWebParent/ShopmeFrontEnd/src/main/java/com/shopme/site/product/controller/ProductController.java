@@ -3,6 +3,7 @@ package com.shopme.site.product.controller;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,5 +96,15 @@ public class ProductController {
 		model.addAttribute("listCategoryAndParents", parentsOfCategoryIncludingCategory);
 
 		return "product/product_details";
+	}
+
+	@GetMapping("/search/page/{page_number}")
+	public String searchProduct(@Param("keyword") String keyword, @PathVariable("page_number") int pageNumber, Model model) {
+		Page<Product> listProducts = productService.search(pageNumber, keyword);
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("listProducts", listProducts);
+
+		return "product/search_results";
 	}
 }
