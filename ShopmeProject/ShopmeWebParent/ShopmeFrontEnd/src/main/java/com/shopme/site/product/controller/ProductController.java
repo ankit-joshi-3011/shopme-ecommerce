@@ -98,12 +98,51 @@ public class ProductController {
 		return "product/product_details";
 	}
 
-	@GetMapping("/search/page/{page_number}")
-	public String searchProduct(@Param("keyword") String keyword, @PathVariable("page_number") int pageNumber, Model model) {
+	@GetMapping("/search/page/{pageNumber}")
+	public String searchProduct(@Param("keyword") String keyword, @PathVariable int pageNumber, Model model) {
+		if (pageNumber <= 0) {
+			throw new PageOutOfBoundsException();
+		}
+
+		String sortField = "name";
+
+		if (sortField == null || sortField.isEmpty()) {
+			sortField = "name";
+		}
+
+		String sortDir = "asc";
+
+		if (sortDir == null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
+
 		Page<Product> listProducts = productService.search(pageNumber, keyword);
 
+		int totalPages = listProducts.getTotalPages();
+
+		if (pageNumber > totalPages) {
+			throw new PageOutOfBoundsException();
+		}
+
+		long startCount = (pageNumber - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+		long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+
+		long totalElements = listProducts.getTotalElements();
+
+		if (endCount > totalElements) {
+			endCount = totalElements;
+		}
+
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", (sortDir.equals("asc") ? "desc" : "asc"));
 		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("totalItems", totalElements);
 
 		return "product/search_results";
 	}
