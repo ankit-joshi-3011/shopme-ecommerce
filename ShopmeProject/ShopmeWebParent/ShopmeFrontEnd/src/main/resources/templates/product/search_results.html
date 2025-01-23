@@ -13,7 +13,7 @@
 			<h2>Search Results for '[[${keyword}]]'</h2>
 		</div>
 
-		<div th:replace="~{fragments :: product_listing(${listProducts})}" />
+		<div th:replace="~{product/product_fragment :: product_listing(${listProducts})}" />
 
 		<div th:replace="~{navigation :: footer_menu}" />
 		<div th:replace="~{fragments :: footer}" />

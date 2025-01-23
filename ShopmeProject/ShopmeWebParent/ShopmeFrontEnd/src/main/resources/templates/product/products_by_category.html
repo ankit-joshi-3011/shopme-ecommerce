@@ -25,7 +25,7 @@
 
 		<div class="row">&nbsp;</div>
 
-		<div th:replace="~{fragments :: product_listing(${productsByCategory})}" />
+		<div th:replace="~{product/product_fragment :: product_listing(${productsByCategory})}" />
 
 		<div th:replace="~{fragments :: pagination('/category/' + ${category.alias}, 'products')}" />
 
