@@ -36,6 +36,15 @@
 		</nav>
 	</div>
 
+	<div th:fragment="search_form">
+		<form th:action="@{'/search'}" class="form-inline m-3">
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Keyword"
+				required />
+			&nbsp;&nbsp;
+			<input type="submit" class="btn btn-outline-success" />
+		</form>
+	</div>
+
 	<div th:fragment="footer_menu">
 		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bottomNavbar">
