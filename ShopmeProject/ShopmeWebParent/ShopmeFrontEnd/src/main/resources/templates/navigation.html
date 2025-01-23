@@ -37,7 +37,7 @@
 	</div>
 
 	<div th:fragment="search_form">
-		<form th:action="@{'/search'}" class="form-inline m-3">
+		<form th:action="@{'/search/page/1'}" class="form-inline m-3">
 			<input type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Keyword"
 				required />
 			&nbsp;&nbsp;
