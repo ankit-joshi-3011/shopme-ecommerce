@@ -9,7 +9,7 @@
 	<div th:fragment="product_listing(listProducts)">
 		<div class="row">
 			<th:block th:each="product : ${listProducts}">
-				<div class="col">
+				<div class="col-sm-2">
 					<div>
 						<a th:href="@{'/product/' + ${product.alias}}">
 							<img th:src="@{${product.mainImagePath}}" width="150px" />
