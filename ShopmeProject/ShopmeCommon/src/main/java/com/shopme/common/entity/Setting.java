@@ -21,6 +21,12 @@ public class Setting {
 	@Column(nullable = false, length = 45)
 	private SettingCategory category;
 
+	public Setting(String key, String value, SettingCategory category) {
+		this.key = key;
+		this.value = value;
+		this.category = category;
+	}
+
 	public String getKey() {
 		return key;
 	}
