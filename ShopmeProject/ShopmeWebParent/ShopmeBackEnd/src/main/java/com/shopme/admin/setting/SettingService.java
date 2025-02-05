@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Setting;
+import com.shopme.common.entity.SettingCategory;
 
 @Service
 public class SettingService {
@@ -23,5 +24,20 @@ public class SettingService {
 		}
 
 		return returnedSettings;
+	}
+
+	public GeneralSettingsBag getGeneralSettings() {
+		List<Setting> generalSettings = settingRepository.findByCategory(SettingCategory.GENERAL);
+		List<Setting> currencySettings = settingRepository.findByCategory(SettingCategory.CURRENCY);
+
+		List<Setting> allSettings = new ArrayList<>();
+		allSettings.addAll(generalSettings);
+		allSettings.addAll(currencySettings);
+
+		return new GeneralSettingsBag(allSettings);
+	}
+
+	public void saveAll(Iterable<Setting> settings) {
+		settingRepository.saveAll(settings);
 	}
 }
