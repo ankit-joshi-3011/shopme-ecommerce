@@ -2,6 +2,8 @@ package com.shopme.admin.setting;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -50,5 +52,12 @@ public class SettingRepositoryTests {
 
 			assertThat(savedSetting).isNotNull();
 		}
+	}
+
+	@Test
+	public void testListSettingsByCategory() {
+		List<Setting> settings = repository.findByCategory(SettingCategory.GENERAL);
+
+		settings.forEach(setting -> System.out.println("Key: " + setting.getKey() + " Value: " + setting.getValue()));
 	}
 }
