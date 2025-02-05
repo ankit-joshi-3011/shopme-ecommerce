@@ -1,5 +1,6 @@
 package com.shopme.common.entity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ public class SettingsBag {
 	private Map<String, Setting> mapSettings;
 
 	public SettingsBag(List<Setting> listSettings) {
+		mapSettings = new HashMap<String, Setting>();
+
 		for (Setting setting : listSettings) {
 			mapSettings.put(setting.getKey(), setting);
 		}
