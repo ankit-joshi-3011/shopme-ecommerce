@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shopme.admin.FileUploadUtility;
 import com.shopme.admin.setting.CurrencyService;
+import com.shopme.admin.setting.GeneralSettingsBag;
 import com.shopme.admin.setting.SettingService;
 import com.shopme.common.entity.Currency;
 import com.shopme.common.entity.Setting;
@@ -47,18 +48,37 @@ public class SettingController {
 
 	@PostMapping("/settings/save_general")
 	public String saveGeneralSettings(@RequestParam("fileImage") MultipartFile multipartFile, HttpServletRequest request, RedirectAttributes attributes) throws IOException {
+		GeneralSettingsBag settingsBag = settingService.getGeneralSettings();
+
 		if (!multipartFile.isEmpty()) {
 			final String siteLogoDirectory = "/site-logo/";
 
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
 			String filePath = siteLogoDirectory + fileName;
-			settingService.getGeneralSettings().updateSiteLogo(filePath);
+			settingsBag.updateSiteLogo(filePath);
 
 			String uploadDirectory = ".." + siteLogoDirectory;
 			FileUploadUtility.cleanDirectory(uploadDirectory);
 			FileUploadUtility.saveFile(uploadDirectory, fileName, multipartFile);
 		}
+
+		Integer currencyId = Integer.parseInt(request.getParameter("CURRENCY_ID"));
+		Currency currencyDb = currencyService.findById(currencyId);
+
+		if (currencyDb != null) {
+			settingsBag.updateCurrencySymbol(currencyDb.getSymbol());
+		}
+
+		for (Setting setting : settingsBag.list()) {
+			String value = request.getParameter(setting.getKey());
+
+			if (value != null) {
+				setting.setValue(value);
+			}
+		}
+
+		settingService.saveAll(settingsBag.list());
 
 		attributes.addFlashAttribute("message", "General settings have been saved successfully");
 
