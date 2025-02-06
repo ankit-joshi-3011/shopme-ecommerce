@@ -48,7 +48,7 @@ public class SettingController {
 
 	@PostMapping("/settings/save_general")
 	public String saveGeneralSettings(@RequestParam("fileImage") MultipartFile multipartFile, HttpServletRequest request, RedirectAttributes attributes) throws IOException {
-		GeneralSettingsBag settingsBag = settingService.getGeneralSettings();
+		GeneralSettingsBag settingsBag = settingService.getGeneralSettingsBag();
 
 		if (!multipartFile.isEmpty()) {
 			final String siteLogoDirectory = "/site-logo/";

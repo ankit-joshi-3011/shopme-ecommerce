@@ -1,4 +1,4 @@
-package com.shopme.admin.setting;
+package com.shopme.common.setting;
 
 import java.util.List;
 
