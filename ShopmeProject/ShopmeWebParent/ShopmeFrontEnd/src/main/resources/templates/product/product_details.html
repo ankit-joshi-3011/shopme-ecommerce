@@ -52,7 +52,8 @@
 					<span style="font-size: larger; color: darkgreen">
 						<div th:replace="~{product/product_fragment :: display_price(${product.discountedPrice})}" />
 					</span>
-					([[${product.discountPercent}]]% off)
+					([[${#numbers.formatDecimal(product.discountPercent, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS,
+					DECIMAL_POINT_TYPE)}]]% off)
 				</div>
 				<div>&nbsp;</div>
 				<div th:utext="${product.shortDescription}"></div>
