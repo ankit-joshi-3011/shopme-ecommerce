@@ -39,7 +39,7 @@
 	<div th:fragment="display_price(price)" th:remove="tag">
 		<span>
 			<span th:if="${CURRENCY_SYMBOL_POSITION == 'before'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
-			[[${price}]]
+			[[${#numbers.formatDecimal(price, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
 			<span th:if="${CURRENCY_SYMBOL_POSITION == 'after'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
 		</span>
 	</div>
