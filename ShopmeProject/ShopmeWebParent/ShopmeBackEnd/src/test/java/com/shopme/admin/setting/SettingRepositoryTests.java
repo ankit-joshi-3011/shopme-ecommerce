@@ -13,7 +13,6 @@ import org.springframework.test.annotation.Rollback;
 
 import com.shopme.common.entity.Setting;
 import com.shopme.common.entity.SettingCategory;
-import com.shopme.common.setting.SettingRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
