@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,15 @@ public class CountryRepositoryTests {
 		Country updatedCountry = countryRepository.save(country);
 
 		assertThat(updatedCountry.getName()).isEqualTo(name);
+	}
+
+	@Test
+	public void testDeleteCountry() {
+		Integer id = 1;
+		countryRepository.deleteById(id);
+
+		Optional<Country> country = countryRepository.findById(id);
+
+		assertThat(country.isEmpty());
 	}
 }
