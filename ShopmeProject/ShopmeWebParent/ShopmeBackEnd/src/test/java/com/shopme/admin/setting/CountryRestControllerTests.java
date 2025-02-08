@@ -1,6 +1,7 @@
 package com.shopme.admin.setting;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shopme.common.entity.Country;
 
 // This is not a unit test but rather an integration test. This will run
 // the whole Spring Boot application.
@@ -33,7 +36,18 @@ public class CountryRestControllerTests {
 	public void testListCountries() throws Exception {
 		String url = "/countries/list";
 
-		mockMvc.perform(get(url))
-			.andExpect(status().isOk());
+		MvcResult result = mockMvc.perform(get(url))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andReturn();
+
+		String jsonResponse = result.getResponse().getContentAsString();
+		System.out.println(jsonResponse);
+
+		Country[] countries = objectMapper.readValue(jsonResponse, Country[].class);
+
+		for (Country country : countries) {
+			System.out.println(country.getName() + " " + country.getCode());
+		}
 	}
 }
