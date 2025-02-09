@@ -29,6 +29,11 @@ public class Country {
 	public Country() {
 	}
 
+	public Country(Integer id, String name, String code, Set<State> states) {
+		this(name, code, states);
+		this.id = id;
+	}
+
 	public Country(String name, String code, Set<State> states) {
 		this.name = name;
 		this.code = code;
