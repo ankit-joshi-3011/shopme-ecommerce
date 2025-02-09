@@ -96,4 +96,14 @@ public class CountryRestControllerTests {
 			.andDo(print())
 			.andExpect(content().string(String.valueOf(countryId)));
 	}
+
+	@Test
+	@WithMockUser(username = "nam@codejava.net", password = "nam2020", roles = "Admin")
+	public void testDeleteCountry() throws Exception {
+		Integer countryId = 3;
+		String url = "/countries/delete/" + countryId;
+
+		mockMvc.perform(get(url))
+			.andExpect(status().isOk());
+	}
 }
