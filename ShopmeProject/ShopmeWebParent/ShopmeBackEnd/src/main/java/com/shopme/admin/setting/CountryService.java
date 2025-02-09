@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Country;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class CountryService {
 	private CountryRepository countryRepository;
 
