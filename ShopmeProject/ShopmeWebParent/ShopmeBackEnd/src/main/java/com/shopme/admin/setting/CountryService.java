@@ -16,4 +16,8 @@ public class CountryService {
 	public List<Country> listAllCountries() {
 		return countryRepository.findAllByOrderByNameAsc();
 	}
+
+	public Country save(Country country) {
+		return countryRepository.save(country);
+	}
 }
