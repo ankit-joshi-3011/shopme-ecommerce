@@ -4,6 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashSet;
@@ -75,5 +76,24 @@ public class CountryRestControllerTests {
 
 		String jsonResponse = result.getResponse().getContentAsString();
 		System.out.println(jsonResponse);
+	}
+
+	@Test
+	@WithMockUser(username = "nam@codejava.net", password = "nam2020", roles = "Admin")
+	public void testUpdateCountry() throws Exception {
+		String url = "/countries/save";
+		Integer countryId = 2;
+
+		String countryName = "Republic of Canada";
+		String countryCode = "CA";
+		Country canada = new Country(countryId, countryName, countryCode, new HashSet<State>());
+
+		mockMvc.perform(post(url)
+			.contentType("application/json")
+			.content(objectMapper.writeValueAsString(canada))
+			.with(csrf()))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andExpect(content().string(String.valueOf(countryId)));
 	}
 }
