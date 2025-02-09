@@ -62,7 +62,7 @@ public class CountryRestControllerTests {
 		String url = "/countries/save";
 
 		String countryName = "Canada";
-		String countryCode = "CN";
+		String countryCode = "CA";
 		Country canada = new Country(countryName, countryCode, new HashSet<State>());
 
 		MvcResult result = mockMvc.perform(post(url)
