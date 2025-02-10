@@ -23,6 +23,8 @@ function loadCountryList() {
 	}).done(function() {
 		buttonLoadCountryList.val("Refresh Country List");
 		showToastMessage("All countries have been loaded");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
 	});
 }
 
