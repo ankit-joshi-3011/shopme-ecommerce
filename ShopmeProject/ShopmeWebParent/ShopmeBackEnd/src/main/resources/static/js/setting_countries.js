@@ -22,5 +22,11 @@ function loadCountryList() {
 		});
 	}).done(function() {
 		buttonLoadCountryList.val("Refresh Country List");
+		showToastMessage("All countries have been loaded");
 	});
+}
+
+function showToastMessage(message) {
+	$("#toastMessage").text(message);
+	$(".toast").toast('show');
 }
