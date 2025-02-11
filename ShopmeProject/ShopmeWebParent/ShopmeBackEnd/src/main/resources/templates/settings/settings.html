@@ -60,6 +60,8 @@
 
 	<script type="text/javascript">
 		var CONTEXT_PATH = "[[@{/}]]";
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 	<script th:src="@{/js/setting_countries.js}"></script>
