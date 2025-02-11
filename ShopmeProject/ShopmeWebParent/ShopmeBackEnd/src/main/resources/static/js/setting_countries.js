@@ -96,9 +96,17 @@ function addCountry() {
 		},
 		data: JSON.stringify(requestBody),
 		contentType: 'application/json'
-	}).done(function() {
+	}).done(function(countryId) {
+		selectNewlyAddedCountry(countryId, countryName, countryCode);
 		showToastMessage("The new country has been added successfully");
 	}).fail(function() {
 		showToastMessage("Could not connect to the server");
 	});
+}
+
+function selectNewlyAddedCountry(countryId, countryName, countryCode) {
+	var optionValue = countryId + "-" + countryCode;
+	$("<option>").val(optionValue).text(countryName).appendTo(dropdownCountryList);
+
+	$("#dropdownCountryList option[value='" + optionValue + "']").prop("selected", true);
 }
