@@ -19,11 +19,19 @@ $(document).ready(function() {
 	buttonDeleteCountry = $("#buttonDeleteCountry");
 
 	dropdownCountryList.on("change", function() {
-		changeFormState();
+		changeFormStateForSelection();
 	});
 
 	fieldCountryName = $("#countryName");
 	fieldCountryCode = $("#countryCode");
+
+	buttonAddCountry.click(function() {
+		if (buttonAddCountry.val() == "Add") {
+			addCountry();
+		} else {
+			changeFormStateForUpdation();
+		}
+	});
 });
 
 function loadCountryList() {
@@ -49,7 +57,7 @@ function showToastMessage(message) {
 	$(".toast").toast('show');
 }
 
-function changeFormState() {
+function changeFormStateForSelection() {
 	buttonAddCountry.prop("value", "New");
 	buttonUpdateCountry.prop("disabled", false);
 	buttonDeleteCountry.prop("disabled", false);
@@ -60,4 +68,37 @@ function changeFormState() {
 	var selectedOptionValue = dropdownCountryList.val();
 	var selectedCountryCode = selectedOptionValue.split("-")[1];
 	fieldCountryCode.val(selectedCountryCode);
+}
+
+function changeFormStateForUpdation() {
+	buttonAddCountry.prop("value", "Add");
+	buttonUpdateCountry.prop("disabled", true);
+	buttonDeleteCountry.prop("disabled", true);
+
+	fieldCountryName.val("").focus();
+	fieldCountryCode.val("");
+}
+
+function addCountry() {
+	var url = CONTEXT_PATH + "countries/save";
+	var countryName = fieldCountryName.val();
+	var countryCode = fieldCountryCode.val();
+	var requestBody = {
+		name: countryName,
+		code: countryCode,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		},
+		data: JSON.stringify(requestBody),
+		contentType: 'application/json'
+	}).done(function() {
+		showToastMessage("The new country has been added successfully");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
+	});
 }
