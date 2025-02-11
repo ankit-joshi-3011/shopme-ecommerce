@@ -3,6 +3,8 @@ var dropdownCountryList;
 var buttonAddCountry;
 var buttonUpdateCountry;
 var buttonDeleteCountry;
+var fieldCountryName;
+var fieldCountryCode;
 
 $(document).ready(function() {
 	buttonLoadCountryList = $("#buttonLoadCountryList");
@@ -19,6 +21,9 @@ $(document).ready(function() {
 	dropdownCountryList.on("change", function() {
 		changeFormState();
 	});
+
+	fieldCountryName = $("#countryName");
+	fieldCountryCode = $("#countryCode");
 });
 
 function loadCountryList() {
@@ -48,4 +53,11 @@ function changeFormState() {
 	buttonAddCountry.prop("value", "New");
 	buttonUpdateCountry.prop("disabled", false);
 	buttonDeleteCountry.prop("disabled", false);
+
+	var selectedCountryName = $("#dropdownCountryList option:selected").text();
+	fieldCountryName.val(selectedCountryName);
+
+	var selectedOptionValue = dropdownCountryList.val();
+	var selectedCountryCode = selectedOptionValue.split("-")[1];
+	fieldCountryCode.val(selectedCountryCode);
 }
