@@ -1,5 +1,8 @@
 var buttonLoadCountryList;
 var dropdownCountryList;
+var buttonAddCountry;
+var buttonUpdateCountry;
+var buttonDeleteCountry;
 
 $(document).ready(function() {
 	buttonLoadCountryList = $("#buttonLoadCountryList");
@@ -7,6 +10,14 @@ $(document).ready(function() {
 
 	buttonLoadCountryList.click(function() {
 		loadCountryList();
+	});
+
+	buttonAddCountry = $("#buttonAddCountry");
+	buttonUpdateCountry = $("#buttonUpdateCountry");
+	buttonDeleteCountry = $("#buttonDeleteCountry");
+
+	dropdownCountryList.on("change", function() {
+		changeFormState();
 	});
 });
 
@@ -31,4 +42,10 @@ function loadCountryList() {
 function showToastMessage(message) {
 	$("#toastMessage").text(message);
 	$(".toast").toast('show');
+}
+
+function changeFormState() {
+	buttonAddCountry.prop("value", "New");
+	buttonUpdateCountry.prop("disabled", false);
+	buttonDeleteCountry.prop("disabled", false);
 }
