@@ -32,6 +32,10 @@ $(document).ready(function() {
 			changeFormStateForUpdation();
 		}
 	});
+
+	buttonUpdateCountry.click(function() {
+		updateCountry();
+	});
 });
 
 function loadCountryList() {
@@ -109,4 +113,32 @@ function selectNewlyAddedCountry(countryId, countryName, countryCode) {
 	$("<option>").val(optionValue).text(countryName).appendTo(dropdownCountryList);
 
 	$("#dropdownCountryList option[value='" + optionValue + "']").prop("selected", true);
+}
+
+function updateCountry() {
+	var url = CONTEXT_PATH + "countries/save";
+	var countryId = dropdownCountryList.val().split("-")[0];
+	var countryName = fieldCountryName.val();
+	var countryCode = fieldCountryCode.val();
+	var requestBody = {
+		id: countryId,
+		name: countryName,
+		code: countryCode,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		},
+		data: JSON.stringify(requestBody),
+		contentType: 'application/json'
+	}).done(function(countryId) {
+		$("#dropdownCountryList option:selected").val(countryId + "-" + countryCode);
+		$("#dropdownCountryList option:selected").text(countryName);
+		showToastMessage("The country has been updated successfully");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
+	});
 }
