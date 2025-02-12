@@ -36,6 +36,10 @@ $(document).ready(function() {
 	buttonUpdateCountry.click(function() {
 		updateCountry();
 	});
+
+	buttonDeleteCountry.click(function() {
+		deleteCountry();
+	});
 });
 
 function loadCountryList() {
@@ -138,6 +142,20 @@ function updateCountry() {
 		$("#dropdownCountryList option:selected").val(countryId + "-" + countryCode);
 		$("#dropdownCountryList option:selected").text(countryName);
 		showToastMessage("The country has been updated successfully");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
+	});
+}
+
+function deleteCountry() {
+	var countryId = dropdownCountryList.val().split("-")[0];
+	var url = CONTEXT_PATH + "countries/delete/" + countryId;
+
+	$.get(url, function() {
+		$("#dropdownCountryList option:selected").remove();
+		changeFormStateForUpdation();
+	}).done(function() {
+		showToastMessage("The country has been deleted successfully");
 	}).fail(function() {
 		showToastMessage("Could not connect to the server");
 	});
