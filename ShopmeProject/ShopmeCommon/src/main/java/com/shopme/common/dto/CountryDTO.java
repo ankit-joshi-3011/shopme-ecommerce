@@ -2,12 +2,12 @@ package com.shopme.common.dto;
 
 import com.shopme.common.entity.Country;
 
-public class CountryDto {
+public class CountryDTO {
 	private Integer id;
 	private String name;
 	private String code;
 
-	public CountryDto(Country country) {
+	public CountryDTO(Country country) {
 		this.id = country.getId();
 		this.name = country.getName();
 		this.code = country.getCode();
