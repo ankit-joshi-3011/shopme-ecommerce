@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.shopme.admin.setting.exception.CountryNotFoundException;
 import com.shopme.admin.setting.exception.StateNotFoundException;
 import com.shopme.common.dto.StateDTO;
 import com.shopme.common.entity.Country;
@@ -16,14 +17,22 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class StateService {
+	private CountryRepository countryRepository;
 	private StateRepository stateRepository;
 
-	public StateService(StateRepository stateRepository) {
+	public StateService(CountryRepository countryRepository, StateRepository stateRepository) {
+		this.countryRepository = countryRepository;
 		this.stateRepository = stateRepository;
 	}
 
-	public List<StateDTO> listAllStates(Country country) {
-		List<State> states = stateRepository.findByCountryOrderByNameAsc(country);
+	public List<StateDTO> listAllStates(int countryId) throws CountryNotFoundException {
+		Optional<Country> country = countryRepository.findById(countryId);
+
+		if (country.isEmpty()) {
+			throw new CountryNotFoundException("Could not find any country with ID " + countryId);
+		}
+
+		List<State> states = stateRepository.findByCountryOrderByNameAsc(country.get());
 
 		List<StateDTO> listStates = new ArrayList<>();
 
