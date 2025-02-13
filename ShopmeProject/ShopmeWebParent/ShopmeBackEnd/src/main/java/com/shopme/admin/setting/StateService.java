@@ -25,7 +25,7 @@ public class StateService {
 		this.stateRepository = stateRepository;
 	}
 
-	public List<StateDTO> listAllStates(int countryId) throws CountryNotFoundException {
+	public List<StateDTO> listAllStates(Integer countryId) throws CountryNotFoundException {
 		Optional<Country> country = countryRepository.findById(countryId);
 
 		if (country.isEmpty()) {
