@@ -63,4 +63,12 @@ public class Country {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	public Set<State> getStates() {
+		return states;
+	}
+
+	public void setStates(Set<State> states) {
+		this.states = states;
+	}
 }
