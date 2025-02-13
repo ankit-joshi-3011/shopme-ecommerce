@@ -26,6 +26,11 @@ public class State {
 	public State() {
 	}
 
+	public State(Integer id, String name, Country country) {
+		this(name, country);
+		this.id = id;
+	}
+
 	public State(String name, Country country) {
 		this.name = name;
 		this.country = country;
