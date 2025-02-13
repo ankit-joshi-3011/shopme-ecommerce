@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shopme.admin.setting.CountryService;
 import com.shopme.admin.setting.exception.CountryNotFoundException;
+import com.shopme.common.dto.CountryDTO;
 import com.shopme.common.entity.Country;
 
 @RestController
@@ -21,7 +22,7 @@ public class CountryRestController {
 	}
 
 	@GetMapping("/countries/list")
-	public List<Country> listAllCountries() {
+	public List<CountryDTO> listAllCountries() {
 		return countryService.listAllCountries();
 	}
 

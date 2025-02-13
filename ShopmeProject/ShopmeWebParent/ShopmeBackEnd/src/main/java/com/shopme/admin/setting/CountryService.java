@@ -1,11 +1,13 @@
 package com.shopme.admin.setting;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.setting.exception.CountryNotFoundException;
+import com.shopme.common.dto.CountryDTO;
 import com.shopme.common.entity.Country;
 
 import jakarta.transaction.Transactional;
@@ -19,8 +21,16 @@ public class CountryService {
 		this.countryRepository = countryRepository;
 	}
 
-	public List<Country> listAllCountries() {
-		return countryRepository.findAllByOrderByNameAsc();
+	public List<CountryDTO> listAllCountries() {
+		List<Country> countries = countryRepository.findAllByOrderByNameAsc();
+
+		List<CountryDTO> listCountries = new ArrayList<>();
+
+		for (Country country : countries) {
+			listCountries.add(new CountryDTO(country));
+		}
+
+		return listCountries;
 	}
 
 	public Country save(Country country) {
