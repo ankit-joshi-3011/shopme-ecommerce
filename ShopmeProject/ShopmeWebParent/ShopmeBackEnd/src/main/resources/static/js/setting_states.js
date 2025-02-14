@@ -44,7 +44,6 @@ function loadCountryListForStates() {
 		loadStatesForSelectedCountry();
 	}).done(function() {
 		buttonLoadCountryListForStates.val("Refresh Country List");
-		showToastMessage("All countries have been loaded");
 	}).fail(function() {
 		showToastMessage("Could not connect to the server");
 	});
@@ -63,6 +62,7 @@ function loadStatesForSelectedCountry() {
 
 	$.get(url, function(responseJson) {
 		dropdownStateList.empty();
+		fieldStateName.val("");
 
 		$.each(responseJson, function(_, state) {
 			$("<option>").val(state.id).text(state.name).appendTo(dropdownStateList);
