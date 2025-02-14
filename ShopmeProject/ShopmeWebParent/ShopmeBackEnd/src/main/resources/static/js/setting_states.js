@@ -36,6 +36,10 @@ $(document).ready(function() {
 			changeStateFormStateForCreation();
 		}
 	});
+
+	buttonUpdateState.click(function() {
+		updateState();
+	});
 });
 
 function loadCountryListForStates() {
@@ -137,4 +141,39 @@ function changeStateFormStateForCreation() {
 	buttonDeleteState.prop("disabled", true);
 
 	fieldStateName.val("").focus();
+}
+
+function updateState() {
+	var url = CONTEXT_PATH + "states/save";
+
+	var stateId = dropdownStateList.val();
+	var stateName = fieldStateName.val();
+	var selectedCountryIdAndCode = dropdownCountryListForStates.val().split("-");
+	var countryName = $("#dropdownCountryListForStates option:selected").text();
+
+	var requestBody = {
+		id: stateId,
+		name: stateName,
+		country: {
+			id: selectedCountryIdAndCode[0],
+			name: countryName,
+			code: selectedCountryIdAndCode[1],
+		},
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		},
+		data: JSON.stringify(requestBody),
+		contentType: 'application/json'
+	}).done(function(stateId) {
+		$("#dropdownStateList option:selected").val(stateId);
+		$("#dropdownStateList option:selected").text(stateName);
+		showToastMessage("The state has been updated successfully");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
+	});
 }
