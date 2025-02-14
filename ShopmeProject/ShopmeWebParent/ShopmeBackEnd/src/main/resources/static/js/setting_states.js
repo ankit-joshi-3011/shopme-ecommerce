@@ -33,7 +33,7 @@ $(document).ready(function() {
 		if (buttonAddState.val() == "Add") {
 			addState();
 		} else {
-			changeStateFormStateForUpdation();
+			changeStateFormStateForCreation();
 		}
 	});
 });
@@ -127,9 +127,11 @@ function selectNewlyAddedState(stateId, stateName) {
 	$("<option>").val(stateId).text(stateName).appendTo(dropdownStateList);
 
 	$("#dropdownStateList option[value='" + stateId + "']").prop("selected", true);
+
+	changeStateFormStateForSelection();
 }
 
-function changeStateFormStateForUpdation() {
+function changeStateFormStateForCreation() {
 	buttonAddState.prop("value", "Add");
 	buttonUpdateState.prop("disabled", true);
 	buttonDeleteState.prop("disabled", true);
