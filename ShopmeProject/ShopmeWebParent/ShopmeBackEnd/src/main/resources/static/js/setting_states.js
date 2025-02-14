@@ -28,6 +28,14 @@ $(document).ready(function() {
 	dropdownStateList.on("change", function() {
 		changeFormStateForSelection();
 	});
+
+	buttonAddState.click(function() {
+		if (buttonAddState.val() == "Add") {
+			addState();
+		} else {
+			changeFormStateForUpdation();
+		}
+	});
 });
 
 function loadCountryListForStates() {
@@ -81,4 +89,50 @@ function changeFormStateForSelection() {
 
 	var selectedStateName = $("#dropdownStateList option:selected").text();
 	fieldStateName.val(selectedStateName);
+}
+
+function addState() {
+	var url = CONTEXT_PATH + "states/save";
+
+	var stateName = fieldStateName.val();
+	var selectedCountryIdAndCode = dropdownCountryListForStates.val().split("-");
+	var countryName = $("#dropdownCountryListForStates option:selected").text();
+
+	var requestBody = {
+		name: stateName,
+		country: {
+			id: selectedCountryIdAndCode[0],
+			name: countryName,
+			code: selectedCountryIdAndCode[1],
+		},
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		},
+		data: JSON.stringify(requestBody),
+		contentType: 'application/json'
+	}).done(function(stateId) {
+		selectNewlyAddedState(stateId, stateName, countryCode);
+		showToastMessage("The new state has been added successfully");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
+	});
+}
+
+function selectNewlyAddedState(stateId, stateName) {
+	$("<option>").val(stateId).text(stateName).appendTo(dropdownStateList);
+
+	$("#dropdownStateList option[value='" + stateId + "']").prop("selected", true);
+}
+
+function changeFormStateForUpdation() {
+	buttonAddState.prop("value", "Add");
+	buttonUpdateState.prop("disabled", true);
+	buttonDeleteState.prop("disabled", true);
+
+	fieldStateName.val("").focus();
 }
