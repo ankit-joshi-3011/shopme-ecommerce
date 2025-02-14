@@ -40,6 +40,10 @@ $(document).ready(function() {
 	buttonUpdateState.click(function() {
 		updateState();
 	});
+
+	buttonDeleteState.click(function() {
+		deleteState();
+	});
 });
 
 function loadCountryListForStates() {
@@ -173,6 +177,20 @@ function updateState() {
 		$("#dropdownStateList option:selected").val(stateId);
 		$("#dropdownStateList option:selected").text(stateName);
 		showToastMessage("The state has been updated successfully");
+	}).fail(function() {
+		showToastMessage("Could not connect to the server");
+	});
+}
+
+function deleteState() {
+	var stateId = dropdownStateList.val();
+	var url = CONTEXT_PATH + "states/delete/" + stateId;
+
+	$.get(url, function() {
+		$("#dropdownStateList option:selected").remove();
+		changeStateFormStateForCreation();
+	}).done(function() {
+		showToastMessage("The state has been deleted successfully");
 	}).fail(function() {
 		showToastMessage("Could not connect to the server");
 	});
