@@ -26,14 +26,14 @@ $(document).ready(function() {
 	buttonDeleteState = $("#buttonDeleteState");
 
 	dropdownStateList.on("change", function() {
-		changeFormStateForSelection();
+		changeStateFormStateForSelection();
 	});
 
 	buttonAddState.click(function() {
 		if (buttonAddState.val() == "Add") {
 			addState();
 		} else {
-			changeFormStateForUpdation();
+			changeStateFormStateForUpdation();
 		}
 	});
 });
@@ -82,7 +82,7 @@ function loadStatesForSelectedCountry() {
 	});
 }
 
-function changeFormStateForSelection() {
+function changeStateFormStateForSelection() {
 	buttonAddState.prop("value", "New");
 	buttonUpdateState.prop("disabled", false);
 	buttonDeleteState.prop("disabled", false);
@@ -129,7 +129,7 @@ function selectNewlyAddedState(stateId, stateName) {
 	$("#dropdownStateList option[value='" + stateId + "']").prop("selected", true);
 }
 
-function changeFormStateForUpdation() {
+function changeStateFormStateForUpdation() {
 	buttonAddState.prop("value", "Add");
 	buttonUpdateState.prop("disabled", true);
 	buttonDeleteState.prop("disabled", true);
