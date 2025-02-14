@@ -29,7 +29,7 @@ $(document).ready(function() {
 		if (buttonAddCountry.val() == "Add") {
 			addCountry();
 		} else {
-			changeFormStateForUpdation();
+			changeFormStateForCreation();
 		}
 	});
 
@@ -78,7 +78,7 @@ function changeFormStateForSelection() {
 	fieldCountryCode.val(selectedCountryCode);
 }
 
-function changeFormStateForUpdation() {
+function changeFormStateForCreation() {
 	buttonAddCountry.prop("value", "Add");
 	buttonUpdateCountry.prop("disabled", true);
 	buttonDeleteCountry.prop("disabled", true);
@@ -117,6 +117,8 @@ function selectNewlyAddedCountry(countryId, countryName, countryCode) {
 	$("<option>").val(optionValue).text(countryName).appendTo(dropdownCountryList);
 
 	$("#dropdownCountryList option[value='" + optionValue + "']").prop("selected", true);
+
+	changeFormStateForSelection();
 }
 
 function updateCountry() {
@@ -153,7 +155,7 @@ function deleteCountry() {
 
 	$.get(url, function() {
 		$("#dropdownCountryList option:selected").remove();
-		changeFormStateForUpdation();
+		changeFormStateForCreation();
 	}).done(function() {
 		showToastMessage("The country has been deleted successfully");
 	}).fail(function() {
