@@ -1,6 +1,10 @@
 var buttonLoadCountryListForStates;
 var dropdownCountryListForStates;
 var dropdownStateList;
+var fieldStateName;
+var buttonAddState;
+var buttonUpdateState;
+var buttonDeleteState;
 
 $(document).ready(function() {
 	buttonLoadCountryListForStates = $("#buttonLoadCountryListForStates");
@@ -13,6 +17,16 @@ $(document).ready(function() {
 
 	dropdownCountryListForStates.on("change", function() {
 		loadStatesForSelectedCountry();
+	});
+
+	fieldStateName = $("#stateName");
+
+	buttonAddState = $("#buttonAddState");
+	buttonUpdateState = $("#buttonUpdateState");
+	buttonDeleteState = $("#buttonDeleteState");
+
+	dropdownStateList.on("change", function() {
+		changeFormStateForSelection();
 	});
 });
 
@@ -58,4 +72,13 @@ function loadStatesForSelectedCountry() {
 	}).fail(function() {
 		showToastMessage("Could not connect to the server");
 	});
+}
+
+function changeFormStateForSelection() {
+	buttonAddState.prop("value", "New");
+	buttonUpdateState.prop("disabled", false);
+	buttonDeleteState.prop("disabled", false);
+
+	var selectedStateName = $("#dropdownStateList option:selected").text();
+	fieldStateName.val(selectedStateName);
 }
