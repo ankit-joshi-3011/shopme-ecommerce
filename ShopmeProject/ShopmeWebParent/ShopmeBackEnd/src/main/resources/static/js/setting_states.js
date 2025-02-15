@@ -186,10 +186,15 @@ function deleteState() {
 	var stateId = dropdownStateList.val();
 	var url = CONTEXT_PATH + "states/delete/" + stateId;
 
-	$.get(url, function() {
+	$.ajax({
+		type: 'DELETE',
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		}
+	}).done(function() {
 		$("#dropdownStateList option:selected").remove();
 		changeStateFormStateForCreation();
-	}).done(function() {
 		showToastMessage("The state has been deleted successfully");
 	}).fail(function() {
 		showToastMessage("Could not connect to the server");
