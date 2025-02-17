@@ -48,6 +48,11 @@
 
 	<a th:fragment="page_link(moduleUrl, pageNum, label)" class="page-link"
 		th:href="@{${moduleUrl} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+
+	<div th:fragment="save_and_cancel_buttons_fragment" class="text-center">
+		<input type="submit" value="Save" class="btn btn-primary m-3" />
+		<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel" />
+	</div>
 </body>
 
 </html>
