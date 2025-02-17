@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shopme.common.dto.CountryDTO;
+import com.shopme.common.entity.Customer;
 import com.shopme.site.customer.CustomerService;
 
 @Controller
@@ -22,6 +23,7 @@ public class CustomerController {
 		List<CountryDTO> listCountries = customerService.listAllCountries();
 
 		model.addAttribute("listCountries", listCountries);
+		model.addAttribute("customer", new Customer());
 
 		return "register/registration_form";
 	}
