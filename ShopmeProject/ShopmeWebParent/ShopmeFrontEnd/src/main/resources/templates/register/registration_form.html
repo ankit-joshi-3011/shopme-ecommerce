@@ -92,7 +92,11 @@
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">Country:</label>
 					<div class="col-sm-8">
-						<select class="form-control"></select>
+						<select class="form-control" th:field="*{country}">
+							<th:block th:each="country : ${listCountries}">
+								<option th:value="${country.id}">[[${country.name}]]</option>
+							</th:block>
+						</select>
 					</div>
 				</div>
 
