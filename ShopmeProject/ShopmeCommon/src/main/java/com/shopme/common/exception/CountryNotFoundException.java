@@ -1,4 +1,4 @@
-package com.shopme.admin.setting.exception;
+package com.shopme.common.exception;
 
 @SuppressWarnings("serial")
 public class CountryNotFoundException extends Exception {

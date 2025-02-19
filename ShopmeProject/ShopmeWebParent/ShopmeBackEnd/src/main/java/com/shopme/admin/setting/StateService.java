@@ -6,11 +6,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.shopme.admin.setting.exception.CountryNotFoundException;
 import com.shopme.admin.setting.exception.StateNotFoundException;
 import com.shopme.common.dto.StateDTO;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.State;
+import com.shopme.common.exception.CountryNotFoundException;
 
 import jakarta.transaction.Transactional;
 

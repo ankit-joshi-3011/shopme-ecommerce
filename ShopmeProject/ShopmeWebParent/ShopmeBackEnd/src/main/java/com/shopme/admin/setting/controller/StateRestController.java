@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopme.admin.setting.StateService;
-import com.shopme.admin.setting.exception.CountryNotFoundException;
 import com.shopme.admin.setting.exception.StateNotFoundException;
 import com.shopme.common.dto.StateDTO;
 import com.shopme.common.entity.State;
+import com.shopme.common.exception.CountryNotFoundException;
 
 @RestController
 public class StateRestController {
