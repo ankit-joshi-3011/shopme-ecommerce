@@ -13,7 +13,7 @@ public class CustomerRestController {
 	public CustomerRestController(CustomerService customerService) {
 		this.customerService = customerService;
 	}
-	
+
 	@PostMapping("/customers/check_email")
 	public String checkDuplicateEmail(@Param("email") String email) {
 		return customerService.isEmailUnique(email) ? "OK" : "Duplicated";
