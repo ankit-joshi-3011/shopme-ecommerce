@@ -70,18 +70,35 @@ public class SettingController {
 			settingsBag.updateCurrencySymbol(currencyDb.getSymbol());
 		}
 
-		for (Setting setting : settingsBag.list()) {
-			String value = request.getParameter(setting.getKey());
-
-			if (value != null) {
-				setting.setValue(value);
-			}
-		}
+		updateSettingValues(request, settingsBag.list());
 
 		settingService.saveAll(settingsBag.list());
 
 		attributes.addFlashAttribute("message", "General settings have been saved successfully");
 
 		return "redirect:/settings";
+	}
+
+	@PostMapping("/settings/save_mailserver")
+	public String saveMailServerSettings(HttpServletRequest request, RedirectAttributes attributes) throws IOException {
+		List<Setting> mailServerSettings = settingService.getMailServerSettings();
+
+		updateSettingValues(request, mailServerSettings);
+
+		settingService.saveAll(mailServerSettings);
+
+		attributes.addFlashAttribute("message", "Mail server settings have been saved successfully");
+
+		return "redirect:/settings";
+	}
+
+	private void updateSettingValues(HttpServletRequest request, List<Setting> listSettings) {
+		for (Setting setting : listSettings) {
+			String value = request.getParameter(setting.getKey());
+
+			if (value != null) {
+				setting.setValue(value);
+			}
+		}
 	}
 }
