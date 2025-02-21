@@ -44,4 +44,16 @@ public class SettingService {
 	public void saveAll(Iterable<Setting> settings) {
 		settingRepository.saveAll(settings);
 	}
+
+	public List<Setting> getMailServerSettings() {
+		List<Setting> mailServerSettings = settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+
+		List<Setting> returnedSettings = new ArrayList<>();
+
+		for (Setting storedSetting : mailServerSettings) {
+			returnedSettings.add(storedSetting);
+		}
+
+		return returnedSettings;
+	}
 }
