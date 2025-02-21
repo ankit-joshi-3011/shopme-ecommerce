@@ -56,4 +56,16 @@ public class SettingService {
 
 		return returnedSettings;
 	}
+
+	public List<Setting> getMailTemplateSettings() {
+		List<Setting> mailTemplateSettings = settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATE);
+
+		List<Setting> returnedSettings = new ArrayList<>();
+
+		for (Setting storedSetting : mailTemplateSettings) {
+			returnedSettings.add(storedSetting);
+		}
+
+		return returnedSettings;
+	}
 }
