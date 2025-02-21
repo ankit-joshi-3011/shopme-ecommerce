@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments :: page_head('Settings - Shopme Admin', 'none')}" />
+<head>
+
+	<head th:replace="~{fragments :: page_head('Settings - Shopme Admin', 'none')}" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
 
 <body>
 	<div class="container-fluid">
@@ -48,6 +53,7 @@
 					<div th:replace="~{settings/setting_mailserver :: content}" />
 				</div>
 				<div class="tab-pane p-3" id="mailtemplates" role="tabpanel">
+					<div th:replace="~{settings/mail_templates/setting_mail_templates :: content}" />
 				</div>
 				<div class="tab-pane p-3" id="payment" role="tabpanel">
 				</div>
@@ -69,6 +75,10 @@
 		var CONTEXT_PATH = "[[@{/}]]";
 		var csrfHeaderName = "[[${_csrf.headerName}]]";
 		var csrfValue = "[[${_csrf.token}]]";
+
+		$(document).ready(function () {
+			$("#customerVerifyContent").richText();
+		});
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 	<script th:src="@{/js/setting_countries.js}"></script>
