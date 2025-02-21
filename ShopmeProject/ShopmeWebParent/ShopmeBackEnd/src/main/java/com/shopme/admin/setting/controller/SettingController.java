@@ -92,6 +92,19 @@ public class SettingController {
 		return "redirect:/settings";
 	}
 
+	@PostMapping("/settings/save_mailtemplates")
+	public String saveMailTemplateSettings(HttpServletRequest request, RedirectAttributes attributes) throws IOException {
+		List<Setting> mailTemplateSettings = settingService.getMailTemplateSettings();
+
+		updateSettingValues(request, mailTemplateSettings);
+
+		settingService.saveAll(mailTemplateSettings);
+
+		attributes.addFlashAttribute("message", "Mail template settings have been saved successfully");
+
+		return "redirect:/settings";
+	}
+
 	private void updateSettingValues(HttpServletRequest request, List<Setting> listSettings) {
 		for (Setting setting : listSettings) {
 			String value = request.getParameter(setting.getKey());
