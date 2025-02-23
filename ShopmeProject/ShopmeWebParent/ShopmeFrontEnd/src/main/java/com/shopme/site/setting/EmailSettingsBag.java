@@ -14,8 +14,8 @@ public class EmailSettingsBag extends SettingsBag {
 		return super.getValue("MAIL_HOST");
 	}
 
-	public String getSmtpPort() {
-		return super.getValue("MAIL_PORT");
+	public int getSmtpPort() {
+		return Integer.parseInt(super.getValue("MAIL_PORT"));
 	}
 
 	public String getUsername() {
