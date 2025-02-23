@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: page_head('Registration Succeeded - Shopme', 'none')}" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="~{navigation :: header_menu}" />
+
+		<div>&nbsp;</div>
+		<div class="text-center">
+			<h3>You have registered successfully as a customer</h3>
+			<p>Please check your email to verify your account and continue shopping</p>
+			<p><a th:href="@{/login}">Click here to login</a></p>
+		</div>
+		<div>&nbsp;</div>
+
+		<div th:replace="~{navigation :: footer_menu}" />
+		<div th:replace="~{fragments :: footer}" />
+	</div>
+</body>
+
+</html>
