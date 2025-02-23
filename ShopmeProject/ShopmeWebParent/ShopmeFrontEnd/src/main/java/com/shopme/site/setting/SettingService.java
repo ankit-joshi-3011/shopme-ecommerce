@@ -26,4 +26,15 @@ public class SettingService {
 
 		return allSettings;
 	}
+
+	public EmailSettingsBag getEmailSettingsBag() {
+		List<Setting> mailServerSettings = settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+		List<Setting> mailTemplateSettings = settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATE);
+
+		List<Setting> allSettings = new ArrayList<>();
+		allSettings.addAll(mailServerSettings);
+		allSettings.addAll(mailTemplateSettings);
+
+		return new EmailSettingsBag(allSettings);
+	}
 }
