@@ -1,5 +1,6 @@
 package com.shopme.common.entity;
 
+import java.beans.Transient;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -181,5 +182,10 @@ public class Customer {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	@Transient
+	public String getFullName() {
+		return firstName + " " + lastName;
 	}
 }
