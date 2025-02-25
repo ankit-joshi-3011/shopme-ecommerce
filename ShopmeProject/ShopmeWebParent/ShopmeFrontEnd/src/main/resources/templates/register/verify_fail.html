@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: page_head('Verification Failed - Shopme', 'none')}" />
+
+<body>
+	<div class="container-fluid">
+		<div th:replace="~{navigation :: header_menu}" />
+
+		<div>&nbsp;</div>
+		<div class="text-center">
+			<h3>Verification Failed</h3>
+			<p>Your account was already verified, or the verification code was invalid</p>
+		</div>
+		<div>&nbsp;</div>
+
+		<div th:replace="~{navigation :: footer_menu}" />
+		<div th:replace="~{fragments :: footer}" />
+	</div>
+</body>
+
+</html>
