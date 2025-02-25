@@ -72,7 +72,7 @@ public class CustomerController {
 	}
 
 	@GetMapping("/verify")
-	public String verifyAccount(@Param("code") String code, Model model) {
+	public String verifyAccount(@Param("code") String code) {
 		boolean wasVerificationSuccessful = customerService.verifyCustomer(code);
 
 		return "register/" + (wasVerificationSuccessful ? "verify_success" : "verify_fail");
