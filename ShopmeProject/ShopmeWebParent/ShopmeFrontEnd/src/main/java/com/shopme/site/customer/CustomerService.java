@@ -12,9 +12,11 @@ import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.site.setting.CountryRepository;
 
+import jakarta.transaction.Transactional;
 import net.bytebuddy.utility.RandomString;
 
 @Service
+@Transactional
 public class CustomerService {
 	private CountryRepository countryRepository;
 	private CustomerRepository customerRepository;
