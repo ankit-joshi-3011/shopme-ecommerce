@@ -52,4 +52,15 @@ public class CustomerService {
 
 		customerRepository.save(customer);
 	}
+
+	public boolean verifyCustomer(String verificationCode) {
+		Customer customer = customerRepository.findByVerificationCode(verificationCode);
+
+		if (customer == null || customer.isEnabled()) {
+			return false;
+		}
+
+		customerRepository.enable(customer.getId());
+		return true;
+	}
 }
