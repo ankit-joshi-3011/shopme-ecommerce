@@ -99,7 +99,22 @@ function changeStateFormStateForSelection() {
 	fieldStateName.val(selectedStateName);
 }
 
+function validateFormState() {
+	var formState = document.getElementById("formState");
+
+	if (!formState.checkValidity()) {
+		formState.reportValidity();
+		return false;
+	}
+
+	return true;
+}
+
 function addState() {
+	if (!validateFormState()) {
+		return;
+	}
+
 	var url = CONTEXT_PATH + "states/save";
 
 	var stateName = fieldStateName.val();
@@ -148,6 +163,10 @@ function changeStateFormStateForCreation() {
 }
 
 function updateState() {
+	if (!validateFormState()) {
+		return;
+	}
+
 	var url = CONTEXT_PATH + "states/save";
 
 	var stateId = dropdownStateList.val();
