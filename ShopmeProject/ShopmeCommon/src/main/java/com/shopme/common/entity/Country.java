@@ -71,4 +71,9 @@ public class Country {
 	public void setStates(Set<State> states) {
 		this.states = states;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }
