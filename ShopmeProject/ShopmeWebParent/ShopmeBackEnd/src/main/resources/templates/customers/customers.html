@@ -8,6 +8,7 @@
 		<div th:replace="~{navigation :: menu}" />
 		<div>
 			<h1>Manage Customers</h1>
+			<a th:replace="~{fragments :: csv_fragment('/customers')}" />
 		</div>
 
 		<div>
