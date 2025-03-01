@@ -3,13 +3,17 @@ package com.shopme.admin.customer.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.shopme.admin.customer.CustomerService;
 import com.shopme.admin.customer.export.CustomerCsvExporter;
 import com.shopme.common.entity.Customer;
+import com.shopme.common.exception.PageOutOfBoundsException;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -23,9 +27,44 @@ public class CustomerController {
 
 	@GetMapping("/customers")
 	public String listAllCustomers(Model model) {
-		List<Customer> listCustomers = customerService.listAllCustomers();
+		return listByPage(1, model, "firstName", "asc", null);
+	}
 
-		model.addAttribute("listCustomers", listCustomers);
+	@GetMapping("/customers/page/{pageNumber}")
+	public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
+		@Param("sortDir") String sortDir, @Param("keyword") String keyword) {
+		if (pageNumber <= 0) {
+			throw new PageOutOfBoundsException();
+		}
+
+		Page<Customer> page = customerService.listByPage(pageNumber, sortField, sortDir, keyword);
+		int totalPages = page.getTotalPages();
+
+		if (pageNumber > totalPages) {
+			throw new PageOutOfBoundsException();
+		}
+
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+		List<Customer> pageCustomers = page.getContent();
+
+		long startCount = (pageNumber - 1) * CustomerService.CUSTOMERS_PER_PAGE + 1;
+		long endCount = startCount + CustomerService.CUSTOMERS_PER_PAGE - 1;
+
+		if (endCount > page.getTotalElements()) {
+			endCount = page.getTotalElements();
+		}
+
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("reverseSortDir", reverseSortDir);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("listCustomers", pageCustomers);
 
 		return "customers/customers";
 	}
