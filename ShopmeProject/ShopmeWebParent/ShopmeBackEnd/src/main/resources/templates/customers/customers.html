@@ -42,6 +42,8 @@
 			</table>
 		</div>
 
+		<div th:replace="~{fragments :: pagination('/customers', 'customers')}" />
+
 		<div th:replace="~{fragments :: footer}" />
 	</div>
 </body>
