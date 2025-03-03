@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.customer.CustomerService;
 import com.shopme.admin.customer.export.CustomerCsvExporter;
@@ -76,5 +77,14 @@ public class CustomerController {
 		CustomerCsvExporter exporter = new CustomerCsvExporter();
 
 		exporter.export(listCustomers, response);
+	}
+
+	@GetMapping("/customers/{id}/enabled/{status}")
+	public String updateCustomerEnabledStatus(@PathVariable Integer id, @PathVariable boolean status,
+		RedirectAttributes attributes) {
+		customerService.updateCustomerEnabledStatus(id, status);
+		attributes.addFlashAttribute("message", "The customer ID " + id + " has been " + (status ? "enabled" : "disabled"));
+
+		return "redirect:/customers";
 	}
 }
