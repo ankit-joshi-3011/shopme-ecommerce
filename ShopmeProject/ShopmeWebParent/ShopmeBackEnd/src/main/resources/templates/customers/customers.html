@@ -17,14 +17,33 @@
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
-						<th>ID</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>E-mail</th>
-						<th>City</th>
-						<th>State</th>
-						<th>Country</th>
-						<th>Enabled</th>
+						<th>
+							<th th:replace="~{fragments :: column_link('/customers', 'id', 'ID', 'tag')}" />
+						</th>
+						<th>
+							<th
+								th:replace="~{fragments :: column_link('/customers', 'firstName', 'First Name', 'tag')}" />
+						</th>
+						<th>
+							<th
+								th:replace="~{fragments :: column_link('/customers', 'lastName', 'Last Name', 'tag')}" />
+						</th>
+						<th>
+							<th th:replace="~{fragments :: column_link('/customers', 'email', 'E-mail', 'tag')}" />
+						</th>
+						<th>
+							<th th:replace="~{fragments :: column_link('/customers', 'city', 'City', 'tag')}" />
+						</th>
+						<th>
+							<th th:replace="~{fragments :: column_link('/customers', 'state', 'State', 'tag')}" />
+						</th>
+						<th>
+							<th
+								th:replace="~{fragments :: column_link('/customers', 'country.name', 'Country', 'tag')}" />
+						</th>
+						<th>
+							<th th:replace="~{fragments :: column_link('/customers', 'enabled', 'Enabled', 'tag')}" />
+						</th>
 						<th></th>
 					</tr>
 				</thead>
