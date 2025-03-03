@@ -13,6 +13,8 @@
 
 		<div th:replace="~{fragments :: search_form('/customers')}" />
 
+		<div th:replace="~{fragments :: message_fragment}" />
+
 		<div>
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
@@ -56,7 +58,10 @@
 						<td>[[${customer.city}]]</td>
 						<td>[[${customer.state}]]</td>
 						<td>[[${customer.country.name}]]</td>
-						<td>[[${customer.enabled}]]</td>
+						<td>
+							<div
+								th:replace="~{fragments :: enabled_fragment(${customer.enabled}, 'customer', '/customers/' + ${customer.id})}" />
+						</td>
 						<td></td>
 					</tr>
 				</tbody>
