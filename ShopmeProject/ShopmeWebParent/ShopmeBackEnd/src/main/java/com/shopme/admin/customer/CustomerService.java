@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Customer;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class CustomerService {
 	public static final int CUSTOMERS_PER_PAGE = 10;
 
@@ -44,5 +47,9 @@ public class CustomerService {
 		}
 
 		return customerRepository.findAll(pageable);
+	}
+
+	public void updateCustomerEnabledStatus(Integer id, boolean enabled) {
+		customerRepository.updateEnabledStatus(id, enabled);
 	}
 }
