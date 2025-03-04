@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Customer;
+import com.shopme.common.exception.CustomerNotFoundException;
 
 import jakarta.transaction.Transactional;
 
@@ -51,5 +52,15 @@ public class CustomerService {
 
 	public void updateCustomerEnabledStatus(Integer id, boolean enabled) {
 		customerRepository.updateEnabledStatus(id, enabled);
+	}
+
+	public void delete(Integer id) throws CustomerNotFoundException {
+		Long countById = customerRepository.countById(id);
+
+		if (countById == null || countById == 0) {
+			throw new CustomerNotFoundException("Could not find any customer with ID " + id);
+		}
+
+		customerRepository.deleteById(id);
 	}
 }

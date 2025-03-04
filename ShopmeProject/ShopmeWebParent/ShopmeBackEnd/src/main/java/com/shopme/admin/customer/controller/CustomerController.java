@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.shopme.admin.customer.CustomerService;
 import com.shopme.admin.customer.export.CustomerCsvExporter;
 import com.shopme.common.entity.Customer;
+import com.shopme.common.exception.CustomerNotFoundException;
 import com.shopme.common.exception.PageOutOfBoundsException;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -84,6 +85,18 @@ public class CustomerController {
 		RedirectAttributes attributes) {
 		customerService.updateCustomerEnabledStatus(id, status);
 		attributes.addFlashAttribute("message", "The customer ID " + id + " has been " + (status ? "enabled" : "disabled"));
+
+		return "redirect:/customers";
+	}
+
+	@GetMapping("/customers/delete/{id}")
+	public String deleteCustomer(@PathVariable Integer id, RedirectAttributes attributes) {
+		try {
+			customerService.delete(id);
+			attributes.addFlashAttribute("message", "The user ID " + id + " has been deleted successfully");
+		} catch (CustomerNotFoundException ex) {
+			attributes.addFlashAttribute("message", ex.getMessage());
+		}
 
 		return "redirect:/customers";
 	}
