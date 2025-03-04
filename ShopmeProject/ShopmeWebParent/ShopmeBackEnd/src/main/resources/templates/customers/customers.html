@@ -62,7 +62,10 @@
 							<div
 								th:replace="~{fragments :: enabled_fragment(${customer.enabled}, 'customer', '/customers/' + ${customer.id})}" />
 						</td>
-						<td></td>
+						<td>
+							<div
+								th:replace="~{fragments :: delete_fragment('/customers', ${customer.id}, 'customer', true)}" />
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -70,8 +73,17 @@
 
 		<div th:replace="~{fragments :: pagination('/customers', 'customers')}" />
 
+		<div th:replace="~{modal_fragments :: deleteModalDialog}" />
+
 		<div th:replace="~{fragments :: footer}" />
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".link-delete").on("click", function (e) {
+				showDeleteConfirmationModalDialog(e, $(this), 'customer');
+			});
+		});
+	</script>
 </body>
 
 </html>
