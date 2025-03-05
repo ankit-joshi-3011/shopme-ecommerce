@@ -2,6 +2,7 @@ package com.shopme.admin.customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,5 +63,13 @@ public class CustomerService {
 		}
 
 		customerRepository.deleteById(id);
+	}
+
+	public Customer get(Integer id) throws CustomerNotFoundException {
+		try {
+			return customerRepository.findById(id).get();
+		} catch (NoSuchElementException ex) {
+			throw new CustomerNotFoundException("Could not find any customer with ID " + id);
+		}
 	}
 }
