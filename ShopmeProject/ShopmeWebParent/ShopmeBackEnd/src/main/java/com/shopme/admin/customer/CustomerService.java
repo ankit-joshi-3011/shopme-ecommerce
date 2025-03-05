@@ -81,10 +81,10 @@ public class CustomerService {
 		}
 	}
 
-	public boolean isEmailUnique(String email) {
+	public boolean isEmailUnique(Integer id, String email) {
 		Customer customer = customerRepository.findByEmail(email);
 
-		return customer == null;
+		return customer == null || customer.getId() == id;
 	}
 
 	public List<CountryDTO> listAllCountries() {

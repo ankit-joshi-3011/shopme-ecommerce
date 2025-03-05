@@ -12,6 +12,7 @@
 
 		<form th:action="@{/customers/save}" method="post" th:object="${customer}"
 			style="max-width: 600px; margin: 0 auto;" onsubmit="return checkEmailUnique(this)">
+			<input type="hidden" th:field="*{id}" />
 			<div class="border border-secondary rounded p-3">
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">First Name:</label>
@@ -145,9 +146,10 @@
 
 		function checkEmailUnique(form) {
 			var url = contextPath + "customers/check_email";
+			var customerId = $("#id").val();
 			var customerEmail = $("#email").val();
 			var csrfValue = $("input[name='_csrf']").val();
-			var params = {email: customerEmail, _csrf: csrfValue};
+			var params = {id: customerId, email: customerEmail, _csrf: csrfValue};
 
 			$.post(url, params, function (response) {
 				if (response == "OK") {
