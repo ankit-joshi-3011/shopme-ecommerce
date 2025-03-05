@@ -10,6 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.shopme.admin.setting.CountryRepository;
+import com.shopme.common.dto.CountryDTO;
+import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.exception.CustomerNotFoundException;
 
@@ -21,9 +24,11 @@ public class CustomerService {
 	public static final int CUSTOMERS_PER_PAGE = 10;
 
 	private CustomerRepository customerRepository;
+	private CountryRepository countryRepository;
 
-	public CustomerService(CustomerRepository customerRepository) {
+	public CustomerService(CustomerRepository customerRepository, CountryRepository countryRepository) {
 		this.customerRepository = customerRepository;
+		this.countryRepository = countryRepository;
 	}
 
 	public List<Customer> listAllCustomers() {
@@ -77,5 +82,17 @@ public class CustomerService {
 		Customer customer = customerRepository.findByEmail(email);
 
 		return customer == null;
+	}
+
+	public List<CountryDTO> listAllCountries() {
+		List<Country> countries = countryRepository.findAllByOrderByNameAsc();
+
+		List<CountryDTO> countryDtos = new ArrayList<>();
+
+		for (Country country : countries) {
+			countryDtos.add(new CountryDTO(country));
+		}
+
+		return countryDtos;
 	}
 }
