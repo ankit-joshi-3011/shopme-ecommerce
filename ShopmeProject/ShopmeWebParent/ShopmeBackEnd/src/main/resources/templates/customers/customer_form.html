@@ -13,6 +13,7 @@
 		<form th:action="@{/customers/save}" method="post" th:object="${customer}"
 			style="max-width: 600px; margin: 0 auto;" onsubmit="return checkEmailUnique(this)">
 			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{enabled}" />
 			<div class="border border-secondary rounded p-3">
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">First Name:</label>
