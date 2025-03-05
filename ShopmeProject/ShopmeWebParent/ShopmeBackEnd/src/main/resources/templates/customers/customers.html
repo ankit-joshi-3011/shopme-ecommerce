@@ -63,6 +63,8 @@
 								th:replace="~{fragments :: enabled_fragment(${customer.enabled}, 'customer', '/customers/' + ${customer.id})}" />
 						</td>
 						<td>
+							<div th:replace="~{fragments :: edit_fragment('/customers', ${customer.id}, 'customer')}" />
+							&nbsp;
 							<div
 								th:replace="~{fragments :: delete_fragment('/customers', ${customer.id}, 'customer', true)}" />
 						</td>
