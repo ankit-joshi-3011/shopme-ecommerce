@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.customer.CustomerService;
 import com.shopme.admin.customer.export.CustomerCsvExporter;
+import com.shopme.common.dto.CountryDTO;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.exception.CustomerNotFoundException;
 import com.shopme.common.exception.PageOutOfBoundsException;
@@ -89,6 +91,23 @@ public class CustomerController {
 		return "redirect:/customers";
 	}
 
+	@GetMapping("/customers/edit/{id}")
+	public String editCustomer(@PathVariable Integer id, RedirectAttributes attributes, Model model) {
+		try {
+			Customer customer = customerService.get(id);
+			List<CountryDTO> listCountries = customerService.listAllCountries();
+
+			model.addAttribute("customer", customer);
+			model.addAttribute("pageTitle", "Edit Customer (ID: " + id + ")");
+			model.addAttribute("listCountries", listCountries);
+
+			return "customers/customer_form";
+		} catch (CustomerNotFoundException ex) {
+			attributes.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/customers";
+		}
+	}
+
 	@GetMapping("/customers/delete/{id}")
 	public String deleteCustomer(@PathVariable Integer id, RedirectAttributes attributes) {
 		try {
@@ -99,5 +118,17 @@ public class CustomerController {
 		}
 
 		return "redirect:/customers";
+	}
+
+	@PostMapping("/customers/save")
+	public String saveCustomer(Customer customer, RedirectAttributes attributes)
+		throws IOException {
+		Customer savedCustomer = customerService.save(customer);
+
+		attributes.addFlashAttribute("message", "The customer has been saved successfully.");
+
+		String firstPartOfEmail = savedCustomer.getEmail().split("@")[0];
+
+		return "redirect:/customers/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
 	}
 }
