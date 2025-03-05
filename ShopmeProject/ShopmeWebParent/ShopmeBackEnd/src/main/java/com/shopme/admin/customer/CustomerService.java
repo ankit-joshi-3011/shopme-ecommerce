@@ -100,8 +100,14 @@ public class CustomerService {
 	}
 
 	public Customer save(Customer customer) {
-		String encodedPassword = passwordEncoder.encode(customer.getPassword());
-		customer.setPassword(encodedPassword);
+		Customer existingCustomer = customerRepository.findById(customer.getId()).get();
+
+		if (customer.getPassword().isEmpty()) {
+			customer.setPassword(existingCustomer.getPassword());
+		} else {
+			String encodedPassword = passwordEncoder.encode(customer.getPassword());
+			customer.setPassword(encodedPassword);
+		}
 
 		return customerRepository.save(customer);
 	}
