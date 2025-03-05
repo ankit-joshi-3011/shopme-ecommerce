@@ -18,4 +18,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer>, P
 	public void updateEnabledStatus(Integer id, boolean enabledOrDisabled);
 
 	public Long countById(Integer id);
+
+	@Query("SELECT c FROM Customer c WHERE c.email = ?1")
+	public Customer findByEmail(String email);
 }
