@@ -72,4 +72,10 @@ public class CustomerService {
 			throw new CustomerNotFoundException("Could not find any customer with ID " + id);
 		}
 	}
+
+	public boolean isEmailUnique(String email) {
+		Customer customer = customerRepository.findByEmail(email);
+
+		return customer == null;
+	}
 }
