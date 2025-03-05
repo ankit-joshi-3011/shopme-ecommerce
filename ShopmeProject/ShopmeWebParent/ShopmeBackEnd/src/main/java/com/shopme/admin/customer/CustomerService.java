@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.setting.CountryRepository;
@@ -25,10 +26,12 @@ public class CustomerService {
 
 	private CustomerRepository customerRepository;
 	private CountryRepository countryRepository;
+	private PasswordEncoder passwordEncoder;
 
-	public CustomerService(CustomerRepository customerRepository, CountryRepository countryRepository) {
+	public CustomerService(CustomerRepository customerRepository, CountryRepository countryRepository, PasswordEncoder passwordEncoder) {
 		this.customerRepository = customerRepository;
 		this.countryRepository = countryRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public List<Customer> listAllCustomers() {
@@ -94,5 +97,12 @@ public class CustomerService {
 		}
 
 		return countryDtos;
+	}
+
+	public Customer save(Customer customer) {
+		String encodedPassword = passwordEncoder.encode(customer.getPassword());
+		customer.setPassword(encodedPassword);
+
+		return customerRepository.save(customer);
 	}
 }
