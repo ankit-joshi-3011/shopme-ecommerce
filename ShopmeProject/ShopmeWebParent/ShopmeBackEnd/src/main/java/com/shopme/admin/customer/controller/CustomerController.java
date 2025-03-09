@@ -131,4 +131,18 @@ public class CustomerController {
 
 		return "redirect:/customers/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
 	}
+
+	@GetMapping("/customers/detail/{id}")
+	public String showCustomerDetails(@PathVariable Integer id, RedirectAttributes attributes, Model model) {
+		try {
+			Customer customer = customerService.get(id);
+
+			model.addAttribute("customer", customer);
+
+			return "customers/customer_detail_modal";
+		} catch (CustomerNotFoundException ex) {
+			attributes.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/customers";
+		}
+	}
 }
