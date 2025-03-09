@@ -94,9 +94,9 @@
 			th:href="@{${entityUrl} + '/enabled/true'}" th:title="'Enable this ' + ${entityName}"></a>
 	</th:block>
 
-	<th:block th:fragment="product_detail_fragment_icon">
-		<a class="fas fa-file-alt fa-2x icon-green link-detail" th:href="@{'/products/detail/' + ${product.id}}"
-			title="View details of this product"></a>
+	<th:block th:fragment="detail_fragment_icon(entityUrl, entityId, entityName)">
+		<a class="fas fa-file-alt fa-2x icon-green link-detail" th:href="@{${entityUrl} + '/detail/' + ${entityId}}"
+			th:title="'View details of this ' + ${entityName}"></a>
 	</th:block>
 
 	<th:block th:fragment="product_detail_fragment_text">

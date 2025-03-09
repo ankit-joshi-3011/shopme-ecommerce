@@ -82,7 +82,8 @@
 							</td>
 						</th:block>
 						<td>
-							<div th:replace="~{fragments :: product_detail_fragment_icon}" />
+							<div
+								th:replace="~{fragments :: detail_fragment_icon('/products', ${product.id}, 'product')}" />
 							<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
 								&nbsp;
 								<div
@@ -107,7 +108,7 @@
 				<div class="col-8">
 					<div><a th:replace="~{fragments :: product_detail_fragment_text}"></div>
 					<div class="mt-2">
-						<div th:replace="~{fragments :: product_detail_fragment_icon}" />
+						<div th:replace="~{fragments :: detail_fragment_icon('/products', ${product.id}, 'product')}" />
 						&nbsp;
 						<div th:replace="~{fragments :: edit_fragment('/products', ${product.id}, 'product')}" />
 						&nbsp;
