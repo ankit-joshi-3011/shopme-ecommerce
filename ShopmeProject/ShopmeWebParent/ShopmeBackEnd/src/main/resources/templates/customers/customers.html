@@ -15,7 +15,7 @@
 
 		<div th:replace="~{fragments :: message_fragment}" />
 
-		<div>
+		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>
@@ -30,13 +30,13 @@
 							<th
 								th:replace="~{fragments :: column_link('/customers', 'lastName', 'Last Name', 'tag')}" />
 						</th>
-						<th>
+						<th class="hideable-column">
 							<th th:replace="~{fragments :: column_link('/customers', 'email', 'E-mail', 'tag')}" />
 						</th>
-						<th>
+						<th class="hideable-column">
 							<th th:replace="~{fragments :: column_link('/customers', 'city', 'City', 'tag')}" />
 						</th>
-						<th>
+						<th class="hideable-column">
 							<th th:replace="~{fragments :: column_link('/customers', 'state', 'State', 'tag')}" />
 						</th>
 						<th>
@@ -54,9 +54,9 @@
 						<td>[[${customer.id}]]</td>
 						<td>[[${customer.firstName}]]</td>
 						<td>[[${customer.lastName}]]</td>
-						<td>[[${customer.email}]]</td>
-						<td>[[${customer.city}]]</td>
-						<td>[[${customer.state}]]</td>
+						<td class="hideable-column">[[${customer.email}]]</td>
+						<td class="hideable-column">[[${customer.city}]]</td>
+						<td class="hideable-column">[[${customer.state}]]</td>
 						<td>[[${customer.country.name}]]</td>
 						<td>
 							<div
